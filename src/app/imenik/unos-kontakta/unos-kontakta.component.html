@@ -1,0 +1,105 @@
+<div class="button-position">
+  <button mat-raised-button color="primary" (click)="vratiNaImenik()" style="cursor: pointer;">
+    Vrati se natrag
+  </button>
+</div>
+<div>
+
+  <div class="container-form">
+    <form class="example-form" style="display: flex; flex-direction: column;" #postForm="ngForm"
+      (ngSubmit)="isEditMode ? onNoviKontakt(postForm.value) : onOsvjeziKontakt(postForm.value) ">
+
+      <table class="example-full-width" cellspacing="0">
+        <tr style="display:flex; flex-wrap: wrap;" >
+          <td><mat-form-field class="example-full-width">
+              <mat-label>Ime</mat-label>
+              <input matInput name="name" ngModel type="text" [(ngModel)]="user.name">
+            </mat-form-field></td>
+          <td><mat-form-field class="example-full-width">
+              <mat-label>Prezime</mat-label>
+              <input matInput required name="lastName" ngModel type="text" [(ngModel)]="user.lastName">
+            </mat-form-field></td>
+        </tr>
+      </table>
+
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td>
+
+            <mat-form-field class="example-full-width">
+              <mat-label>Adresa</mat-label>
+              <textarea matInput placeholder="Jarunska 14" required name="address" ngModel
+                [(ngModel)]="user.address"></textarea>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+
+      <table class="example-full-width" cellspacing="0">
+        <tr style="display:flex; flex-wrap: wrap;">
+          <td class=""><mat-form-field class="example-full-width">
+              <mat-label>Grad</mat-label>
+              <input matInput placeholder="Zagreb" required name="city" ngModel type="text" [(ngModel)]="user.city">
+            </mat-form-field></td>
+          <td class="">
+            <mat-form-field class="example-full-width">
+              <mat-label>Poštanski broj</mat-label>
+              <!--\d predstavlja bilo koji numerički znak, a {5} znači da se taj znak mora ponoviti točno 5 puta.
+              this.value.replace(/[^0-9]/g, '' -> zamjenjuje sve znakove koji nisu brojevi s praznim stringom..
+              -->
+              <input matInput maxlength="5" pattern="\d{5}" placeholder="10000" ngModel value="" name="postalCode"
+                required type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                [(ngModel)]="user.postalCode">
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+
+      <table class="example-full-width" cellspacing="0">
+        <tr style="display:flex; flex-wrap: wrap; ">
+          <td class=""><mat-form-field class="example-full-width">
+              <mat-label>Telephone</mat-label>
+              <input type="tel" matInput placeholder="+385 916224421" required name="phone" ngModel
+                [(ngModel)]="user.phone">
+            </mat-form-field></td>
+          <td>
+            <div class="date-picker-wrapper">
+              <mat-form-field class="example-full-width">
+                <mat-label>Izaberite datum rođenja</mat-label>
+                <input matInput [matDatepicker]="picker" required ngModel name="date" [(ngModel)]="user.date">
+                <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td><mat-form-field class="example-full-width">
+              <mat-label>Email</mat-label>
+              <input type="email" matInput placeholder="Ex. pat@example.com" required ngModel name="email" email
+                [(ngModel)]="user.email">
+              <!-- <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+              Molim Vas unesite točnu adresu
+            </mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('required')">
+              Email je <strong>potreban</strong>
+          </mat-error> -->
+            </mat-form-field></td>
+        </tr>
+      </table>
+
+      <section style="padding-left: 2%;">
+        <div class="example-button-row">
+
+          <button mat-button mat-raised-button color="primary" type="submit" [disabled]="!postForm.valid">{{ isEditMode
+            ? "Spremi" : "Osvježi" }}</button>
+          <!-- <button mat-button mat-raised-button color="primary" type="submit" [disabled]="!postForm.valid">{{ user ? "Spremi" : "Osvježi" }}</button> -->
+        </div>
+      </section>
+
+    </form>
+
+  </div>

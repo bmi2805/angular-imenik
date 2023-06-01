@@ -1,0 +1,39 @@
+<mat-toolbar class="mat-elevation-z8" color="primary">
+  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
+    <mat-icon *ngIf="sidenav.opened">close</mat-icon>
+  </button>
+  <h3>Imenik</h3>
+  
+</mat-toolbar>
+
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+
+    <h4 class="name">Ivan</h4>
+    <p class="title">Bosnjak Matic</p>
+
+    <mat-divider></mat-divider>
+
+    <button mat-button class="menu-button" routerLink="imenik" routerLinkActive="active" *ngIf="isAuthenticated">
+      <mat-icon style="color: white;">contact_mail</mat-icon>
+      <span style="color: white;">Imenik</span>
+    </button>
+    <button mat-button class="menu-button" routerLink="autentifikacija"  routerLinkActive="active" *ngIf="!isAuthenticated">
+      <mat-icon style="color: white;">login</mat-icon>
+      <span style="color: white;">Autentifikacija</span>
+    </button>
+    <button mat-button class="menu-button" routerLinkActive="active" *ngIf="isAuthenticated" (click)="odjaviSe()">
+      <mat-icon style="color: white;">logout</mat-icon>
+      <span style="color: white;">Odjava</span>
+    </button>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="content mat-elevation-z8">
+      <ng-content></ng-content>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
