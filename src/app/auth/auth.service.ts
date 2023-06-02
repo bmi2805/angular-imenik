@@ -19,7 +19,7 @@ export interface AuthResponseData {
 export class AuthService {
   user$ = new BehaviorSubject<User>(null);
 
-  constructor(private http: HttpClient, private router:Router) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   get user(): User {
     return this.user$.value;
@@ -35,8 +35,7 @@ export class AuthService {
           returnSecureToken: true,
         }
       )
-      .pipe
-      (
+      .pipe(
         catchError(this.handleError),
         tap((resData) => {
           this.handleAuthentication(
@@ -72,9 +71,43 @@ export class AuthService {
       );
   }
 
-  odjaviSe(){
+  autoLogin() {
+    const userData: {
+      email: string;
+      userId: string;
+      password: string;
+      _token: string;
+      _tokenExpirationDate: string;
+    } = JSON.parse(localStorage.getItem('userData'));
+  
+    console.log(userData);
+  
+    if (!userData) {
+      console.log("Nemaa");
+      return;
+    }
+  
+    console.log("ima");
+  
+    const loadedUser = new User(
+      userData.email,
+      userData.userId,
+      userData._token,
+      new Date(userData._tokenExpirationDate)
+    );
+  
+    console.log(loadedUser);
+    console.log(userData._token);
+  
+    if (userData._token) {
+      this.user$.next(loadedUser);
+      console.log("test");
+    }
+  }
+
+  odjaviSe() {
     this.user$.next(null);
-    this.router.navigate(["./autentifikacija"])
+    this.router.navigate(['./autentifikacija']);
   }
 
   private handleAuthentication(
@@ -86,6 +119,7 @@ export class AuthService {
     const expirationDate = new Date(new Date().getTime() + expresIn * 1000);
     const user = new User(email, userId, token, expirationDate);
     this.user$.next(user);
+    localStorage.setItem('userData', JSON.stringify(user));
   }
 
   private handleError(errorRes: HttpErrorResponse) {
