@@ -34,6 +34,7 @@ import { AuthComponent } from './auth/auth.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +70,7 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     MatSnackBarModule,
     MatRadioModule,
     MatProgressSpinnerModule,
+    ReactiveFormsModule,
   ],
   providers: [
     {
