@@ -13,6 +13,7 @@ import {
 } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from './auth/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({ providedIn: 'root' })
 export class KontaktiService {
@@ -21,7 +22,9 @@ export class KontaktiService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private _snackBar: MatSnackBar
+
   ) {}
 
   createAndStoreContact(Korisnik: Korisnik) {
@@ -103,6 +106,7 @@ export class KontaktiService {
         return { ...responseData, id };
       }),
       catchError((errorRes) => {
+this.openSnackBar("Došlo je do greške","Uredu","snackbar-error")        
         return throwError(errorRes);
       })
     );
@@ -116,5 +120,16 @@ export class KontaktiService {
 
   pregledKorisnika(): boolean {
     return true;
+  }
+
+ 
+  durationInSeconds = 5;
+
+
+  openSnackBar(message: string, action: string,panelClass:string) {
+    this._snackBar.open(message, action, {
+      duration: this.durationInSeconds * 1000,
+      panelClass:[panelClass]
+    });
   }
 }

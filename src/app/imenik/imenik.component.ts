@@ -39,7 +39,6 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router,
     private kontaktiService: KontaktiService,
     private _snackBar: MatSnackBar
-
   ) {}
 
   ngOnInit(): void {
@@ -100,8 +99,12 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     this.kontaktiService.izbrisiKorisnika(contactId).subscribe(() => {
       console.log('Korisnik je uspješno obrisan.');
       this.onOsvjezi();
-      this.openSnackBar('Vaš kontakt je uspješno obrisan', 'Uredu');
 
+      this.kontaktiService.openSnackBar(
+        'Vaš kontakt je uspješno obrisan',
+        'Uredu',
+        'snackbar-success'
+      );
     });
   }
 
@@ -113,11 +116,7 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     this.error = null;
   }
 
- 
-
-  openDialog(
-    contactId: string
-  ): void {
+  openDialog(contactId: string): void {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '250px',
     });
@@ -126,13 +125,6 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
       if (result) {
         this.deleteContact(contactId);
       }
-    });
-  }
-  durationInSeconds = 5;
-
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: this.durationInSeconds * 1000,
     });
   }
 }

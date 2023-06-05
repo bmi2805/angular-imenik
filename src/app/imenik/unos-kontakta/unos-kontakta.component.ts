@@ -121,7 +121,8 @@ export class UnosKontaktaComponent implements OnInit {
     this.signupForm.reset();
 
     this.kontaktiService.createAndStoreContact(postData);
-    this.openSnackBar('Vaš kontakt je uspješno spremljen', 'Uredu');
+    this.kontaktiService.openSnackBar('Vaš kontakt je uspješno spremljen.', 'Zatvori',"snackbar-success")
+
     this.vratiNaImenik();
   }
 
@@ -135,11 +136,19 @@ export class UnosKontaktaComponent implements OnInit {
       this.kontaktiService
         .updateContact(this.userIdToUpdate, postData)
         .subscribe(() => {
-          this.openSnackBar('Vaš kontakt je uspješno ažuriran', 'Uredu');
-          this.vratiNaImenik();
+          this.kontaktiService.openSnackBar('Vaš kontakt je uspješno ažuriran.', 'Zatvori',"snackbar-success")
+       
+           this.vratiNaImenik();
         });
     } else {
-      alert('Kontakt nije spremljen');
+      // this._snackBar.open('Vaš kontakt nije spremljen.', 'Zatvori', {
+      //   panelClass: ['snackbar-error']
+      // });  
+      
+      this.kontaktiService.openSnackBar('Vaš kontakt nije spremljen.', 'Zatvori',"snackbar-error")
+    
+    
+    
     }
   }
 
@@ -147,11 +156,5 @@ export class UnosKontaktaComponent implements OnInit {
     this.router.navigateByUrl('imenik');
   }
 
-  durationInSeconds = 5;
 
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: this.durationInSeconds * 1000,
-    });
-  }
 }
