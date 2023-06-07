@@ -46,7 +46,7 @@ export class AuthComponent implements OnInit {
       resData => {
         console.log(resData);
         this.isLoading = false;
-        this.router.navigate(["/imenik"])
+        this.router.navigate(["autentifikacija/imenik"])
       },
       errorMessage => {
         console.log(errorMessage);

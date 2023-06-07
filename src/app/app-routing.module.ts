@@ -5,44 +5,45 @@ import { UnosKontaktaComponent } from './imenik/unos-kontakta/unos-kontakta.comp
 import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ProfilKorisnikaComponent } from './profil-korisnika/profil-korisnika.component';
+import { NavigacijaComponent } from './navigacija/navigacija.component';
 
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'imenik',
+    redirectTo: 'autentifikacija/imenik',
     pathMatch: 'full',
   },
-  {
-    canActivate: [AuthGuard],
-    path: 'imenik',
-    component: ImenikComponent,
-  },
-
+  { path: 'prijava', component: AuthComponent },
   {
     path: 'autentifikacija',
-    component: AuthComponent,
-  },
-  {
+    component: NavigacijaComponent,
     canActivate: [AuthGuard],
-    path: 'unos',
-    component: UnosKontaktaComponent,
+    children: [
+      {
+        path: 'imenik',
+        component: ImenikComponent,
+      },
+      {
+        path: 'unos',
+        component: UnosKontaktaComponent,
+      },
+      {
+        path: 'profil-korisnika',
+        component: ProfilKorisnikaComponent,
+      },
+      {
+        canActivate: [AuthGuard],
+        path: 'uredi/:id',
+        component: UnosKontaktaComponent,
+      },
+      {
+        canActivate: [AuthGuard],
+        path: 'pregled/:id',
+        component: UnosKontaktaComponent,
+      },
+    ],
   },
-  {
-    canActivate: [AuthGuard],
-    path: 'uredi/:id',
-    component: UnosKontaktaComponent,
-  },
-  {
-    canActivate: [AuthGuard],
-    path: 'profil-korisnika',
-    component: ProfilKorisnikaComponent,
-  },
-
-  {
-    canActivate: [AuthGuard],
-    path: 'pregled/:id',
-    component: UnosKontaktaComponent,
-  },
+ 
 ];
 
 @NgModule({

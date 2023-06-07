@@ -57,7 +57,7 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {}
 
   unosKontakta() {
-    this.router.navigateByUrl('/unos');
+    this.router.navigateByUrl('autentifikacija/unos');
   }
 
   onOsvjezi() {

@@ -107,7 +107,7 @@ export class AuthService {
 
   odjaviSe() {
     this.user$.next(null);
-    this.router.navigate(['./autentifikacija']);
+    this.router.navigate(['./prijava']);
     localStorage.removeItem('userData');
     if(this.tokenExpirationTimer){
       clearTimeout(this.tokenExpirationTimer)

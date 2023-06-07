@@ -20,7 +20,7 @@
       <mat-icon style="color: white;">contact_mail</mat-icon>
       <span style="color: white;">Imenik</span>
     </button>
-    <button mat-button class="menu-button" routerLink="autentifikacija"  routerLinkActive="active" *ngIf="!isAuthenticated">
+    <button mat-button class="menu-button" routerLink="prijava"  routerLinkActive="active" *ngIf="!isAuthenticated">
       <mat-icon style="color: white;">login</mat-icon>
       <span style="color: white;">Autentifikacija</span>
     </button>
@@ -32,8 +32,8 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <div class="content mat-elevation-z8">
-      <ng-content></ng-content>
-      <!-- <router-outlet></router-outlet> -->
+      <!-- <ng-content *ngIf =""></ng-content> -->
+      <router-outlet></router-outlet>
     </div>
 
   </mat-sidenav-content>

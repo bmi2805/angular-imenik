@@ -157,7 +157,7 @@ export class UnosKontaktaComponent implements OnInit {
   }
 
   vratiNaImenik() {
-    this.router.navigateByUrl('imenik');
+    this.router.navigateByUrl('autentifikacija/imenik');
   }
 
 
