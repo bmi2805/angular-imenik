@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
+import { Observable, filter, of } from 'rxjs';
 import { KontaktiService } from 'src/app/kontakti.service';
 import { Korisnik } from 'src/app/shared/post.model';
 import { SnackbarNotifyService } from 'src/app/snackbar-notify/snackbar-notify.service';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-unos-kontakta',
@@ -43,7 +45,8 @@ export class UnosKontaktaComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private snackbar_notify:SnackbarNotifyService,
     private formBuilder: FormBuilder,
-    
+    private dialog: MatDialog
+
   ) {
     this.signupForm = new FormControl();
 
@@ -169,16 +172,34 @@ export class UnosKontaktaComponent implements OnInit {
     
     }
   }
-
   vratiNaImenik() {
-  //   if (this.signupForm.pristine) {
-  //     this.router.navigateByUrl('autentifikacija/imenik');
-  //   } else {
-
-
-  //   }
-      this.router.navigateByUrl('autentifikacija/imenik');
-
-  }
+    
+          this.router.navigateByUrl('autentifikacija/imenik');
   
+  }
+  vratiNaImenik2() {
+    if (this.signupForm.pristine) {
+      this.router.navigateByUrl('autentifikacija/imenik');
+    } else {
+      this.canDeactivate().subscribe((canNavigate) => {
+        if (canNavigate) {
+          this.router.navigateByUrl('autentifikacija/imenik');
+        }
+      });
+    }
+  }
+
+  canDeactivate(): Observable<boolean> {
+    if (this.signupForm.dirty) {
+      const dialogRef = this.dialog.open(DeleteDialogComponent, {
+        width: '400px',
+        data: 'Are you sure you want to navigate away? Your changes will be lost.',
+      });
+  
+      return dialogRef.afterClosed();
+    }
+  
+    // No unsaved changes, allow navigation
+    return of(true);
+  }
 }
