@@ -15,6 +15,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarNotifyService } from '../snackbar-notify/snackbar-notify.service';
 
 @Component({
   selector: 'app-imenik',
@@ -38,7 +39,8 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     public dialog: MatDialog,
     private router: Router,
     private kontaktiService: KontaktiService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private snackbar_notify:SnackbarNotifyService
   ) {}
 
   ngOnInit(): void {
@@ -100,11 +102,14 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log('Korisnik je uspješno obrisan.');
       this.onOsvjezi();
 
-      this.kontaktiService.openSnackBar(
-        'Vaš kontakt je uspješno obrisan',
-        'Uredu',
-        'snackbar-success'
-      );
+      // this.kontaktiService.openSnackBar(
+      //   'Vaš kontakt je uspješno obrisan',
+      //   'Uredu',
+      //   'snackbar-success'
+      // );
+
+      this.snackbar_notify.notify("Brisanje","Vaš kontakt je uspješno obrisan",5000, 'success')
+
     });
   }
 

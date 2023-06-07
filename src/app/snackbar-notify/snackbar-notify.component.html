@@ -1,0 +1,15 @@
+<div class="disable-select" (click)="dismissSnackbar()" style="border-radius: 4px; display: flex">
+    <div [ngStyle]="colorStyle" style="align-self: center; margin: 15px">
+      <mat-icon>{{ matIcon }}</mat-icon>
+    </div>
+    <div style="margin: 15px 15px 15px 0">
+      <div class="action-icon close-snackbar" (click)="dismissSnackbar()">&times;</div>
+      <div style="font-weight: 500" [ngStyle]="colorStyle">
+        {{ data.title }}
+      </div>
+      <div>
+        {{ data.message }}
+      </div>
+    </div>
+  </div>
+  

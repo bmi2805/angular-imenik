@@ -3,9 +3,9 @@
 // @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 // @import '~material-design-icons/iconfont/material-icons.css';
 
+@import './my-theme.scss';
 
-
-html, body { height: 100%; width: 100%; overflow-x: hidden; }
+html, body { height: 100%; width: 100%; overflow-x: hidden;  }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;  }
 
 *,
@@ -15,14 +15,35 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;  }
 
 }
 
-.snackbar-error {
-  
---mdc-snackbar-container-color: red;
---mat-mdc-snack-bar-button-color: rgba(255, 255, 255, 0.87);
-}
 
-.snackbar-success {
+$primary: map-get($my-theme, $my-primary);
+
+
+
+.snackbar-notify{}
+
+
+
+
+
+
+
+
+
+
+// $accent: map-get($my-theme, my-primary);
+
+
+
+// .snackbar-error {
   
-  --mdc-snackbar-container-color: rgb(0,150,136);
-  --mat-mdc-snack-bar-button-color: rgba(255, 255, 255, 0.87);
-  }
+// --mdc-snackbar-container-color: red;
+// --mat-mdc-snack-bar-button-color: rgba(255, 255, 255, 0.87);
+// }
+
+// .snackbar-success {
+  
+//   --mdc-snackbar-container-color: $primary;
+
+//   --mat-mdc-snack-bar-button-color: $primary;
+//   }

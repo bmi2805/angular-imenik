@@ -14,6 +14,7 @@ import {
 import { Router } from '@angular/router';
 import { AuthService } from './auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarNotifyService } from './snackbar-notify/snackbar-notify.service';
 
 @Injectable({ providedIn: 'root' })
 export class KontaktiService {
@@ -23,7 +24,8 @@ export class KontaktiService {
     private http: HttpClient,
     private router: Router,
     private authService: AuthService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private snackbar_notify:SnackbarNotifyService
 
   ) {}
 
@@ -73,6 +75,8 @@ export class KontaktiService {
               }),
             
             catchError((errorRes) => {
+              this.snackbar_notify.notify("Greška","Dogodila se neočekivana greška",10000, 'error')
+
               return throwError(errorRes);
             })
             
@@ -106,7 +110,9 @@ export class KontaktiService {
         return { ...responseData, id };
       }),
       catchError((errorRes) => {
-this.openSnackBar("Došlo je do greške","Uredu","snackbar-error")        
+// this.openSnackBar("Došlo je do greške","Uredu","snackbar-error")      
+this.snackbar_notify.notify("Greška","Došlo je do neočekivane greške",5000, 'error')
+
         return throwError(errorRes);
       })
     );
@@ -123,7 +129,7 @@ this.openSnackBar("Došlo je do greške","Uredu","snackbar-error")
   }
 
  
-  durationInSeconds = 5;
+  durationInSeconds = 10000;
 
 
   openSnackBar(message: string, action: string,panelClass:string) {

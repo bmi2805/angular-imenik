@@ -4,6 +4,7 @@ import { ImenikComponent } from './imenik/imenik.component';
 import { UnosKontaktaComponent } from './imenik/unos-kontakta/unos-kontakta.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth/auth.guard';
+import { ProfilKorisnikaComponent } from './profil-korisnika/profil-korisnika.component';
 
 const appRoutes: Routes = [
   {
@@ -31,6 +32,12 @@ const appRoutes: Routes = [
     path: 'uredi/:id',
     component: UnosKontaktaComponent,
   },
+  {
+    canActivate: [AuthGuard],
+    path: 'profil-korisnika',
+    component: ProfilKorisnikaComponent,
+  },
+
   {
     canActivate: [AuthGuard],
     path: 'pregled/:id',

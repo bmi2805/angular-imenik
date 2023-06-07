@@ -6,6 +6,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { KontaktiService } from 'src/app/kontakti.service';
 import { Korisnik } from 'src/app/shared/post.model';
+import { SnackbarNotifyService } from 'src/app/snackbar-notify/snackbar-notify.service';
 
 @Component({
   selector: 'app-unos-kontakta',
@@ -37,7 +38,8 @@ export class UnosKontaktaComponent implements OnInit {
     private router: Router,
     private kontaktiService: KontaktiService,
     private route: ActivatedRoute,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private snackbar_notify:SnackbarNotifyService
   ) {}
 
   ngOnInit(): void {
@@ -121,7 +123,9 @@ export class UnosKontaktaComponent implements OnInit {
     this.signupForm.reset();
 
     this.kontaktiService.createAndStoreContact(postData);
-    this.kontaktiService.openSnackBar('Vaš kontakt je uspješno spremljen.', 'Zatvori',"snackbar-success")
+    // this.kontaktiService.openSnackBar('Vaš kontakt je uspješno spremljen.', 'Zatvori',"snackbar-success")
+    this.snackbar_notify.notify("Spremi","Vaš kontakt je uspješno spremljen",5000, 'success')
+
 
     this.vratiNaImenik();
   }
@@ -136,8 +140,8 @@ export class UnosKontaktaComponent implements OnInit {
       this.kontaktiService
         .updateContact(this.userIdToUpdate, postData)
         .subscribe(() => {
-          this.kontaktiService.openSnackBar('Vaš kontakt je uspješno ažuriran.', 'Zatvori',"snackbar-success")
-       
+          // this.kontaktiService.openSnackBar('Vaš kontakt je uspješno ažuriran.', 'Zatvori',"snackbar-success")
+       this.snackbar_notify.notify("Osvježi","Vaš kontakt je uspješno osvježen",5000, 'success')
            this.vratiNaImenik();
         });
     } else {

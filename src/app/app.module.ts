@@ -33,6 +33,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { AuthComponent } from './auth/auth.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { ProfilKorisnikaComponent } from './profil-korisnika/profil-korisnika.component';
+import { SnackbarNotifyComponent } from './snackbar-notify/snackbar-notify.component';
 
 
 @NgModule({
@@ -43,6 +45,8 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     UnosKontaktaComponent,
     DeleteDialogComponent,
     AuthComponent,
+    ProfilKorisnikaComponent,
+    SnackbarNotifyComponent,
   ],
   imports: [
     AppRoutingModule,
