@@ -79,14 +79,21 @@
             </mat-form-field></td>
           <td>
             <div class="date-picker-wrapper">
+
+
+
               <mat-form-field class="example-full-width">
                 <mat-label>Izaberite datum rođenja</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="date" >
+                <input matInput [matDatepicker]="picker" formControlName="date" [max]="maxDate">
                 <span style="color: rgb(248, 49, 49);"
-                *ngIf="!signupForm.get('date').valid && signupForm.get('date').touched">Molim Vas unesite datum rođenja</span>
+                  *ngIf="!signupForm.get('date').valid && signupForm.get('date').touched">Molim Vas unesite datum rođenja</span>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
+              
+
+
+
             </div>
           </td>
         </tr>

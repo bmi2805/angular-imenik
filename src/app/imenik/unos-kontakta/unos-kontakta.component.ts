@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
@@ -31,7 +31,9 @@ export class UnosKontaktaComponent implements OnInit {
   isEditMode: boolean = false;
   isViewMode: boolean = false;
 
-  signupForm: FormGroup;
+  signupForm: any;
+  maxDate = new Date();
+
 
   constructor(
     private http: HttpClient,
@@ -39,10 +41,21 @@ export class UnosKontaktaComponent implements OnInit {
     private kontaktiService: KontaktiService,
     private route: ActivatedRoute,
     private _snackBar: MatSnackBar,
-    private snackbar_notify:SnackbarNotifyService
-  ) {}
+    private snackbar_notify:SnackbarNotifyService,
+    private formBuilder: FormBuilder,
+    
+  ) {
+    this.signupForm = new FormControl();
+
+
+  }
 
   ngOnInit(): void {
+
+   
+
+
+  
 
     this.signupForm = new FormGroup({
       name: new FormControl(this.user.name, Validators.required),
@@ -85,6 +98,7 @@ export class UnosKontaktaComponent implements OnInit {
         }
       }
     });
+    
     // this.router.events
     //     .pipe(filter((event) => event instanceof NavigationEnd))
     //     .subscribe((event: NavigationEnd) => {
@@ -157,8 +171,14 @@ export class UnosKontaktaComponent implements OnInit {
   }
 
   vratiNaImenik() {
-    this.router.navigateByUrl('autentifikacija/imenik');
+  //   if (this.signupForm.pristine) {
+  //     this.router.navigateByUrl('autentifikacija/imenik');
+  //   } else {
+
+
+  //   }
+      this.router.navigateByUrl('autentifikacija/imenik');
+
   }
-
-
+  
 }
