@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Router, Routes } from '@angular/router';
 import { Korisnik } from '../shared/post.model';
 import { KontaktiService } from '../kontakti.service';
 import { Subscription } from 'rxjs';
@@ -16,6 +16,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarNotifyService } from '../snackbar-notify/snackbar-notify.service';
+
 
 @Component({
   selector: 'app-imenik',
@@ -29,6 +30,9 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
   isLoading = false;
   error: string | null = null;
   private errorSub!: Subscription;
+  searchKey:string;
+
+  
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -46,6 +50,7 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.errorSub = this.kontaktiService.error.subscribe((errorMessage) => {
       this.error = errorMessage;
+
     });
 
     // Svakim otvaranjem komponente da se i povlače korisnici
@@ -125,8 +130,8 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '450px',
       data: {
-        message: 'Jeste li sigurni da želite izbrisati kontakt?',
-        title: 'Brisanje kontakta',
+        message: 'Vaš kontakt će biti izbrisan?',
+        title: 'Jeste li sigurni?',
       },
     });
 
@@ -135,5 +140,14 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
         this.deleteContact(contactId);
       }
     });
+  }
+
+  onSearchClear(){
+    this.searchKey =""
+    this.applyFilter();
+  }
+
+  applyFilter(){
+    this.dataSource.filter = this.searchKey.trim().toLowerCase();
   }
 }

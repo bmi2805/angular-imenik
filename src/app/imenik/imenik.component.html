@@ -1,10 +1,28 @@
 <div class="container-position">
   <div>
+    
     <button mat-raised-button color="primary" (click)="unosKontakta()" style="cursor: pointer;">
       Dodaj korisnika
     </button>
+
+    <!-- <mat-form-field class="search-form-field">
+      <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off">
+      <button mat-button matSuffix mat-icon-button aria-label="Clear">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field> -->
+
+   
+
   </div>
+  <mat-form-field class="search-form-field" style="margin-top: 10px; padding-top: 10px; width: 50%;" >
+    <input matInput placeholder="Search" autocomplete="off" [(ngModel)]="searchKey"  (keyup)="applyFilter()">
+    <button mat-icon-button matSuffix aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
   <div>
+    
     <h3 *ngIf="loadedContacts.length< 1" style="color:black"> Još nema dodanih korisnika</h3>
 
     <div class="table-container">
@@ -67,7 +85,7 @@
         </ng-container>
 
         <ng-container matColumnDef="actions" style="align-items: center;" stickyEnd>
-          <th mat-header-cell *matHeaderCellDef>  </th>
+          <th mat-header-cell *matHeaderCellDef> </th>
           <td mat-cell *matCellDef="let element">
             <button [routerLink]="['/autentifikacija/uredi', element.id]" mat-icon-button color="primary">
               <mat-icon>edit</mat-icon>
@@ -75,7 +93,7 @@
             <button mat-icon-button color="warn" (click)="openDialog( element.id)">
               <mat-icon>delete</mat-icon>
             </button>
-            <button [routerLink]="['/autentifikacija/pregled', element.id]" mat-icon-button color="accent" >
+            <button [routerLink]="['/autentifikacija/pregled', element.id]" mat-icon-button color="accent">
               <mat-icon>visibility</mat-icon>
             </button>
           </td>
@@ -84,13 +102,10 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-     
+
     </div>
-    <mat-paginator [length]="100"
-    [pageSize]="10"
-    [pageSizeOptions]="[5, 10, 25, 100]"
-    aria-label="Select page">
-</mat-paginator>
+    <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+    </mat-paginator>
   </div>
 </div>
 <div>
