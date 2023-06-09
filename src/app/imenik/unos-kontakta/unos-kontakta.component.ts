@@ -189,17 +189,24 @@ export class UnosKontaktaComponent implements OnInit {
     }
   }
 
+
   canDeactivate(): Observable<boolean> {
     if (this.signupForm.dirty) {
       const dialogRef = this.dialog.open(DeleteDialogComponent, {
         width: '400px',
-        data: 'Are you sure you want to navigate away? Your changes will be lost.',
+        data: {
+          message: 'Jeste li sigurni da se želite vratiti natrag? Vaše promjene ce biti izgubljene?',
+          title: 'Provjera',
+        },
       });
+  
+      // Postavite vrednost u komponentu dialoga
+      // dialogRef.componentInstance.data = 'Jeste li sigurni da se želite vratiti natrag? Vaše promjene ce biti izgubljene.';
   
       return dialogRef.afterClosed();
     }
   
-    // No unsaved changes, allow navigation
+    // Nema nesačuvanih promena, dozvolite navigaciju
     return of(true);
   }
 }

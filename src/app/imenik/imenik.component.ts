@@ -123,7 +123,11 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
 
   openDialog(contactId: string): void {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      width: '250px',
+      width: '450px',
+      data: {
+        message: 'Jeste li sigurni da želite izbrisati kontakt?',
+        title: 'Brisanje kontakta',
+      },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
