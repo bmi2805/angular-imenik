@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Korisnik } from '../shared/post.model';
-import { ActivatedRoute } from '@angular/router';
+import { KontaktiService } from '../kontakti.service';
+import { SharedDataService } from './shared-data.service';
 
 @Component({
   selector: 'app-profil-korisnika',
@@ -9,17 +9,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProfilKorisnikaComponent implements OnInit {
 
- 
+ constructor(private sharedData: SharedDataService){}
 
-  loadedContacts: Korisnik[] = [];
-  constructor(private route: ActivatedRoute) {}
 
-  ngOnInit(): void {
-    this.loadedContacts = this.route.snapshot.data['loadedContacts'];
+ ngOnInit(): void {
+  const firstName = 'John'; // Postavite ime koje želite
+  this.sharedData.setFirstName(firstName);
+}
 
-    console.log(this.route.snapshot.data);
-    
-  }
+
   user = {
     firstName: 'John',
     lastName: 'Doe',
@@ -41,4 +39,5 @@ export class ProfilKorisnikaComponent implements OnInit {
     console.log('Izmjena lozinke', this.passwords);
    
   }
+
 }

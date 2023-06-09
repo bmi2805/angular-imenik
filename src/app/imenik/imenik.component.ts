@@ -44,7 +44,8 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router,
     private kontaktiService: KontaktiService,
     private _snackBar: MatSnackBar,
-    private snackbar_notify:SnackbarNotifyService
+    private snackbar_notify:SnackbarNotifyService,
+    
   ) {}
 
   ngOnInit(): void {
