@@ -14,6 +14,7 @@
 <mat-card class="my-card">
     <mat-card-content>
         <form class="my-form" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
+            
             <mat-form-field class="full-width">
                 <mat-label>Email</mat-label>
                 <input matInput placeholder="Email" name="email" ngModel name="email" required email>
@@ -28,11 +29,18 @@
                     "Prijavi se" : "Registriraj se"}}</button>
             </mat-card-actions>
         </form>
-       
+        
     </mat-card-content>
 
     <mat-card-actions>
         <button mat-raised-button color="primary" (click)="onSwitchMode()">{{isLoginMode? "Prebaci na registraciju" :
             "Prebaci na prijavu"}}</button>
     </mat-card-actions>
+    <mat-card-actions>
+
+    <div class="forgot-password" *ngIf="isLoginMode" style="text-align: center;">
+        <a [routerLink]="['/zaboravljen-password']">Zaboravili ste lozinku?</a>
+    </div>
+</mat-card-actions>
+
 </mat-card>

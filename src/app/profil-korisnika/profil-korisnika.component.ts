@@ -24,7 +24,7 @@ loadedUser: User;
 
 
   user = {
-    firstName: '[Uredite ime]',
+    firstName: `${this.auth.user.ime}`,
     lastName: 'Doe',
     email: `${this.auth.user.email}`
   };
@@ -53,7 +53,7 @@ loadedUser: User;
   }
   
   generateResetPasswordToken() {
-    const email = this.auth.user.email; // Pretpostavljam da koristite prijavljenog korisnika
+    const email = this.auth.user.email; 
     this.auth.generatePasswordResetToken(email).subscribe(
       (email) => {
         this.snackBar.open(`Poslali smo upute za resetiranje lozinke na ${email}.`, 'Zatvori', {
@@ -68,5 +68,7 @@ loadedUser: User;
         });
       }
     );
+
+    console.log(this.auth.user)
     }
 }

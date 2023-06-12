@@ -6,7 +6,7 @@ import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ProfilKorisnikaComponent } from './profil-korisnika/profil-korisnika.component';
 import { NavigacijaComponent } from './navigacija/navigacija.component';
-import { ZaboravljenPasswordComponent } from './profil-korisnika/zaboravljen-password/zaboravljen-password.component';
+import { ZaboravljenPasswordComponent } from './zaboravljen-password/zaboravljen-password.component';
 
 const appRoutes: Routes = [
   {

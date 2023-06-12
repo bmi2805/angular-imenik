@@ -7,6 +7,8 @@ export class User {
       public userId: string,
       private _token: string,
       private _tokenExpirationDate: Date,
+      public ime?:string,
+      private prezime?:string
     ) {}
   
     get token() {
@@ -15,5 +17,7 @@ export class User {
       }
       return this._token;
     }
+
+   
   }
   

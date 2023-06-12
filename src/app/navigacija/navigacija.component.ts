@@ -23,11 +23,7 @@ export class NavigacijaComponent implements OnInit, OnDestroy {
       this.isAuthenticated = !!user;
     });
   
-    setTimeout(() => {
-      this.sharedData.firstName$.subscribe(firstName => {
-        this.firstName = firstName;
-      });
-    });
+  
   }
   
 

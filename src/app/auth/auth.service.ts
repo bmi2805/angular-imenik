@@ -92,6 +92,8 @@ export class AuthService {
       userId: string;
       password: string;
       _token: string;
+      ime:string;
+      prezime:string
       _tokenExpirationDate: string;
     } = JSON.parse(localStorage.getItem('userData'));
   
@@ -108,7 +110,9 @@ export class AuthService {
       userData.email,
       userData.userId,
       userData._token,
-      userData._tokenExpirationDate ? new Date(userData._tokenExpirationDate) : null
+      userData._tokenExpirationDate ? new Date(userData._tokenExpirationDate) : null,
+      userData.ime,
+      userData.prezime
     );
   
     if (userData._token) {
@@ -143,7 +147,7 @@ export class AuthService {
     expiresIn: number
   ) {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-    const user = new User(email, userId, token, expirationDate);
+    const user = new User(email, userId, token, expirationDate,);
     this.user$.next(user);
     this.autoLogout(expiresIn *1000)
     localStorage.setItem('userData', JSON.stringify(user));
@@ -198,4 +202,20 @@ export class AuthService {
       map((response) => response.email)
     );
   }
+
+  
+
+  zaboravljenaLozinka(data) {
+    return this.http.post<any>('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E', {
+      requestType: 'PASSWORD_RESET',
+      email: data.email
+    }).pipe(
+      map((response) => response.email),
+      catchError((error) => {
+        console.log(error.error); // Log the error object for debugging
+        return throwError(error); // Rethrow the error
+      })
+    );
+  }
+  
 }

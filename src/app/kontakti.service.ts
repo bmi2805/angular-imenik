@@ -5,10 +5,7 @@ import {
   Observable,
   Subject,
   catchError,
-  exhaustMap,
   map,
-  take,
-  tap,
   throwError,
 } from 'rxjs';
 import { Router } from '@angular/router';
