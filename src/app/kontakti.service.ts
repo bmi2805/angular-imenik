@@ -25,8 +25,7 @@ export class KontaktiService {
     private router: Router,
     private authService: AuthService,
     private _snackBar: MatSnackBar,
-    private snackbar_notify:SnackbarNotifyService
-
+    private snackbar_notify: SnackbarNotifyService
   ) {}
 
   createAndStoreContact(Korisnik: Korisnik) {
@@ -59,29 +58,32 @@ export class KontaktiService {
   }
 
   dohvatiKorisnike(): Observable<Korisnik[]> {
-   
-        return this.http.get<{ [key: string]: Korisnik }>(
-          `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`,
-         
-        ).pipe(
-            map((responseData) => {
-             const contactArray: Korisnik[] = [];
-            for (const key in responseData) {
-             if (responseData.hasOwnProperty(key)) {
-            contactArray.push({ ...responseData[key], id: key });
-              }
-               }
-              return contactArray;
-              }),
-            
-            catchError((errorRes) => {
-              this.snackbar_notify.notify("Greška","Dogodila se neočekivana greška",10000, 'error')
+    return this.http
+      .get<{ [key: string]: Korisnik }>(
+        `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`
+      )
+      .pipe(
+        map((responseData) => {
+          const contactArray: Korisnik[] = [];
+          for (const key in responseData) {
+            if (responseData.hasOwnProperty(key)) {
+              contactArray.push({ ...responseData[key], id: key });
+            }
+          }
+          return contactArray;
+        }),
 
-              return throwError(errorRes);
-            })
-            
+        catchError((errorRes) => {
+          this.snackbar_notify.notify(
+            'Greška',
+            'Dogodila se neočekivana greška',
+            10000,
+            'error'
           );
-    
+
+          return throwError(errorRes);
+        })
+      );
   }
 
   izbrisiKorisnika(id: string) {
@@ -110,8 +112,13 @@ export class KontaktiService {
         return { ...responseData, id };
       }),
       catchError((errorRes) => {
-// this.openSnackBar("Došlo je do greške","Uredu","snackbar-error")      
-this.snackbar_notify.notify("Greška","Došlo je do neočekivane greške",5000, 'error')
+        // this.openSnackBar("Došlo je do greške","Uredu","snackbar-error")
+        this.snackbar_notify.notify(
+          'Greška',
+          'Došlo je do neočekivane greške',
+          5000,
+          'error'
+        );
 
         return throwError(errorRes);
       })
@@ -128,14 +135,14 @@ this.snackbar_notify.notify("Greška","Došlo je do neočekivane greške",5000, 
     return true;
   }
 
- 
   durationInSeconds = 10000;
 
-
-  openSnackBar(message: string, action: string,panelClass:string) {
+  openSnackBar(message: string, action: string, panelClass: string) {
     this._snackBar.open(message, action, {
       duration: this.durationInSeconds * 1000,
-      panelClass:[panelClass]
+      panelClass: [panelClass],
     });
   }
+
+  
 }

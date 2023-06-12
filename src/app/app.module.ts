@@ -18,6 +18,7 @@ import { SnackbarNotifyComponent } from './snackbar-notify/snackbar-notify.compo
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 
 import { SharedModule } from './shared/shared.module';
+import { ZaboravljenPasswordComponent } from './profil-korisnika/zaboravljen-password/zaboravljen-password.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { SharedModule } from './shared/shared.module';
     AuthComponent,
     ProfilKorisnikaComponent,
     SnackbarNotifyComponent,
+    ZaboravljenPasswordComponent,
   ],
   imports: [
     BrowserModule,

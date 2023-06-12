@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 import { User } from './user.model';
 import { Router } from '@angular/router';
+import { SnackbarNotifyService } from '../snackbar-notify/snackbar-notify.service';
+import { map } from 'rxjs/operators';
+
 
 export interface AuthResponseData {
   idToken: string;
@@ -13,6 +16,16 @@ export interface AuthResponseData {
   registered?: boolean;
 }
 
+export interface ChangeResponseData {
+  localId: string;
+  email: string;
+  passwordHash: string;
+  providerUserInfo: string;
+  idToken: string;
+  refreshToken: string;
+  expiresIn: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -20,7 +33,8 @@ export class AuthService {
   user$ = new BehaviorSubject<User>(null);
   private tokenExpirationTimer: any;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router,    private snackbar_notify: SnackbarNotifyService
+    ) {}
 
   get user(): User {
     return this.user$.value;
@@ -80,30 +94,32 @@ export class AuthService {
       _token: string;
       _tokenExpirationDate: string;
     } = JSON.parse(localStorage.getItem('userData'));
-
+  
     console.log(userData);
-
+  
     if (!userData) {
       console.log('Nemaa');
       return;
     }
-
+  
     console.log('ima');
-
+  
     const loadedUser = new User(
       userData.email,
       userData.userId,
       userData._token,
-      new Date(userData._tokenExpirationDate)
+      userData._tokenExpirationDate ? new Date(userData._tokenExpirationDate) : null
     );
-
-
+  
     if (userData._token) {
       this.user$.next(loadedUser);
-      const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime()
-      this.autoLogout( expirationDuration);
+      if (userData._tokenExpirationDate) {
+        const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
+        this.autoLogout(expirationDuration);
+      }
     }
   }
+  
 
   odjaviSe() {
     this.user$.next(null);
@@ -150,5 +166,36 @@ export class AuthService {
         break;
     }
     return throwError(errorMessage);
+  }
+
+  changePassword(data) {
+    return this.http.post<ChangeResponseData>(
+      'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
+      {idToken:data.idToken,
+      password:data.password,
+      returnSecureToken:true,
+      
+    }
+    
+    ).pipe(
+      catchError(errorRes => {
+        this.snackbar_notify.notify(
+          'Greška',
+          'Došlo je do neočekivane greške',
+          5000,
+          'error'
+        );
+
+        return throwError(errorRes);
+      })
+    );
+  }
+  generatePasswordResetToken(email: string) {
+    return this.http.post<any>(
+      'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
+      { requestType: 'PASSWORD_RESET', email }
+    ).pipe(
+      map((response) => response.email)
+    );
   }
 }

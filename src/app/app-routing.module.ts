@@ -6,6 +6,7 @@ import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ProfilKorisnikaComponent } from './profil-korisnika/profil-korisnika.component';
 import { NavigacijaComponent } from './navigacija/navigacija.component';
+import { ZaboravljenPasswordComponent } from './profil-korisnika/zaboravljen-password/zaboravljen-password.component';
 
 const appRoutes: Routes = [
   {
@@ -14,6 +15,7 @@ const appRoutes: Routes = [
     pathMatch: 'full',
   },
   { path: 'prijava', component: AuthComponent },
+  { path: 'zaboravljen-password', component: ZaboravljenPasswordComponent },
   {
     path: 'autentifikacija',
     component: NavigacijaComponent,
