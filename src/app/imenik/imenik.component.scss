@@ -2,35 +2,6 @@
     font-size: 12pt;
 }
 
-// @media only screen and (max-width: 1000px) {
-
-//     .table-container[_ngcontent-mul-c51] {
-//         display: block;
-//     }
-
-//     .table-container {
-//         overflow-x: auto;
-//         width: 100%;
-
-//         //Sve sam okušao i nije radilo.. nisam znao drugacije osim s jednim jokerom :)
-//         // display: block !important;
-        
-//     }
-
-//     .container-position {
-//         overflow: hidden;
-//         width: 100%;
-//         justify-content: flex-start;
-
-//     }
-
-//     table {
-//         width: 100%;
-//     }
-
-
-// }
-
 .container-position {
 
     width: 100%;
@@ -43,52 +14,50 @@ table {
     width: 100%;
     font-size: 12pt;
     table-layout: fixed;
-
 }
 
 .table-container {
     width: 100%;
     //Scroll tablice
     overflow-x: auto;
-
 }
 
 .mat-elevation-z8 {
     margin-top: 24px;
 }
 
-
-.mat-column-actions{
-width: 180px;
+.mat-column-actions {
+    width: 180px;
 }
 
-.mat-column-email{
+.mat-column-email {
     width: 170px;
 }
-.mat-column-date{
+
+.mat-column-date {
     width: 120px;
 }
 
-.mat-column-phone{
+.mat-column-phone {
     width: 130px;
 }
 
-.mat-column-postalCode{
+.mat-column-postalCode {
     width: 150px;
 }
 
-.mat-column-city{
+.mat-column-city {
     width: 150px;
 }
 
-.mat-column-address{
+.mat-column-address {
     width: 200px;
 }
 
-.mat-column-lastName{
+.mat-column-lastName {
     width: 150px;
 }
 
-.mat-column-name{
+.mat-column-name {
     width: 100px;
 }

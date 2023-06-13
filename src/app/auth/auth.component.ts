@@ -16,11 +16,7 @@ export class AuthComponent implements OnInit {
   form;
   constructor(private authService: AuthService, private router: Router) {}
 
- 
-  ngOnInit(): void {
-    // console.log(this.prijavljeniKorisnik)
-
-  }
+  ngOnInit(): void {}
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -35,9 +31,6 @@ export class AuthComponent implements OnInit {
     const email = form.value.email;
     const password = form.value.password;
 
-
-  
-
     this.isLoading = true;
     if (this.isLoginMode) {
       this.authObs = this.authService.prijaviSe(email, password);
@@ -47,12 +40,10 @@ export class AuthComponent implements OnInit {
 
     this.authObs.subscribe(
       (resData) => {
-        console.log(resData);
         this.isLoading = false;
         this.router.navigate(['autentifikacija/imenik']);
       },
       (errorMessage) => {
-        console.log(errorMessage);
         this.error = errorMessage;
         this.isLoading = false;
       }
@@ -60,4 +51,3 @@ export class AuthComponent implements OnInit {
     form.resetForm(); // Dodano resetiranje forme    }
   }
 }
- 

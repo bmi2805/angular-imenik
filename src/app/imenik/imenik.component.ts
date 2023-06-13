@@ -17,7 +17,6 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarNotifyService } from '../snackbar-notify/snackbar-notify.service';
 
-
 @Component({
   selector: 'app-imenik',
   templateUrl: './imenik.component.html',
@@ -30,9 +29,7 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
   isLoading = false;
   error: string | null = null;
   private errorSub!: Subscription;
-  searchKey:string;
-
-  
+  searchKey: string;
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -44,14 +41,12 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router,
     private kontaktiService: KontaktiService,
     private _snackBar: MatSnackBar,
-    private snackbar_notify:SnackbarNotifyService,
-    
+    private snackbar_notify: SnackbarNotifyService
   ) {}
 
   ngOnInit(): void {
     this.errorSub = this.kontaktiService.error.subscribe((errorMessage) => {
       this.error = errorMessage;
-
     });
 
     // Svakim otvaranjem komponente da se i povlače korisnici
@@ -86,7 +81,6 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
       (error) => {
         this.isLoading = false;
         this.error = error.message;
-        console.log(error.name);
       }
     );
   }
@@ -105,28 +99,21 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
 
   deleteContact(contactId: string) {
     this.kontaktiService.izbrisiKorisnika(contactId).subscribe(() => {
-      console.log('Korisnik je uspješno obrisan.');
       this.onOsvjezi();
-
-      // this.kontaktiService.openSnackBar(
-      //   'Vaš kontakt je uspješno obrisan',
-      //   'Uredu',
-      //   'snackbar-success'
-      // );
-
-      this.snackbar_notify.notify("Brisanje","Vaš kontakt je uspješno obrisan",5000, 'success')
-
+      this.snackbar_notify.notify(
+        'Brisanje',
+        'Vaš kontakt je uspješno obrisan',
+        5000,
+        'success'
+      );
     });
   }
-
   ngOnDestroy(): void {
     this.errorSub.unsubscribe();
   }
-
   onHandleError() {
     this.error = null;
   }
-
   openDialog(contactId: string): void {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '450px',
@@ -143,12 +130,12 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  onSearchClear(){
-    this.searchKey =""
+  onSearchClear() {
+    this.searchKey = '';
     this.applyFilter();
   }
 
-  applyFilter(){
+  applyFilter() {
     this.dataSource.filter = this.searchKey.trim().toLowerCase();
   }
 }

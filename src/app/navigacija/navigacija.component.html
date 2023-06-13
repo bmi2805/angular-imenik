@@ -4,15 +4,15 @@
     <mat-icon *ngIf="sidenav.opened">close</mat-icon>
   </button>
   <h3>Imenik</h3>
-  
+
 </mat-toolbar>
 
 
 <mat-sidenav-container>
   <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
-    <p class="title"routerLink="profil-korisnika" style="cursor: pointer;" >{{"Vi ste"}}</p>
+    <p class="title" routerLink="profil-korisnika" style="cursor: pointer;">{{"Vi ste"}}</p>
 
-    <h4 class="name"routerLink="profil-korisnika" style="cursor: pointer;" >{{firstName}}</h4>
+    <h4 class="name" routerLink="profil-korisnika" style="cursor: pointer;">{{firstName}}</h4>
 
     <mat-divider></mat-divider>
 
@@ -20,7 +20,7 @@
       <mat-icon style="color: white;">contact_mail</mat-icon>
       <span style="color: white;">Imenik</span>
     </button>
-    <button mat-button class="menu-button" routerLink="prijava"  routerLinkActive="active" *ngIf="!isAuthenticated">
+    <button mat-button class="menu-button" routerLink="prijava" routerLinkActive="active" *ngIf="!isAuthenticated">
       <mat-icon style="color: white;">login</mat-icon>
       <span style="color: white;">Autentifikacija</span>
     </button>

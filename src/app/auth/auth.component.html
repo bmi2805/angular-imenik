@@ -16,24 +16,25 @@
         <form class="my-form" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
             <mat-form-field class="full-width" *ngIf="!isLoginMode">
                 <mat-label>Ime</mat-label>
-                <input matInput placeholder="Ime" name="ime" ngModel required >
+                <input matInput placeholder="Ime" name="ime" ngModel required>
             </mat-form-field>
 
             <mat-form-field class="full-width" *ngIf="!isLoginMode">
 
                 <mat-label>Prezime</mat-label>
-                <input matInput placeholder="Prezime" name="prezime" ngModel required >
+                <input matInput placeholder="Prezime" name="prezime" ngModel required>
             </mat-form-field>
 
-        
+
 
             <mat-form-field class="full-width">
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="Email" name="email" ngModel name="email" required email>
+                <input matInput placeholder="Email" name="email" ngModel  required email>
+
             </mat-form-field>
             <mat-form-field class="full-width">
                 <mat-label>Lozinka</mat-label>
-                <input matInput placeholder="Password" name="password" ngModel required name="password" minlength="8"
+                <input matInput placeholder="Password" name="password" ngModel required  minlength="8"
                     type="password">
             </mat-form-field>
             <mat-card-actions>
@@ -41,7 +42,7 @@
                     "Prijavi se" : "Registriraj se"}}</button>
             </mat-card-actions>
         </form>
-        
+
     </mat-card-content>
 
     <mat-card-actions>
@@ -50,9 +51,9 @@
     </mat-card-actions>
     <mat-card-actions>
 
-    <div class="forgot-password" *ngIf="isLoginMode" style="text-align: center;">
-        <a [routerLink]="['/zaboravljen-password']">Zaboravili ste lozinku?</a>
-    </div>
-</mat-card-actions>
+        <div class="forgot-password" *ngIf="isLoginMode" style="text-align: center;">
+            <a [routerLink]="['/zaboravljen-password']">Zaboravili ste lozinku?</a>
+        </div>
+    </mat-card-actions>
 
 </mat-card>

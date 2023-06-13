@@ -1,9 +1,7 @@
 <div class="profile">
   <h1 style="font-size: 18pt; text-align: center;
     padding-top: 4%; color: black;">Profil korisnika</h1>
-
   <div class="user-info">
-
     <mat-form-field>
       <mat-label>Ime:</mat-label>
       <input matInput [(ngModel)]="user.firstName" [disabled]="!isEditMode" placeholder="Vaše ime">
@@ -13,36 +11,20 @@
       <mat-label>Prezime:</mat-label>
       <input matInput [(ngModel)]="user.lastName" [disabled]="!isEditMode" placeholder="Vaše prezime">
     </mat-form-field>
-
+    
     <mat-form-field *ngIf="isEditMode" class="email">
       <mat-label>Email:</mat-label>
-      <input matInput [(ngModel)]="user.email" disabled >
+      <input matInput [(ngModel)]="user.email" disabled>
     </mat-form-field>
   </div>
-
   <div class="actions">
     <button mat-flat-button color="primary" (click)="toggleEditMode()">{{ isEditMode ? 'Spremi' : 'Uredi' }}</button>
   </div>
-
   <div class="change-password" *ngIf="isEditMode" style="color: black;">
     <h3>Izmjena lozinke</h3>
-
     <form (ngSubmit)="changePassword()">
-      <!-- <mat-form-field>
-          <mat-label>Trenutna lozinka:</mat-label>
-          <input matInput type="password" name="oldPassword" [(ngModel)]="passwords.oldPassword" required>
-        </mat-form-field> -->
-      <!--   
-        <mat-form-field style="width: 100%;">
-          <mat-label>Nova lozinka:</mat-label>
-          <input matInput type="password" name="newPassword" [(ngModel)]="passwords.newPassword" required>
-        </mat-form-field> -->
-      <!-- <mat-label>Nova lozinka:</mat-label> <br> -->
-
       <button mat-raised-button type="submit" (click)="generateResetPasswordToken()">Generiraj token za resetiranje
         lozinke</button>
-
-      <!-- <button mat-raised-button type="submit" >Spremi promjene</button> -->
     </form>
   </div>
 </div>

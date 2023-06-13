@@ -1,28 +1,18 @@
 <div class="container-position">
   <div>
-    
+
     <button mat-raised-button color="primary" (click)="unosKontakta()" style="cursor: pointer;">
       Dodaj korisnika
     </button>
-
-    <!-- <mat-form-field class="search-form-field">
-      <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off">
-      <button mat-button matSuffix mat-icon-button aria-label="Clear">
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field> -->
-
-   
-
   </div>
-  <mat-form-field class="search-form-field" style="margin-top: 10px; padding-top: 10px; width: 50%;" >
-    <input matInput placeholder="Search" autocomplete="off" [(ngModel)]="searchKey"  (keyup)="applyFilter()">
+  <mat-form-field class="search-form-field" style="margin-top: 10px; padding-top: 10px; width: 50%;">
+    <input matInput placeholder="Search" autocomplete="off" [(ngModel)]="searchKey" (keyup)="applyFilter()">
     <button mat-icon-button matSuffix aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
   <div>
-    
+
     <h3 *ngIf="loadedContacts.length< 1" style="color:black"> Još nema dodanih korisnika</h3>
 
     <div class="table-container">

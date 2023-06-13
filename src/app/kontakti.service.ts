@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Korisnik } from './shared/post.model';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {
   Observable,
   Subject,
@@ -86,11 +86,6 @@ export class KontaktiService {
 
     return this.http.delete(deleteUrl);
   }
-
-  // urediKontakt(element:Korisnik){
-  //   this.router.navigateByUrl(`/unos/${element.id}`);
-
-  // }
 
   getUserId(id: string): Observable<Korisnik> {
     return this.http.get<Korisnik>(

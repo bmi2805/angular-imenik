@@ -2,26 +2,11 @@
     font-size: 12pt;
 }
 
-.container-form {
-    // @media only screen and (min-width: 600px) {
-    //     /* For tablets: */
-    //     overflow: hidden;
-    //     display: flex;
-    //     flex-wrap: wrap;
-
-    // }
-}
-
-.container-form {
-    // width: 100%;
-}
-
 form {
     margin: auto;
-
 }
-.button-position {
 
+.button-position {
     width: auto;
     padding: 30px;
     padding-top: 30px;
@@ -30,7 +15,6 @@ form {
 .example-form {
     min-width: 50px;
     max-width: 900px;
-    // width: 100%;
     padding: 20px;
     margin: auto;
     display: block;
@@ -39,8 +23,6 @@ form {
 .example-full-width {
     width: 100%;
 }
-
-
 
 td {
     padding-right: 8px;
@@ -61,27 +43,21 @@ td {
 }
 
 table {
-    tr{
-    td {
-        padding-right: 4px;
-        padding-left: 8px;
-        width: 50%
-    }
-// width: 50%;
-    }
-
-
-    .background-color-red{
-
+    tr {
+        td {
+            padding-right: 4px;
+            padding-left: 8px;
+            width: 50%
+        }
     }
 
     mat-form-field {
         margin-right: 12px;
-      }
+    }
 
-      .mat-form-field-label {
+    .mat-form-field-label {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-      }
+    }
 }

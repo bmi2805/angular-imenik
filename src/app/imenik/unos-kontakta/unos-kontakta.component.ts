@@ -1,6 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  NgForm,
+  Validators,
+} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -36,41 +42,37 @@ export class UnosKontaktaComponent implements OnInit {
   signupForm: any;
   maxDate = new Date();
 
-
   constructor(
     private http: HttpClient,
     private router: Router,
     private kontaktiService: KontaktiService,
     private route: ActivatedRoute,
     private _snackBar: MatSnackBar,
-    private snackbar_notify:SnackbarNotifyService,
+    private snackbar_notify: SnackbarNotifyService,
     private formBuilder: FormBuilder,
     private dialog: MatDialog
-
   ) {
     this.signupForm = new FormControl();
-
-
   }
 
   ngOnInit(): void {
-
-   
-
-
-  
-
     this.signupForm = new FormGroup({
       name: new FormControl(this.user.name, Validators.required),
       lastName: new FormControl(this.user.lastName, Validators.required),
       address: new FormControl(this.user.address, Validators.required),
       city: new FormControl(this.user.city, Validators.required),
       postalCode: new FormControl(this.user.postalCode, Validators.required),
-      phone: new FormControl(this.user.phone, [Validators.required, Validators.pattern('[0-9+]+'),Validators.minLength(9)]),
+      phone: new FormControl(this.user.phone, [
+        Validators.required,
+        Validators.pattern('[0-9+]+'),
+        Validators.minLength(9),
+      ]),
       date: new FormControl(this.user.date, Validators.required),
-      email: new FormControl(this.user.email, [Validators.required, Validators.email]),
+      email: new FormControl(this.user.email, [
+        Validators.required,
+        Validators.email,
+      ]),
     });
-    
 
     this.route.params.subscribe((params) => {
       if (params['id'] !== null) {
@@ -89,11 +91,10 @@ export class UnosKontaktaComponent implements OnInit {
             .subscribe((korisnik) => {
               this.user = korisnik;
 
-              Object.keys(this.signupForm.controls).forEach(key => {
-                this.signupForm.get(key).setValue(this.user[key])
-              })
+              Object.keys(this.signupForm.controls).forEach((key) => {
+                this.signupForm.get(key).setValue(this.user[key]);
+              });
             });
-
         }
         if (this.router.url.includes('pregled')) {
           this.isViewMode = true;
@@ -101,26 +102,6 @@ export class UnosKontaktaComponent implements OnInit {
         }
       }
     });
-    
-    // this.router.events
-    //     .pipe(filter((event) => event instanceof NavigationEnd))
-    //     .subscribe((event: NavigationEnd) => {
-    //       const provjeraUrl = event.url;
-    //       console.log('Ruta ovdje je: ' + provjeraUrl);
-
-    //       if (provjeraUrl.includes('pregled')) {
-    //         this.isViewMode = true;
-    //       setTimeout(() => {
-    //         this.signupForm.disable()
-
-    //       }, 1000);
-    //         console.log(this.signupForm);
-    //       } else {
-    //         this.isViewMode = false;
-    //         console.log(this.isViewMode);
-    //       }
-    //     });
-
   }
 
   onNoviKontakt() {
@@ -135,47 +116,43 @@ export class UnosKontaktaComponent implements OnInit {
       email: this.signupForm.get('email').value,
       id: this.user.id,
     };
-
-    console.log(this.signupForm);
     this.signupForm.reset();
-
     this.kontaktiService.createAndStoreContact(postData);
-    // this.kontaktiService.openSnackBar('Vaš kontakt je uspješno spremljen.', 'Zatvori',"snackbar-success")
-    this.snackbar_notify.notify("Spremi","Vaš kontakt je uspješno spremljen",5000, 'success')
-
+    this.snackbar_notify.notify(
+      'Spremi',
+      'Vaš kontakt je uspješno spremljen',
+      5000,
+      'success'
+    );
 
     this.vratiNaImenik();
   }
 
   onOsvjeziKontakt() {
-    console.log(this.signupForm.getRawValue())
-    
-    const postData = {...this.signupForm.getRawValue(), id: this.user.id
-    };
+    const postData = { ...this.signupForm.getRawValue(), id: this.user.id };
 
     if (this.userIdToUpdate) {
       this.kontaktiService
         .updateContact(this.userIdToUpdate, postData)
         .subscribe(() => {
-          // this.kontaktiService.openSnackBar('Vaš kontakt je uspješno ažuriran.', 'Zatvori',"snackbar-success")
-       this.snackbar_notify.notify("Osvježi","Vaš kontakt je uspješno osvježen",5000, 'success')
-           this.vratiNaImenik();
+          this.snackbar_notify.notify(
+            'Osvježi',
+            'Vaš kontakt je uspješno osvježen',
+            5000,
+            'success'
+          );
+          this.vratiNaImenik();
         });
     } else {
-      // this._snackBar.open('Vaš kontakt nije spremljen.', 'Zatvori', {
-      //   panelClass: ['snackbar-error']
-      // });  
-      
-      this.kontaktiService.openSnackBar('Vaš kontakt nije spremljen.', 'Zatvori',"snackbar-error")
-    
-    
-    
+      this.kontaktiService.openSnackBar(
+        'Vaš kontakt nije spremljen.',
+        'Zatvori',
+        'snackbar-error'
+      );
     }
   }
   vratiNaImenik() {
-    
-          this.router.navigateByUrl('autentifikacija/imenik');
-  
+    this.router.navigateByUrl('autentifikacija/imenik');
   }
   vratiNaImenik2() {
     if (this.signupForm.pristine) {
@@ -189,23 +166,18 @@ export class UnosKontaktaComponent implements OnInit {
     }
   }
 
-
   canDeactivate(): Observable<boolean> {
     if (this.signupForm.dirty) {
       const dialogRef = this.dialog.open(DeleteDialogComponent, {
         width: '400px',
         data: {
-          message: 'Jeste li sigurni da se želite vratiti natrag? Vaše promjene ce biti izgubljene?',
+          message:
+            'Jeste li sigurni da se želite vratiti natrag? Vaše promjene ce biti izgubljene?',
           title: 'Provjera',
         },
       });
-  
-      // Postavite vrednost u komponentu dialoga
-      // dialogRef.componentInstance.data = 'Jeste li sigurni da se želite vratiti natrag? Vaše promjene ce biti izgubljene.';
-  
       return dialogRef.afterClosed();
     }
-  
     // Nema nesačuvanih promena, dozvolite navigaciju
     return of(true);
   }

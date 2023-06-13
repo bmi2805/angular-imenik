@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
-import { SharedDataService } from '../profil-korisnika/shared-data.service';
 
 @Component({
   selector: 'app-navigacija',
@@ -14,27 +13,17 @@ export class NavigacijaComponent implements OnInit, OnDestroy {
   firstName;
   isAuthenticated = false;
   private userSub: Subscription;
-
-  constructor(private authService: AuthService, ) {
-
-    
-  }
-
+  constructor(private authService: AuthService) {}
   ngOnInit(): void {
-    this.userSub = this.authService.user$.subscribe(user => {
+    this.userSub = this.authService.user$.subscribe((user) => {
       this.isAuthenticated = !!user;
-   this.firstName = user.displayName
-
+      this.firstName = user.displayName;
     });
-
   }
-  
-  
 
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
   }
-
   odjaviSe() {
     this.authService.odjaviSe();
   }

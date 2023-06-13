@@ -1,54 +1,55 @@
-*{
-    font-size: 12pt;
+* {
+  font-size: 12pt;
 }
+
 .profile {
-    max-width: 500px;
-    margin: 0 auto;
-  }
-  
-  .user-info {
-    margin-bottom: 20px;
-   
-  }
-  
-  .change-password {
-    background-color: #f0f0f0;
-    padding: 10px;
-    margin-top: 20px;
-  }
-  
-  .change-password h3 {
-    margin-top: 0;
-  }
-  
-  .actions {
-    text-align: right;
-    margin-bottom: 10px;
-  }
-  
-  .mat-form-field {
-    width: 100%;
-  }
-  
-  button {
-    margin-top: 10px;
-  }
-  .mat-mdc-form-field {
-    width: 50%;
-    padding-left: 10px;
-  }
-  .email{
-    width: 100%;
-  }
+  max-width: 500px;
+  margin: 0 auto;
+}
 
-  .success-snackbar {
-    background-color: #4caf50;
-    color: #ffffff;
-  }
-  
-  .error-snackbar {
-    background-color: #f44336;
-    color: #ffffff;
-  }
+.user-info {
+  margin-bottom: 20px;
 
-  
+}
+
+.change-password {
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.change-password h3 {
+  margin-top: 0;
+}
+
+.actions {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+button {
+  margin-top: 10px;
+}
+
+.mat-mdc-form-field {
+  width: 50%;
+  padding-left: 10px;
+}
+
+.email {
+  width: 100%;
+}
+
+.success-snackbar {
+  background-color: #4caf50;
+  color: #ffffff;
+}
+
+.error-snackbar {
+  background-color: #f44336;
+  color: #ffffff;
+}

@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { SnackbarNotifyService } from '../snackbar-notify/snackbar-notify.service';
 import { map } from 'rxjs/operators';
 
-
 export interface AuthResponseData {
   idToken: string;
   email: string;
@@ -14,8 +13,7 @@ export interface AuthResponseData {
   expiresIn: string;
   localId: string;
   registered?: boolean;
-  displayName:string
-
+  displayName: string;
 }
 
 export interface UpdateContact {
@@ -48,7 +46,6 @@ export class AuthService {
     displayName: '',
     email: '',
   });
-  
 
   constructor(
     private http: HttpClient,
@@ -102,8 +99,7 @@ export class AuthService {
             resData.localId,
             resData.idToken,
             +resData.expiresIn,
-            resData.displayName,
-
+            resData.displayName
           );
         })
       );
@@ -115,8 +111,7 @@ export class AuthService {
       userId: string;
       password: string;
       _token: string;
-      displayName:string
-
+      displayName: string;
 
       _tokenExpirationDate: string;
     } = JSON.parse(localStorage.getItem('userData'));
@@ -138,10 +133,7 @@ export class AuthService {
         ? new Date(userData._tokenExpirationDate)
         : null,
       userData.displayName
-
-    )
-    ;
-
+    );
     // this.korisnik = loadedUser;
 
     if (userData._token) {
@@ -153,7 +145,6 @@ export class AuthService {
         this.autoLogout(expirationDuration);
       }
     }
-    
   }
 
   odjaviSe() {
@@ -175,14 +166,14 @@ export class AuthService {
     userId: string,
     token: string,
     expiresIn: number,
-    displayName:string
+    displayName: string
   ) {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(email, userId, token, expirationDate, displayName);
     this.user$.next(user);
     this.autoLogout(expiresIn * 1000);
     localStorage.setItem('userData', JSON.stringify(user));
-// console.log(user)
+    // console.log(user)
     // this.getUserData(token);
   }
 
@@ -265,7 +256,6 @@ export class AuthService {
           photoUrl: data.url,
           returnSecureToken: true,
         }
-
       )
       .pipe(
         catchError((error) => {
@@ -274,7 +264,6 @@ export class AuthService {
         })
       );
   }
-  
 
   getUserData(idToken: string) {
     return this.http
@@ -285,16 +274,18 @@ export class AuthService {
         }
       )
       .subscribe((res) => {
-        new Date().getTime() 
-        const expiresOut = ((this.user.tokenExpirationDate as Date).getTime() - new Date().getTime()) /1000
-        this.handleAuthentication(res.users[0].email, res.users[0].localId, idToken, expiresOut,res.users[0].displayName)
-        // const userData = {
-        //   displayName: res.users[0].displayName,
-        //   email: res.users[0].email,
-        // };
-        // localStorage.setItem('userData', JSON.stringify(userData));
-        // this.profileInfo.next(userData
-          // );
+        new Date().getTime();
+        const expiresOut =
+          ((this.user.tokenExpirationDate as Date).getTime() -
+            new Date().getTime()) /
+          1000;
+        this.handleAuthentication(
+          res.users[0].email,
+          res.users[0].localId,
+          idToken,
+          expiresOut,
+          res.users[0].displayName
+        );
       });
   }
 }

@@ -47,7 +47,6 @@ const appRoutes: Routes = [
     
   },
  
- 
 ];
 
 @NgModule({
@@ -55,13 +54,3 @@ const appRoutes: Routes = [
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
-
-// baza
-// {
-//   "rules": {
-//     ".read": "now < 1687298400000",  // 2023-6-21
-//     ".write": "now < 1687298400000",  // 2023-6-21
-//   }
-// }
-
-// Ako ima observable mora biti i subscribe
