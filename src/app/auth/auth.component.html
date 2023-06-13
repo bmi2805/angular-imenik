@@ -14,7 +14,19 @@
 <mat-card class="my-card">
     <mat-card-content>
         <form class="my-form" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
-            
+            <mat-form-field class="full-width" *ngIf="!isLoginMode">
+                <mat-label>Ime</mat-label>
+                <input matInput placeholder="Ime" name="ime" ngModel required >
+            </mat-form-field>
+
+            <mat-form-field class="full-width" *ngIf="!isLoginMode">
+
+                <mat-label>Prezime</mat-label>
+                <input matInput placeholder="Prezime" name="prezime" ngModel required >
+            </mat-form-field>
+
+        
+
             <mat-form-field class="full-width">
                 <mat-label>Email</mat-label>
                 <input matInput placeholder="Email" name="email" ngModel name="email" required email>

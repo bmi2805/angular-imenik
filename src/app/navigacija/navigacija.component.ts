@@ -11,20 +11,24 @@ import { SharedDataService } from '../profil-korisnika/shared-data.service';
 })
 export class NavigacijaComponent implements OnInit, OnDestroy {
   sidenav!: MatSidenav;
-
+  firstName;
   isAuthenticated = false;
-  firstName = "";
   private userSub: Subscription;
 
-  constructor(private authService: AuthService, private sharedData: SharedDataService) {}
+  constructor(private authService: AuthService, ) {
+
+    
+  }
 
   ngOnInit(): void {
     this.userSub = this.authService.user$.subscribe(user => {
       this.isAuthenticated = !!user;
+   this.firstName = user.displayName
+
     });
-  
-  
+
   }
+  
   
 
   ngOnDestroy(): void {

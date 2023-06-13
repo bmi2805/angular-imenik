@@ -12,17 +12,20 @@ import { Router } from '@angular/router';
 export class AuthComponent implements OnInit {
   isLoginMode = true;
   isLoading = false;
-  error:string = null;
+  error: string = null;
+  form;
+  constructor(private authService: AuthService, private router: Router) {}
 
-  constructor(private authService: AuthService, private router:Router) {}
+ 
+  ngOnInit(): void {
+    // console.log(this.prijavljeniKorisnik)
 
-  ngOnInit(): void {}
+  }
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
   }
 
-  
   authObs: Observable<AuthResponseData>;
 
   onSubmit(form: NgForm) {
@@ -32,28 +35,29 @@ export class AuthComponent implements OnInit {
     const email = form.value.email;
     const password = form.value.password;
 
-    this.isLoading= true
+
+  
+
+    this.isLoading = true;
     if (this.isLoginMode) {
-      this.authObs= this.authService.prijaviSe(email,password)
-
-
-
+      this.authObs = this.authService.prijaviSe(email, password);
     } else {
-      this.authObs = this.authService.registrirajSe(email, password)
+      this.authObs = this.authService.registrirajSe(email, password);
     }
 
     this.authObs.subscribe(
-      resData => {
+      (resData) => {
         console.log(resData);
         this.isLoading = false;
-        this.router.navigate(["autentifikacija/imenik"])
+        this.router.navigate(['autentifikacija/imenik']);
       },
-      errorMessage => {
+      (errorMessage) => {
         console.log(errorMessage);
         this.error = errorMessage;
         this.isLoading = false;
       }
-    )
+    );
     form.resetForm(); // Dodano resetiranje forme    }
   }
 }
+ 

@@ -37,7 +37,6 @@ export class KontaktiService {
       date: Korisnik.date,
       email: Korisnik.email,
     };
-    console.log(postData);
 
     this.http
       .post<{ name: string }>(
@@ -46,7 +45,6 @@ export class KontaktiService {
       )
       .subscribe(
         (responseData) => {
-          console.log(responseData);
         },
         (error) => {
           this.error.next(error.message);
@@ -91,12 +89,10 @@ export class KontaktiService {
 
   // urediKontakt(element:Korisnik){
   //   this.router.navigateByUrl(`/unos/${element.id}`);
-  //   console.log(element.name)
 
   // }
 
   getUserId(id: string): Observable<Korisnik> {
-    console.log(id);
     return this.http.get<Korisnik>(
       `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik/${id}.json`
     );

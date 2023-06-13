@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { KontaktiService } from '../kontakti.service';
 import { SharedDataService } from './shared-data.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { User } from '../auth/user.model';
 import { AuthService } from '../auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,19 +11,20 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ProfilKorisnikaComponent implements OnInit {
 
- constructor(private sharedData: SharedDataService, private auth:AuthService,private snackBar: MatSnackBar){}
+ constructor( private auth:AuthService,private snackBar: MatSnackBar, private sharedData:SharedDataService){}
 
+ token = JSON.parse(localStorage.getItem('userData'))._token;
 
  ngOnInit(): void {
-  this.sharedData.setFirstName(this.user.firstName);
 
+  console.log(this.token)
+  
 }
 loadedUser: User;
 
-
   user = {
-    firstName: `${this.auth.user.ime}`,
-    lastName: 'Doe',
+    firstName: ``,
+    lastName: "",
     email: `${this.auth.user.email}`
   };
   passwords = {
@@ -35,8 +34,33 @@ loadedUser: User;
   isEditMode = false;
 
   toggleEditMode() {
-    this.isEditMode = !this.isEditMode;
+    if (this.isEditMode) {
+      this.spremi();
+    } else {
+      this.isEditMode = true;
+    }
   }
+  
+spremi() {
+  const uData = {
+    token: this.token,
+    name: `${this.user.firstName} ${this.user.lastName}`, // Include the name property
+    ...this.user
+  };
+
+  this.auth.updateProfile(uData).subscribe(
+    res => {
+      console.log(res);
+      this.auth.getUserData(uData.token)
+
+    },
+    err => {
+      console.log(err);
+    }
+  );
+
+  this.isEditMode = false;
+}
 
 
 
