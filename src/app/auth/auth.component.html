@@ -14,19 +14,6 @@
 <mat-card class="my-card">
     <mat-card-content>
         <form class="my-form" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
-            <mat-form-field class="full-width" *ngIf="!isLoginMode">
-                <mat-label>Ime</mat-label>
-                <input matInput placeholder="Ime" name="ime" ngModel required>
-            </mat-form-field>
-
-            <mat-form-field class="full-width" *ngIf="!isLoginMode">
-
-                <mat-label>Prezime</mat-label>
-                <input matInput placeholder="Prezime" name="prezime" ngModel required>
-            </mat-form-field>
-
-
-
             <mat-form-field class="full-width">
                 <mat-label>Email</mat-label>
                 <input matInput placeholder="Email" name="email" ngModel  required email>
@@ -38,16 +25,17 @@
                     type="password">
             </mat-form-field>
             <mat-card-actions>
-                <button mat-raised-button color="primary" [disabled]="!authForm.valid" type="submit">{{isLoginMode ?
-                    "Prijavi se" : "Registriraj se"}}</button>
+                <button mat-raised-button color="primary" [disabled]="!authForm.valid" type="submit" >{{isLoginMode ?
+                    "Prijavi se" : "Registriraj se"}} <mat-icon>login</mat-icon></button>
             </mat-card-actions>
         </form>
 
     </mat-card-content>
 
     <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="onSwitchMode()">{{isLoginMode? "Prebaci na registraciju" :
-            "Prebaci na prijavu"}}</button>
+        <button mat-raised-button color="accent" (click)="onSwitchMode()" style="color: #ffffff;">{{isLoginMode? "Prebaci na registraciju" :
+            "Prebaci na prijavu"}} <mat-icon>switch_account
+            </mat-icon></button>
     </mat-card-actions>
     <mat-card-actions>
 

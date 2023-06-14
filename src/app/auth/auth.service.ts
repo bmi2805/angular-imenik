@@ -156,6 +156,7 @@ export class AuthService {
     }
     this.tokenExpirationTimer = null;
   }
+
   autoLogout(expirationDuration: number) {
     this.tokenExpirationTimer = setTimeout(() => {
       this.odjaviSe();

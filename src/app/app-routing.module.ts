@@ -7,6 +7,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { ProfilKorisnikaComponent } from './profil-korisnika/profil-korisnika.component';
 import { NavigacijaComponent } from './navigacija/navigacija.component';
 import { ZaboravljenPasswordComponent } from './zaboravljen-password/zaboravljen-password.component';
+import { FormGuard } from './auth/form.guard';
 
 const appRoutes: Routes = [
   {
@@ -27,6 +28,7 @@ const appRoutes: Routes = [
       },
       {
         path: 'unos',
+        canDeactivate:[FormGuard],
         component: UnosKontaktaComponent,
       },
       {

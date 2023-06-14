@@ -18,7 +18,7 @@
     </mat-form-field>
   </div>
   <div class="actions">
-    <button mat-flat-button color="primary" (click)="toggleEditMode()">{{ isEditMode ? 'Spremi' : 'Uredi' }}</button>
+    <button mat-flat-button color="primary" (click)="toggleEditMode()">{{ isEditMode ? 'Spremi' : 'Uredi' }} <mat-icon>edit</mat-icon></button>
   </div>
   <div class="change-password" *ngIf="isEditMode" style="color: black;">
     <h3>Izmjena lozinke</h3>

@@ -15,13 +15,14 @@ import { KontaktiService } from 'src/app/kontakti.service';
 import { Korisnik } from 'src/app/shared/post.model';
 import { SnackbarNotifyService } from 'src/app/snackbar-notify/snackbar-notify.service';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { SafeData } from 'src/app/auth/save-data.interface';
 
 @Component({
   selector: 'app-unos-kontakta',
   templateUrl: './unos-kontakta.component.html',
   styleUrls: ['./unos-kontakta.component.scss'],
 })
-export class UnosKontaktaComponent implements OnInit {
+export class UnosKontaktaComponent implements OnInit, SafeData {
   user: Korisnik = {
     id: null,
     name: null,
@@ -54,6 +55,10 @@ export class UnosKontaktaComponent implements OnInit {
   ) {
     this.signupForm = new FormControl();
   }
+
+
+  isDataSaved(): boolean {
+return this.signupForm.dirty  }
 
   ngOnInit(): void {
     this.signupForm = new FormGroup({
@@ -136,8 +141,8 @@ export class UnosKontaktaComponent implements OnInit {
         .updateContact(this.userIdToUpdate, postData)
         .subscribe(() => {
           this.snackbar_notify.notify(
-            'Osvježi',
-            'Vaš kontakt je uspješno osvježen',
+            'Spremi',
+            'Vaš kontakt je uspješno spremljen',
             5000,
             'success'
           );
@@ -151,34 +156,36 @@ export class UnosKontaktaComponent implements OnInit {
       );
     }
   }
-  vratiNaImenik() {
+
+  vratiNaImenik(): void {
     this.router.navigateByUrl('autentifikacija/imenik');
   }
-  vratiNaImenik2() {
-    if (this.signupForm.pristine) {
-      this.router.navigateByUrl('autentifikacija/imenik');
-    } else {
-      this.canDeactivate().subscribe((canNavigate) => {
-        if (canNavigate) {
-          this.router.navigateByUrl('autentifikacija/imenik');
-        }
-      });
-    }
-  }
 
-  canDeactivate(): Observable<boolean> {
-    if (this.signupForm.dirty) {
-      const dialogRef = this.dialog.open(DeleteDialogComponent, {
-        width: '400px',
-        data: {
-          message:
-            'Jeste li sigurni da se želite vratiti natrag? Vaše promjene ce biti izgubljene?',
-          title: 'Provjera',
-        },
-      });
-      return dialogRef.afterClosed();
-    }
-    // Nema nesačuvanih promena, dozvolite navigaciju
-    return of(true);
-  }
+  // vratiNaImenik2() {
+  //   if (this.signupForm.pristine) {
+  //     this.router.navigateByUrl('autentifikacija/imenik');
+  //   } else {
+  //     this.canDeactivate().subscribe((canNavigate) => {
+  //       if (canNavigate) {
+  //         this.router.navigateByUrl('autentifikacija/imenik');
+  //       }
+  //     });
+  //   }
+  // }
+
+  // canDeactivate(): Observable<boolean> {
+  //   if (this.signupForm.dirty) {
+  //     const dialogRef = this.dialog.open(DeleteDialogComponent, {
+  //       width: '400px',
+  //       data: {
+  //         message:
+  //           'Jeste li sigurni da se želite vratiti natrag? Vaše promjene ce biti izgubljene?',
+  //         title: 'Provjera',
+  //       },
+  //     });
+  //     return dialogRef.afterClosed();
+  //   }
+  //   // Nema nesačuvanih promena, dozvolite navigaciju
+  //   return of(true);
+  // }
 }
