@@ -9,8 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigacijaComponent } from './navigacija/navigacija.component';
 import { ImenikComponent } from './imenik/imenik.component';
-import { UnosKontaktaComponent } from './imenik/unos-kontakta/unos-kontakta.component';
-import { DeleteDialogComponent } from './imenik/delete-dialog/delete-dialog.component';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { AuthComponent } from './auth/auth.component';
 import { ProfilKorisnikaComponent } from './profil-korisnika/profil-korisnika.component';
 import { SnackbarNotifyComponent } from './snackbar-notify/snackbar-notify.component';
@@ -19,13 +18,14 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
 
 import { SharedModule } from './shared/shared.module';
 import { ZaboravljenPasswordComponent } from './zaboravljen-password/zaboravljen-password.component';
+import { UnosKontaktaComponent } from './imenik/unos-kontakta/unos-kontakta.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigacijaComponent,
     ImenikComponent,
-    UnosKontaktaComponent,
+    
     DeleteDialogComponent,
     AuthComponent,
     ProfilKorisnikaComponent,
@@ -39,6 +39,8 @@ import { ZaboravljenPasswordComponent } from './zaboravljen-password/zaboravljen
     ReactiveFormsModule,
     SharedModule,
     AppRoutingModule,
+
+    UnosKontaktaComponent
   ],
   providers: [
     {

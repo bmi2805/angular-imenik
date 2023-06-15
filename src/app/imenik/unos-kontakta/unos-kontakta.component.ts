@@ -5,22 +5,30 @@ import {
   FormControl,
   FormGroup,
   NgForm,
+  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Observable, filter, of } from 'rxjs';
+import { ActivatedRoute,  Router } from '@angular/router';
 import { KontaktiService } from 'src/app/kontakti.service';
 import { Korisnik } from 'src/app/shared/post.model';
 import { SnackbarNotifyService } from 'src/app/snackbar-notify/snackbar-notify.service';
-import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { SafeData } from 'src/app/auth/save-data.interface';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-unos-kontakta',
+ 
   templateUrl: './unos-kontakta.component.html',
   styleUrls: ['./unos-kontakta.component.scss'],
+  standalone:true,
+  imports: [MatIconModule,MatFormFieldModule,MatInputModule, MatDatepickerModule,MatNativeDateModule,ReactiveFormsModule,CommonModule,MatButtonModule
+  ]
 })
 export class UnosKontaktaComponent implements OnInit, SafeData {
   user: Korisnik = {
@@ -44,14 +52,10 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
   maxDate = new Date();
 
   constructor(
-    private http: HttpClient,
     private router: Router,
     private kontaktiService: KontaktiService,
     private route: ActivatedRoute,
-    private _snackBar: MatSnackBar,
     private snackbar_notify: SnackbarNotifyService,
-    private formBuilder: FormBuilder,
-    private dialog: MatDialog
   ) {
     this.signupForm = new FormControl();
   }

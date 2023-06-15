@@ -8,7 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { UnosKontaktaComponent } from '../imenik/unos-kontakta/unos-kontakta.component';
 import { MatDialog } from '@angular/material/dialog';
-import { DeleteDialogComponent } from '../imenik/delete-dialog/delete-dialog.component';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { SafeData } from './save-data.interface';
 
 @Injectable({

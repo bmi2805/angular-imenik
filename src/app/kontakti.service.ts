@@ -19,7 +19,6 @@ export class KontaktiService {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
     private authService: AuthService,
     private _snackBar: MatSnackBar,
     private snackbar_notify: SnackbarNotifyService
