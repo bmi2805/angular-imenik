@@ -1,12 +1,20 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-navigacija',
   templateUrl: './navigacija.component.html',
   styleUrls: ['./navigacija.component.scss'],
+  standalone:true,
+  imports:[RouterModule,MatSidenavModule,CommonModule, MatIconModule,MatButtonModule,MatDividerModule,MatToolbarModule,]
 })
 export class NavigacijaComponent implements OnInit, OnDestroy {
   sidenav!: MatSidenav;

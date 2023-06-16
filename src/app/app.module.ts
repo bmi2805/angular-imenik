@@ -23,14 +23,9 @@ import { UnosKontaktaComponent } from './imenik/unos-kontakta/unos-kontakta.comp
 @NgModule({
   declarations: [
     AppComponent,
-    NavigacijaComponent,
-    ImenikComponent,
     
-    DeleteDialogComponent,
-    AuthComponent,
-    ProfilKorisnikaComponent,
-    SnackbarNotifyComponent,
-    ZaboravljenPasswordComponent,
+    
+    
   ],
   imports: [
     BrowserModule,
@@ -39,8 +34,15 @@ import { UnosKontaktaComponent } from './imenik/unos-kontakta/unos-kontakta.comp
     ReactiveFormsModule,
     SharedModule,
     AppRoutingModule,
+    AuthComponent,
 
-    UnosKontaktaComponent
+
+    DeleteDialogComponent,
+    NavigacijaComponent,
+    ProfilKorisnikaComponent,
+    SnackbarNotifyComponent,
+    ZaboravljenPasswordComponent,
+
   ],
   providers: [
     {

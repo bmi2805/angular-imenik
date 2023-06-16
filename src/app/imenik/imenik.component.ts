@@ -6,19 +6,30 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router, Routes } from '@angular/router';
+import { Router, RouterModule, Routes } from '@angular/router';
 import { Korisnik } from '../shared/post.model';
 import { KontaktiService } from '../kontakti.service';
 import { Subscription } from 'rxjs';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarNotifyService } from '../snackbar-notify/snackbar-notify.service';
+import { UnosKontaktaComponent } from './unos-kontakta/unos-kontakta.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { CdkTableModule } from '@angular/cdk/table';
+import { FormsModule } from '@angular/forms';
+import { CommonModule, DatePipe } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-imenik',
+  standalone:true,
+  imports:[UnosKontaktaComponent, MatIconModule,MatFormFieldModule,MatInputModule,RouterModule,MatPaginatorModule,MatDatepickerModule,FormsModule,MatTableModule,MatSortModule,CommonModule,MatButtonModule],
   templateUrl: './imenik.component.html',
   styleUrls: ['./imenik.component.scss'],
 })

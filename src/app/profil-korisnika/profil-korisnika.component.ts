@@ -3,11 +3,19 @@ import { SharedDataService } from './shared-data.service';
 import { User } from '../auth/user.model';
 import { AuthService } from '../auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-profil-korisnika',
   templateUrl: './profil-korisnika.component.html',
   styleUrls: ['./profil-korisnika.component.scss'],
+  standalone:true,
+  imports: [MatIconModule,MatInputModule,MatFormFieldModule,CommonModule,MatInputModule,FormsModule, MatButtonModule]
 })
 export class ProfilKorisnikaComponent implements OnInit {
   constructor(

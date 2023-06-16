@@ -16,7 +16,7 @@
     <h3 *ngIf="loadedContacts.length< 1" style="color:black"> Još nema dodanih korisnika</h3>
 
     <div class="table-container" >
-
+      <img src="https://www.w3schools.com/images/lamp.jpg" alt="Lamp" width="32" height="32">
       <table mat-table [dataSource]="dataSource"  *ngIf="!isLoading" matSort>
 
         <!--- Note that these columns can be defined in any order.

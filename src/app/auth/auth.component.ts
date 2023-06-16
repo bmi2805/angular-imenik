@@ -1,17 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { AuthResponseData, AuthService } from './auth.service';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
-})
+  standalone: true,
+  imports: [MatIconModule,MatFormFieldModule,MatInputModule,ReactiveFormsModule,CommonModule,MatButtonModule, MatCardModule, MatToolbarModule,MatProgressSpinnerModule,FormsModule,RouterModule,]
+  })
 export class AuthComponent implements OnInit {
   isLoginMode = true;
-  isLoading = false;
+  isLoading = false; 
   error: string = null;
   form;
   constructor(private authService: AuthService, private router: Router) {}

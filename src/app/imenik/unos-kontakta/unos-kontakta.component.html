@@ -12,16 +12,14 @@
           <td><mat-form-field class="example-full-width">
               <mat-label>Ime</mat-label>
               <input matInput formControlName="name" type="text">
-              <span style="color: rgb(248, 49, 49);"
-                *ngIf="!signupForm.get('name').valid && signupForm.get('name').touched">Molim Vas unesite
-                ime!</span>
+              <mat-error 
+                *ngIf="!signupForm.get('name').valid && signupForm.get('name').touched">Polje je obavezno!</mat-error>
             </mat-form-field></td>
           <td><mat-form-field class="example-full-width">
               <mat-label>Prezime</mat-label>
               <input matInput formControlName="lastName" type="text">
               <mat-error 
-                *ngIf="!signupForm.get('lastName').valid && signupForm.get('lastName').touched">Molim Vas unesite
-                prezime!</mat-error>
+                *ngIf="!signupForm.get('lastName').valid && signupForm.get('lastName').touched">Polje je obavezno!</mat-error>
                 <!-- <mat-error></mat-error> -->
             </mat-form-field></td>
         </tr>
@@ -32,9 +30,8 @@
             <mat-form-field class="example-full-width">
               <mat-label>Adresa</mat-label>
               <textarea matInput placeholder="Jarunska 14" formControlName="address"></textarea>
-              <span style="color: rgb(248, 49, 49);"
-                *ngIf="!signupForm.get('address').valid && signupForm.get('address').touched">Molim Vas unesite
-                adresu</span>
+              <mat-error 
+                *ngIf="!signupForm.get('address').valid && signupForm.get('address').touched">Polje je obavezno!</mat-error>
             </mat-form-field>
           </td>
         </tr>
@@ -44,8 +41,8 @@
           <td class=""><mat-form-field class="example-full-width">
               <mat-label>Grad</mat-label>
               <input matInput placeholder="Zagreb" formControlName="city" type="text">
-              <span style="color: rgb(248, 49, 49);"
-                *ngIf="!signupForm.get('city').valid && signupForm.get('city').touched">Molim Vas unesite grad</span>
+              <mat-error 
+                *ngIf="!signupForm.get('city').valid && signupForm.get('city').touched">Polje je obavezno!</mat-error>
             </mat-form-field></td>
           <td class="">
             <mat-form-field class="example-full-width">
@@ -55,9 +52,7 @@
               -->
               <input matInput maxlength="5" pattern="\d{5}" placeholder="10000" value="" formControlName="postalCode"
                 type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-              <span style="color: rgb(248, 49, 49);"
-                *ngIf="!signupForm.get('postalCode').valid && signupForm.get('postalCode').touched">Molim Vas unesite
-                poštanski broj</span>
+              <mat-error *ngIf="!signupForm.get('postalCode').valid && signupForm.get('postalCode').touched">Polje je obavezno!</mat-error>
             </mat-form-field>
           </td>
         </tr>
@@ -67,18 +62,16 @@
           <td class=""><mat-form-field class="example-full-width">
               <mat-label>Telephone</mat-label>
               <input type="telephone" matInput placeholder="+385 916224421" formControlName="phone">
-              <span style="color: rgb(248, 49, 49);"
-                *ngIf="!signupForm.get('phone').valid && signupForm.get('phone').touched">Molim Vas unesite broj
-                telefona</span>
+              <mat-error style="color: rgb(248, 49, 49);"
+                *ngIf="!signupForm.get('phone').valid && signupForm.get('phone').touched">Polje je obavezno!</mat-error>
             </mat-form-field></td>
           <td>
             <div class="date-picker-wrapper">
               <mat-form-field class="example-full-width">
                 <mat-label>Izaberite datum rođenja</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="date" [max]="maxDate">
-                <span style="color: rgb(248, 49, 49);"
-                  *ngIf="!signupForm.get('date').valid && signupForm.get('date').touched">Molim Vas unesite datum
-                  rođenja</span>
+                <mat-error 
+                  *ngIf="!signupForm.get('date').valid && signupForm.get('date').touched">Polje je obavezno!</mat-error>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
@@ -91,8 +84,7 @@
           <td><mat-form-field class="example-full-width">
               <mat-label>Email</mat-label>
               <input type="email" matInput placeholder="Ex. pat@example.com" formControlName="email" email>
-              <span style="color: rgb(248, 49, 49);"
-                *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched">Molim Vas unesite email</span>
+              <mat-error                 *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched">Polje je obavezno!</mat-error>
             </mat-form-field></td>
         </tr>
       </table>

@@ -1,12 +1,21 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { SnackbarNotifyService } from 'src/app/snackbar-notify/snackbar-notify.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-zaboravljen-password',
   templateUrl: './zaboravljen-password.component.html',
   styleUrls: ['./zaboravljen-password.component.scss'],
+  standalone:true,
+  imports:[CommonModule,RouterModule,MatToolbarModule,MatCardModule,MatButtonModule, MatFormFieldModule,MatInputModule, FormsModule]
 })
 export class ZaboravljenPasswordComponent {
   email: string;

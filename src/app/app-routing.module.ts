@@ -9,13 +9,18 @@ import { NavigacijaComponent } from './navigacija/navigacija.component';
 import { ZaboravljenPasswordComponent } from './zaboravljen-password/zaboravljen-password.component';
 import { FormGuard } from './auth/form.guard';
 
-const appRoutes: Routes = [
+export const appRoutes: Routes = [
   {
     path: '',
     redirectTo: 'autentifikacija/imenik',
     pathMatch: 'full',
   },
-  { path: 'prijava', component: AuthComponent },
+  { path: 'prijava', 
+  // component: AuthComponent
+  loadComponent: () => import('../app/auth/auth.component').then(mod=>mod.AuthComponent)
+
+
+},
   { path: 'zaboravljen-password', component: ZaboravljenPasswordComponent },
   {
     path: 'autentifikacija',
@@ -24,7 +29,8 @@ const appRoutes: Routes = [
     children: [
       {
         path: 'imenik',
-        component: ImenikComponent,
+        // component: ImenikComponent,
+        loadComponent: () => import('../app/imenik/imenik.component').then(mod=>mod.ImenikComponent)
       },
       {
         path: 'unos',
