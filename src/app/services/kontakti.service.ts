@@ -18,7 +18,7 @@ export class KontaktiService {
     private snackbar_notify: SnackbarNotifyService
   ) {}
 
-  createAndStoreContact(Korisnik: IKorisnik) {
+  createAndStoreContact(Korisnik: IKorisnik): Promise<void> {
     const postData: IKorisnik = {
       id: Korisnik.id,
       name: Korisnik.name,
@@ -30,18 +30,22 @@ export class KontaktiService {
       date: Korisnik.date,
       email: Korisnik.email,
     };
-
-    this.http
-      .post<{ name: string }>(
-        `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`,
-        postData
-      )
-      .subscribe(
-        (responseData) => {},
-        (error) => {
-          this.error.next(error.message);
-        }
-      );
+  
+    return new Promise((resolve, reject) => {
+      this.http
+        .post<{ name: string }>(
+          `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`,
+          postData
+        )
+        .subscribe(
+          () => {
+            resolve(); // Spremanje kontakta je uspješno
+          },
+          (error) => {
+            reject(error); // Pogreška prilikom spremanja kontakta
+          }
+        );
+    });
   }
 
   dohvatiKorisnike(): Observable<IKorisnik[]> {

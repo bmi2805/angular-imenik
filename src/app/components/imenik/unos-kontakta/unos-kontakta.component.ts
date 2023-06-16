@@ -113,29 +113,41 @@ return this.signupForm.dirty  }
     });
   }
 
-  onNoviKontakt() {
-    const postData = {
-      name: this.signupForm.get('name').value,
-      lastName: this.signupForm.get('lastName').value,
-      address: this.signupForm.get('address').value,
-      city: this.signupForm.get('city').value,
-      postalCode: this.signupForm.get('postalCode').value,
-      phone: this.signupForm.get('phone').value,
-      date: this.signupForm.get('date').value,
-      email: this.signupForm.get('email').value,
-      id: this.user.id,
-    };
-    this.signupForm.reset();
-    this.kontaktiService.createAndStoreContact(postData);
-    this.snackbar_notify.notify(
-      'Spremi',
-      'Vaš kontakt je uspješno spremljen',
-      5000,
-      'success'
-    );
+onNoviKontakt() {
+  const postData = {
+    name: this.signupForm.get('name').value,
+    lastName: this.signupForm.get('lastName').value,
+    address: this.signupForm.get('address').value,
+    city: this.signupForm.get('city').value,
+    postalCode: this.signupForm.get('postalCode').value,
+    phone: this.signupForm.get('phone').value,
+    date: this.signupForm.get('date').value,
+    email: this.signupForm.get('email').value,
+    id: this.user.id,
+  };
 
-    this.vratiNaImenik();
-  }
+  // this.signupForm.reset();
+
+  this.kontaktiService.createAndStoreContact(postData)
+    .then(() => {
+      this.snackbar_notify.notify(
+        'Spremi',
+        'Vaš kontakt je uspješno spremljen',
+        5000,
+        'success'
+      );
+      this.vratiNaImenik();
+      this.signupForm.reset()
+    })
+    .catch(() => {
+      this.snackbar_notify.notify(
+        'Greška',
+        'Došlo je do pogreške prilikom spremanja kontakta',
+        5000,
+        'error'
+      );
+    });
+}
 
   onOsvjeziKontakt() {
     const postData = { ...this.signupForm.getRawValue(), id: this.user.id };
@@ -153,10 +165,11 @@ return this.signupForm.dirty  }
           this.vratiNaImenik();
         });
     } else {
-      this.kontaktiService.openSnackBar(
-        'Vaš kontakt nije spremljen.',
-        'Zatvori',
-        'snackbar-error'
+      this.snackbar_notify.notify(
+        'Spremi',
+        'Vaš kontakt nije spremljen',
+        5000,
+        'error'
       );
     }
   }
