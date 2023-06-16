@@ -15,6 +15,8 @@ export const appRoutes: Routes = [
     redirectTo: 'autentifikacija/imenik',
     pathMatch: 'full',
   },
+ 
+
   { path: 'prijava', 
   // component: AuthComponent
   loadComponent: () => import('../components/auth/auth.component').then(mod=>mod.AuthComponent)
