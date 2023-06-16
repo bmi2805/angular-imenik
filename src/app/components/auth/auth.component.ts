@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
-import { AuthResponseData, AuthService } from './auth.service';
+import { IAuthResponseData, AuthService } from '../../services/auth.service';
 import { Observable } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
@@ -32,7 +32,7 @@ export class AuthComponent implements OnInit {
     this.isLoginMode = !this.isLoginMode;
   }
 
-  authObs: Observable<AuthResponseData>;
+  authObs: Observable<IAuthResponseData>;
 
   onSubmit(form: NgForm) {
     if (!form.valid) {

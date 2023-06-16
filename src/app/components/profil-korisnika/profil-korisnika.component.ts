@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedDataService } from './shared-data.service';
-import { User } from '../auth/user.model';
-import { AuthService } from '../auth/auth.service';
+import { User } from '../../models/user.model';
+import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -21,7 +20,6 @@ export class ProfilKorisnikaComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private snackBar: MatSnackBar,
-    private sharedData: SharedDataService
   ) {}
 
   token = JSON.parse(localStorage.getItem('userData'))._token;

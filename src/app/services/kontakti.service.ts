@@ -1,17 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Korisnik } from './shared/post.model';
+import { IKorisnik } from '../models/post.model';
 import { HttpClient } from '@angular/common/http';
-import {
-  Observable,
-  Subject,
-  catchError,
-  map,
-  throwError,
-} from 'rxjs';
+import { Observable, Subject, catchError, map, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { AuthService } from './auth/auth.service';
+import { AuthService } from './auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SnackbarNotifyService } from './snackbar-notify/snackbar-notify.service';
+import { SnackbarNotifyService } from '../components/snackbar-notify/snackbar-notify.service';
 
 @Injectable({ providedIn: 'root' })
 export class KontaktiService {
@@ -24,8 +18,8 @@ export class KontaktiService {
     private snackbar_notify: SnackbarNotifyService
   ) {}
 
-  createAndStoreContact(Korisnik: Korisnik) {
-    const postData: Korisnik = {
+  createAndStoreContact(Korisnik: IKorisnik) {
+    const postData: IKorisnik = {
       id: Korisnik.id,
       name: Korisnik.name,
       lastName: Korisnik.lastName,
@@ -43,22 +37,21 @@ export class KontaktiService {
         postData
       )
       .subscribe(
-        (responseData) => {
-        },
+        (responseData) => {},
         (error) => {
           this.error.next(error.message);
         }
       );
   }
 
-  dohvatiKorisnike(): Observable<Korisnik[]> {
+  dohvatiKorisnike(): Observable<IKorisnik[]> {
     return this.http
-      .get<{ [key: string]: Korisnik }>(
+      .get<{ [key: string]: IKorisnik }>(
         `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`
       )
       .pipe(
         map((responseData) => {
-          const contactArray: Korisnik[] = [];
+          const contactArray: IKorisnik[] = [];
           for (const key in responseData) {
             if (responseData.hasOwnProperty(key)) {
               contactArray.push({ ...responseData[key], id: key });
@@ -86,15 +79,15 @@ export class KontaktiService {
     return this.http.delete(deleteUrl);
   }
 
-  getUserId(id: string): Observable<Korisnik> {
-    return this.http.get<Korisnik>(
+  getUserId(id: string): Observable<IKorisnik> {
+    return this.http.get<IKorisnik>(
       `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik/${id}.json`
     );
   }
 
-  dohvatiKorisnika(id: string): Observable<Korisnik> {
+  dohvatiKorisnika(id: string): Observable<IKorisnik> {
     const url = `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik/${id}.json`;
-    return this.http.get<Korisnik>(url).pipe(
+    return this.http.get<IKorisnik>(url).pipe(
       map((responseData) => {
         return { ...responseData, id };
       }),
@@ -112,7 +105,7 @@ export class KontaktiService {
     );
   }
 
-  updateContact(id: string, korisnik: Korisnik) {
+  updateContact(id: string, korisnik: IKorisnik) {
     const updateUrl = `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik/${id}.json`;
 
     return this.http.put(updateUrl, korisnik);
@@ -130,6 +123,4 @@ export class KontaktiService {
       panelClass: [panelClass],
     });
   }
-
-  
 }

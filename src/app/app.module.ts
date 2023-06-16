@@ -4,21 +4,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './modules/app-routing.module';
 
 import { AppComponent } from './app.component';
-import { NavigacijaComponent } from './navigacija/navigacija.component';
-import { ImenikComponent } from './imenik/imenik.component';
-import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
-import { AuthComponent } from './auth/auth.component';
-import { ProfilKorisnikaComponent } from './profil-korisnika/profil-korisnika.component';
-import { SnackbarNotifyComponent } from './snackbar-notify/snackbar-notify.component';
+import { NavigacijaComponent } from './components/navigacija/navigacija.component';
+import { ImenikComponent } from './components/imenik/imenik.component';
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
+import { AuthComponent } from './components/auth/auth.component';
+import { ProfilKorisnikaComponent } from './components/profil-korisnika/profil-korisnika.component';
+import { SnackbarNotifyComponent } from './components/snackbar-notify/snackbar-notify.component';
 
-import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
-import { SharedModule } from './shared/shared.module';
-import { ZaboravljenPasswordComponent } from './zaboravljen-password/zaboravljen-password.component';
-import { UnosKontaktaComponent } from './imenik/unos-kontakta/unos-kontakta.component';
+import { SharedModule } from './modules/shared/shared.module';
+import { ZaboravljenPasswordComponent } from './components/auth/zaboravljen-password/zaboravljen-password.component';
+import { UnosKontaktaComponent } from './components/imenik/unos-kontakta/unos-kontakta.component';
 
 @NgModule({
   declarations: [

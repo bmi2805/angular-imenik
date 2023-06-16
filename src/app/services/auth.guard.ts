@@ -20,14 +20,12 @@ export class AuthGuard implements CanActivate {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
-    return this.authService.user$.pipe(take(1),
-      map((user) => {
-        const isAuth = !!user;
-        if(isAuth){
-            return true
-        }
-        return this.router.createUrlTree( ["/prijava"])
-      })
-    );
+      
+      const isAuth = this.authService.user != null;
+if (isAuth) {
+return true;
+} else {
+return this.router.createUrlTree( ["/prijava"])
+} 
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthService } from 'src/app/auth/auth.service';
-import { SnackbarNotifyService } from 'src/app/snackbar-notify/snackbar-notify.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { SnackbarNotifyService } from 'src/app/components/snackbar-notify/snackbar-notify.service';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';

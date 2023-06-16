@@ -1,12 +1,12 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
-import { User } from './user.model';
+import { User } from '../models/user.model';
 import { Router } from '@angular/router';
-import { SnackbarNotifyService } from '../snackbar-notify/snackbar-notify.service';
+import { SnackbarNotifyService } from '../components/snackbar-notify/snackbar-notify.service';
 import { map } from 'rxjs/operators';
 
-export interface AuthResponseData {
+export interface IAuthResponseData {
   idToken: string;
   email: string;
   refreshToken: string;
@@ -16,16 +16,9 @@ export interface AuthResponseData {
   displayName: string;
 }
 
-export interface UpdateContact {
-  idToken: string;
-  email: string;
-  displayName: string;
-  photoUrl: string;
-  passwordHash: string;
-  localId: string;
-}
 
-export interface ChangeResponseData {
+
+export interface IChangeResponseData {
   localId: string;
   email: string;
   passwordHash: string;
@@ -59,7 +52,7 @@ export class AuthService {
 
   registrirajSe(email: string, password: string) {
     return this.http
-      .post<AuthResponseData>(
+      .post<IAuthResponseData>(
         'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
         {
           email: email,
@@ -83,7 +76,7 @@ export class AuthService {
 
   prijaviSe(email: string, password: string) {
     return this.http
-      .post<AuthResponseData>(
+      .post<IAuthResponseData>(
         'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
         {
           email: email,
@@ -199,7 +192,7 @@ export class AuthService {
 
   changePassword(data) {
     return this.http
-      .post<ChangeResponseData>(
+      .post<IChangeResponseData>(
         'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
         {
           idToken: data.idToken,

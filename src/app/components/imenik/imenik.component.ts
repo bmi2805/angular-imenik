@@ -7,8 +7,8 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, RouterModule, Routes } from '@angular/router';
-import { Korisnik } from '../shared/post.model';
-import { KontaktiService } from '../kontakti.service';
+import { IKorisnik } from '../../models/post.model';
+import { KontaktiService } from '../../services/kontakti.service';
 import { Subscription } from 'rxjs';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -35,7 +35,7 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
   // Spremanje korisnika u niz
-  loadedContacts: Korisnik[] = [];
+  loadedContacts: IKorisnik[] = [];
 
   isLoading = false;
   error: string | null = null;
@@ -45,7 +45,7 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  dataSource: MatTableDataSource<Korisnik> = new MatTableDataSource<Korisnik>();
+  dataSource: MatTableDataSource<IKorisnik> = new MatTableDataSource<IKorisnik>();
 
   constructor(
     public dialog: MatDialog,

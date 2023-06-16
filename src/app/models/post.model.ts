@@ -1,4 +1,4 @@
-export interface Korisnik {
+export interface IKorisnik {
   id: string;
   name: string;
   lastName: string;
