@@ -8,8 +8,8 @@ import {
 import { Observable } from 'rxjs';
 import { UnosKontaktaComponent } from '../imenik/unos-kontakta/unos-kontakta.component';
 import { MatDialog } from '@angular/material/dialog';
-import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
-import { SafeData } from './save-data.interface';
+import { NotifyDialogComponent } from '../notify-dialog/notify-dialog.component';
+import { SafeData } from '../../models/save-data.interface';
 
 @Injectable({
   providedIn: 'root', 
@@ -25,7 +25,7 @@ export class FormGuard implements CanDeactivate<SafeData> {
     | boolean
     | UrlTree {
     if (component.isDataSaved()) {
-      const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      const dialogRef = this.dialog.open(NotifyDialogComponent, {
               width: '400px',
               data: {
                 message:

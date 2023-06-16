@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { NotifyDialogComponent } from '../notify-dialog/notify-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarNotifyService } from '../snackbar-notify/snackbar-notify.service';
 import { UnosKontaktaComponent } from './unos-kontakta/unos-kontakta.component';
@@ -126,7 +126,7 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     this.error = null;
   }
   openDialog(contactId: string): void {
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+    const dialogRef = this.dialog.open(NotifyDialogComponent, {
       width: '450px',
       data: {
         message: 'Vaš kontakt će biti izbrisan?',

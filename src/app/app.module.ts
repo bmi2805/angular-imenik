@@ -9,7 +9,7 @@ import { AppRoutingModule } from './modules/app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigacijaComponent } from './components/navigacija/navigacija.component';
 import { ImenikComponent } from './components/imenik/imenik.component';
-import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
+import { NotifyDialogComponent } from './components/notify-dialog/notify-dialog.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { ProfilKorisnikaComponent } from './components/profil-korisnika/profil-korisnika.component';
 import { SnackbarNotifyComponent } from './components/snackbar-notify/snackbar-notify.component';
@@ -37,7 +37,7 @@ import { UnosKontaktaComponent } from './components/imenik/unos-kontakta/unos-ko
     AuthComponent,
 
 
-    DeleteDialogComponent,
+    NotifyDialogComponent,
     NavigacijaComponent,
     ProfilKorisnikaComponent,
     SnackbarNotifyComponent,

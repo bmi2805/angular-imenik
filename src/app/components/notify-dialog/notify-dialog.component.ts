@@ -6,10 +6,10 @@ import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
   selector: 'app-delete-dialog',
   standalone: true,
   imports: [MatDialogModule, MatButtonModule],
-  templateUrl: './delete-dialog.component.html',
-  styleUrls: ['./delete-dialog.component.scss']
+  templateUrl: './notify-dialog.component.html',
+  styleUrls: ['./notify-dialog.component.scss']
 })
-export class DeleteDialogComponent {
+export class NotifyDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: { message: string, title: string }) {}
 
 }
