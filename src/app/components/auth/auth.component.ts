@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
-import { IAuthResponseData, AuthService } from '../../services/auth.service';
+import {  AuthService } from '../../services/auth.service';
 import { Observable } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { IAuthResponseData } from 'src/app/models/auth.model';
 
 @Component({
   selector: 'app-auth',

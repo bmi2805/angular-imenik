@@ -5,28 +5,9 @@ import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { SnackbarNotifyService } from '../components/snackbar-notify/snackbar-notify.service';
 import { map } from 'rxjs/operators';
-
-export interface IAuthResponseData {
-  idToken: string;
-  email: string;
-  refreshToken: string;
-  expiresIn: string;
-  localId: string;
-  registered?: boolean;
-  displayName: string;
-}
+import { IAuthResponseData, IChangeResponseData } from '../models/auth.model';
 
 
-
-export interface IChangeResponseData {
-  localId: string;
-  email: string;
-  passwordHash: string;
-  providerUserInfo: string;
-  idToken: string;
-  refreshToken: string;
-  expiresIn: string;
-}
 
 @Injectable({
   providedIn: 'root',
