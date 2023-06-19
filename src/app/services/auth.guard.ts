@@ -46,6 +46,7 @@ export class AuthGuard {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    console.log("CanActivate")
     const isAuth = this.authService.user != null;
     if (isAuth) {
     return true;

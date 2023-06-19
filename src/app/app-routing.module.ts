@@ -7,13 +7,12 @@ import { AuthGuard } from './services/auth.guard';
 import { ProfilKorisnikaComponent } from './modules/core/components/main/profil-korisnika/profil-korisnika.component';
 import { NavigacijaComponent } from './modules/core/components/main/main.component';
 import { ZaboravljenPasswordComponent } from './components/auth/zaboravljen-password/zaboravljen-password.component';
-import { FormGuard } from './components/auth/form.guard';
+import { FormGuard } from './modules/core/services/form.guard';
 
 export const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'autentifikacija/imenik',
-    pathMatch: 'full',
+    loadChildren:() => import('./modules/core/core.module').then((m) => m.CoreModule)
   },
 
   {
@@ -22,37 +21,10 @@ export const appRoutes: Routes = [
     // loadComponent: () => import('../components/auth/auth.component').then(mod=>mod.AuthComponent)
   },
   { path: 'zaboravljen-password', component: ZaboravljenPasswordComponent },
+ 
   {
-    path: 'autentifikacija',
-    component: NavigacijaComponent,
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: 'imenik',
-        component: ImenikComponent,
-        // loadComponent: () => import('../components/imenik/imenik.component').then(mod=>mod.ImenikComponent)
-      },
-      {
-        path: 'unos',
-        canDeactivate: [FormGuard],
-        component: UnosKontaktaComponent,
-      },
-      {
-        path: 'profil-korisnika',
-        component: ProfilKorisnikaComponent,
-      },
-      {
-        canActivate: [AuthGuard],
-        path: 'uredi/:id',
-        component: UnosKontaktaComponent,
-      },
-      {
-        canActivate: [AuthGuard],
-        path: 'pregled/:id',
-        component: UnosKontaktaComponent,
-      },
-    ],
-  },
+    path:'**', redirectTo: ""
+  }
 ];
 
 @NgModule({

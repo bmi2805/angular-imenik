@@ -79,7 +79,8 @@ export class AuthService {
       );
   }
 
-  autoLogin() {
+  autoLogin():void {
+    console.log("AutoLogin")
     const userData: {
       email: string;
       userId: string;
@@ -94,7 +95,9 @@ export class AuthService {
 
     if (!userData) {
       console.log('Nemaa');
-      return;
+      // this.router.navigate(['/prijava']);
+      this.odjaviSe()
+      return ;
     }
 
     console.log('ima');
@@ -123,7 +126,7 @@ export class AuthService {
 
   odjaviSe() {
     this.user$.next(null);
-    this.router.navigate(['./prijava']);
+    this.router.navigate(['/prijava']);
     localStorage.removeItem('userData');
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
