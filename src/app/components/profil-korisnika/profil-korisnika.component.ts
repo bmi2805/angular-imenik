@@ -13,8 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-profil-korisnika',
   templateUrl: './profil-korisnika.component.html',
   styleUrls: ['./profil-korisnika.component.scss'],
-  standalone:true,
-  imports: [MatIconModule,MatInputModule,MatFormFieldModule,CommonModule,MatInputModule,FormsModule, MatButtonModule]
+  // standalone:true,
+  // imports: [MatIconModule,MatInputModule,MatFormFieldModule,CommonModule,MatInputModule,FormsModule, MatButtonModule]
 })
 export class ProfilKorisnikaComponent implements OnInit {
   constructor(

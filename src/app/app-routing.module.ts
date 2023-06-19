@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ImenikComponent } from '../components/imenik/imenik.component';
-import { UnosKontaktaComponent } from '../components/imenik/unos-kontakta/unos-kontakta.component';
-import { AuthComponent } from '../components/auth/auth.component';
-import { AuthGuard } from '../services/auth.guard';
-import { ProfilKorisnikaComponent } from '../components/profil-korisnika/profil-korisnika.component';
-import { NavigacijaComponent } from '../components/navigacija/navigacija.component';
-import { ZaboravljenPasswordComponent } from '../components/auth/zaboravljen-password/zaboravljen-password.component';
-import { FormGuard } from '../components/auth/form.guard';
+import { ImenikComponent } from './components/imenik/imenik.component';
+import { UnosKontaktaComponent } from './components/imenik/unos-kontakta/unos-kontakta.component';
+import { AuthComponent } from './components/auth/auth.component';
+import { AuthGuard } from './services/auth.guard';
+import { ProfilKorisnikaComponent } from './components/profil-korisnika/profil-korisnika.component';
+import { NavigacijaComponent } from './components/main/main.component';
+import { ZaboravljenPasswordComponent } from './components/auth/zaboravljen-password/zaboravljen-password.component';
+import { FormGuard } from './components/auth/form.guard';
 
 export const appRoutes: Routes = [
   {
@@ -15,14 +15,12 @@ export const appRoutes: Routes = [
     redirectTo: 'autentifikacija/imenik',
     pathMatch: 'full',
   },
- 
 
-  { path: 'prijava', 
-  // component: AuthComponent
-  loadComponent: () => import('../components/auth/auth.component').then(mod=>mod.AuthComponent)
-
-
-},
+  {
+    path: 'prijava',
+    component: AuthComponent,
+    // loadComponent: () => import('../components/auth/auth.component').then(mod=>mod.AuthComponent)
+  },
   { path: 'zaboravljen-password', component: ZaboravljenPasswordComponent },
   {
     path: 'autentifikacija',
@@ -31,12 +29,12 @@ export const appRoutes: Routes = [
     children: [
       {
         path: 'imenik',
-        // component: ImenikComponent,
-        loadComponent: () => import('../components/imenik/imenik.component').then(mod=>mod.ImenikComponent)
+        component: ImenikComponent,
+        // loadComponent: () => import('../components/imenik/imenik.component').then(mod=>mod.ImenikComponent)
       },
       {
         path: 'unos',
-        canDeactivate:[FormGuard],
+        canDeactivate: [FormGuard],
         component: UnosKontaktaComponent,
       },
       {
@@ -54,9 +52,7 @@ export const appRoutes: Routes = [
         component: UnosKontaktaComponent,
       },
     ],
-    
   },
- 
 ];
 
 @NgModule({

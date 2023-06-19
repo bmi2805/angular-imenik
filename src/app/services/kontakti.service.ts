@@ -115,9 +115,7 @@ export class KontaktiService {
     return this.http.put(updateUrl, korisnik);
   }
 
-  pregledKorisnika(): boolean {
-    return true;
-  }
+  
 
   durationInSeconds = 10000;
 

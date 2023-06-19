@@ -14,8 +14,8 @@ import { MatInputModule } from '@angular/material/input';
   selector: 'app-zaboravljen-password',
   templateUrl: './zaboravljen-password.component.html',
   styleUrls: ['./zaboravljen-password.component.scss'],
-  standalone:true,
-  imports:[CommonModule,RouterModule,MatToolbarModule,MatCardModule,MatButtonModule, MatFormFieldModule,MatInputModule, FormsModule]
+  // standalone:true,
+  // imports:[CommonModule,RouterModule,MatToolbarModule,MatCardModule,MatButtonModule, MatFormFieldModule,MatInputModule, FormsModule]
 })
 export class ZaboravljenPasswordComponent {
   email: string;

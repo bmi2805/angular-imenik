@@ -11,10 +11,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-navigacija',
-  templateUrl: './navigacija.component.html',
-  styleUrls: ['./navigacija.component.scss'],
-  standalone:true,
-  imports:[RouterModule,MatSidenavModule,CommonModule, MatIconModule,MatButtonModule,MatDividerModule,MatToolbarModule,]
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss'],
+  // standalone:true,
+  // imports:[RouterModule,MatSidenavModule,CommonModule, MatIconModule,MatButtonModule,MatDividerModule,MatToolbarModule,]
 })
 export class NavigacijaComponent implements OnInit, OnDestroy {
   sidenav!: MatSidenav;

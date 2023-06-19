@@ -17,8 +17,8 @@ import { IAuthResponseData } from 'src/app/models/auth.model';
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
-  standalone: true,
-  imports: [MatIconModule,MatFormFieldModule,MatInputModule,ReactiveFormsModule,CommonModule,MatButtonModule, MatCardModule, MatToolbarModule,MatProgressSpinnerModule,FormsModule,RouterModule,]
+  // standalone: true,
+  // imports: [MatIconModule,MatFormFieldModule,MatInputModule,ReactiveFormsModule,CommonModule,MatButtonModule, MatCardModule, MatToolbarModule,MatProgressSpinnerModule,FormsModule,RouterModule,]
   })
 export class AuthComponent implements OnInit {
   isLoginMode = true;

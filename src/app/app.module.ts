@@ -4,10 +4,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { AppRoutingModule } from './modules/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { NavigacijaComponent } from './components/navigacija/navigacija.component';
+import { NavigacijaComponent } from './components/main/main.component';
 import { ImenikComponent } from './components/imenik/imenik.component';
 import { NotifyDialogComponent } from './components/notify-dialog/notify-dialog.component';
 import { AuthComponent } from './components/auth/auth.component';
@@ -15,6 +15,7 @@ import { ProfilKorisnikaComponent } from './components/profil-korisnika/profil-k
 import { SnackbarNotifyComponent } from './components/snackbar-notify/snackbar-notify.component';
 
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { MatIconModule } from '@angular/material/icon';
 
 import { SharedModule } from './modules/shared/shared.module';
 import { ZaboravljenPasswordComponent } from './components/auth/zaboravljen-password/zaboravljen-password.component';
@@ -25,15 +26,6 @@ import { UnosKontaktaComponent } from './components/imenik/unos-kontakta/unos-ko
     AppComponent,
     
     
-    
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    SharedModule,
-    AppRoutingModule,
     AuthComponent,
 
 
@@ -42,6 +34,16 @@ import { UnosKontaktaComponent } from './components/imenik/unos-kontakta/unos-ko
     ProfilKorisnikaComponent,
     SnackbarNotifyComponent,
     ZaboravljenPasswordComponent,
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    SharedModule,
+    AppRoutingModule,
+    SharedModule,
+   
 
   ],
   providers: [

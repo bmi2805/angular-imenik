@@ -7,8 +7,8 @@ import { MAT_SNACK_BAR_DATA, MatSnackBar } from '@angular/material/snack-bar';
   selector: 'app-snackbar-notify',
   templateUrl: './snackbar-notify.component.html',
   styleUrls: ['./snackbar-notify.component.scss'],
-  standalone:true,
-  imports: [CommonModule, MatIconModule]
+  // standalone:true,
+  // imports: [CommonModule, MatIconModule]
 })
 export class SnackbarNotifyComponent {
   colorStyle = { color: 'black' };

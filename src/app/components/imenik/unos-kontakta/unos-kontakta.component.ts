@@ -178,31 +178,4 @@ onNoviKontakt() {
     this.router.navigateByUrl('autentifikacija/imenik');
   }
 
-  // vratiNaImenik2() {
-  //   if (this.signupForm.pristine) {
-  //     this.router.navigateByUrl('autentifikacija/imenik');
-  //   } else {
-  //     this.canDeactivate().subscribe((canNavigate) => {
-  //       if (canNavigate) {
-  //         this.router.navigateByUrl('autentifikacija/imenik');
-  //       }
-  //     });
-  //   }
-  // }
-
-  // canDeactivate(): Observable<boolean> {
-  //   if (this.signupForm.dirty) {
-  //     const dialogRef = this.dialog.open(DeleteDialogComponent, {
-  //       width: '400px',
-  //       data: {
-  //         message:
-  //           'Jeste li sigurni da se želite vratiti natrag? Vaše promjene ce biti izgubljene?',
-  //         title: 'Provjera',
-  //       },
-  //     });
-  //     return dialogRef.afterClosed();
-  //   }
-  //   // Nema nesačuvanih promena, dozvolite navigaciju
-  //   return of(true);
-  // }
 }

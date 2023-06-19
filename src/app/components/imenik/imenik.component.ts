@@ -46,6 +46,17 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   dataSource: MatTableDataSource<IKorisnik> = new MatTableDataSource<IKorisnik>();
+  displayedColumns: string[] = [
+    'name',
+    'lastName',
+    'address',
+    'city',
+    'postalCode',
+    'phone',
+    'date',
+    'email',
+    'actions',
+  ];
 
   constructor(
     public dialog: MatDialog,
@@ -61,7 +72,7 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     // Svakim otvaranjem komponente da se i povlače korisnici
-    this.dohvatiKontakte();
+    // this.dohvatiKontakte();
     // Da se svaki put i osvježi
     this.onOsvjezi();
   }
@@ -96,17 +107,7 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
-  displayedColumns: string[] = [
-    'name',
-    'lastName',
-    'address',
-    'city',
-    'postalCode',
-    'phone',
-    'date',
-    'email',
-    'actions',
-  ];
+ 
 
   deleteContact(contactId: string) {
     this.kontaktiService.izbrisiKorisnika(contactId).subscribe(() => {

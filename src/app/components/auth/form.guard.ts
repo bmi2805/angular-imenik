@@ -6,7 +6,6 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UnosKontaktaComponent } from '../imenik/unos-kontakta/unos-kontakta.component';
 import { MatDialog } from '@angular/material/dialog';
 import { NotifyDialogComponent } from '../notify-dialog/notify-dialog.component';
 import { SafeData } from '../../models/save-data.interface';
