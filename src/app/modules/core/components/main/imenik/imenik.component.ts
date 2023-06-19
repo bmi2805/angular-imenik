@@ -28,8 +28,21 @@ import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-imenik',
-  standalone:true,
-  imports:[UnosKontaktaComponent, MatIconModule,MatFormFieldModule,MatInputModule,RouterModule,MatPaginatorModule,MatDatepickerModule,FormsModule,MatTableModule,MatSortModule,CommonModule,MatButtonModule],
+  standalone: true,
+  imports: [
+    UnosKontaktaComponent,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    RouterModule,
+    MatPaginatorModule,
+    MatDatepickerModule,
+    FormsModule,
+    MatTableModule,
+    MatSortModule,
+    CommonModule,
+    MatButtonModule,
+  ],
   templateUrl: './imenik.component.html',
   styleUrls: ['./imenik.component.scss'],
 })
@@ -45,7 +58,8 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  dataSource: MatTableDataSource<IKorisnik> = new MatTableDataSource<IKorisnik>();
+  dataSource: MatTableDataSource<IKorisnik> =
+    new MatTableDataSource<IKorisnik>();
   displayedColumns: string[] = [
     'name',
     'lastName',
@@ -83,31 +97,55 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     this.router.navigateByUrl('autentifikacija/unos');
   }
 
-  onOsvjezi() {
-    this.kontaktiService.dohvatiKorisnike().subscribe((kontakti) => {
+  // onOsvjezi() {
+  //   this.kontaktiService.dohvatiKorisnike().subscribe((kontakti) => {
+  //     this.loadedContacts = kontakti;
+  //     this.dataSource.data = this.loadedContacts;
+  //   });
+  // }
+
+  async onOsvjezi() {
+    try {
+      const kontakti = await this.kontaktiService.dohvatiKorisnike();
       this.loadedContacts = kontakti;
       this.dataSource.data = this.loadedContacts;
-    });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  dohvatiKontakte() {
-    this.kontaktiService.dohvatiKorisnike().subscribe(
-      (kontakti) => {
-        this.isLoading = false;
-        this.loadedContacts = kontakti;
-        this.dataSource.data = this.loadedContacts;
+  async dohvatiKontakte() {
+    try {
+      const kontakti = await this.kontaktiService.dohvatiKorisnike();
 
-        this.dataSource.sort = this.sort; // Postavljanje sortiranja
-        this.dataSource.paginator = this.paginator; // Postavljanje paginacije
-      },
-      (error) => {
-        this.isLoading = false;
-        this.error = error.message;
-      }
-    );
+      this.isLoading = false;
+      this.loadedContacts = kontakti;
+      this.dataSource.data = this.loadedContacts;
+
+      this.dataSource.sort = this.sort; // Postavljanje sortiranja
+      this.dataSource.paginator = this.paginator; // Postavljanje paginacije
+    } catch (error) {
+      this.isLoading = false;
+      this.error = error.message;
+    }
   }
 
- 
+  // dohvatiKontakte() {
+  //   this.kontaktiService.dohvatiKorisnike().subscribe(
+  //     (kontakti) => {
+  //       this.isLoading = false;
+  //       this.loadedContacts = kontakti;
+  //       this.dataSource.data = this.loadedContacts;
+
+  //       this.dataSource.sort = this.sort; // Postavljanje sortiranja
+  //       this.dataSource.paginator = this.paginator; // Postavljanje paginacije
+  //     },
+  //     (error) => {
+  //       this.isLoading = false;
+  //       this.error = error.message;
+  //     }
+  //   );
+  // }
 
   deleteContact(contactId: string) {
     this.kontaktiService.izbrisiKorisnika(contactId).subscribe(() => {

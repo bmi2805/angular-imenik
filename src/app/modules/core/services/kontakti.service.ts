@@ -48,8 +48,38 @@ export class KontaktiService {
     });
   }
 
-  dohvatiKorisnike(): Observable<IKorisnik[]> {
-    return this.http
+  // dohvatiKorisnike(): Observable<IKorisnik[]> {
+  //   return this.http
+  //     .get<{ [key: string]: IKorisnik }>(
+  //       `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`
+  //     )
+  //     .pipe(
+  //       map((responseData) => {
+  //         const contactArray: IKorisnik[] = [];
+  //         for (const key in responseData) {
+  //           if (responseData.hasOwnProperty(key)) {
+  //             contactArray.push({ ...responseData[key], id: key });
+  //           }
+  //         }
+  //         return contactArray;
+  //       }),
+
+  //       catchError((errorRes) => {
+  //         this.snackbar_notify.notify(
+  //           'Greška',
+  //           'Dogodila se neočekivana greška',
+  //           10000,
+  //           'error'
+  //         );
+
+  //         return throwError(errorRes);
+  //       })
+  //     );
+  // }
+
+  async dohvatiKorisnike(): Promise<IKorisnik[]> {
+  try {
+    const responseData = await this.http
       .get<{ [key: string]: IKorisnik }>(
         `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`
       )
@@ -63,7 +93,6 @@ export class KontaktiService {
           }
           return contactArray;
         }),
-
         catchError((errorRes) => {
           this.snackbar_notify.notify(
             'Greška',
@@ -71,11 +100,17 @@ export class KontaktiService {
             10000,
             'error'
           );
-
           return throwError(errorRes);
         })
-      );
+      )
+      .toPromise();
+
+    return responseData;
+  } catch (errorRes) {
+    // Obrada greške
+    throw errorRes;
   }
+}
 
   izbrisiKorisnika(id: string) {
     const deleteUrl = `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik/${id}.json`;
