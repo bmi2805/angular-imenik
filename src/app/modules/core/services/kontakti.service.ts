@@ -3,9 +3,9 @@ import { IKorisnik } from '../models/post.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, catchError, map, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { AuthService } from './auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SnackbarNotifyService } from '../components/snackbar-notify/snackbar-notify.service';
+import { SnackbarNotifyService } from '../../../services/snackbar-notify.service';
 
 @Injectable({ providedIn: 'root' })
 export class KontaktiService {

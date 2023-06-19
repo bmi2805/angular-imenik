@@ -11,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { IAuthResponseData } from 'src/app/models/auth.model';
+import { IAuthResponseData } from 'src/app/modules/core/models/auth.model';
 
 @Component({
   selector: 'app-auth',

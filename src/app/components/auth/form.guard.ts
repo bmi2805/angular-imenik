@@ -8,7 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { NotifyDialogComponent } from '../notify-dialog/notify-dialog.component';
-import { SafeData } from '../../models/save-data.interface';
+import { SafeData } from '../../modules/core/models/save-data.interface';
 
 @Injectable({
   providedIn: 'root', 

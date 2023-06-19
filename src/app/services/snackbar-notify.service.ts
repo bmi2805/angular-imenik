@@ -1,4 +1,4 @@
-import { SnackbarNotifyComponent } from './snackbar-notify.component';
+import { SnackbarNotifyComponent } from '../components/snackbar-notify/snackbar-notify.component';
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 

@@ -1,11 +1,11 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
-import { User } from '../models/user.model';
+import { User } from '../modules/core/models/user.model';
 import { Router } from '@angular/router';
-import { SnackbarNotifyService } from '../components/snackbar-notify/snackbar-notify.service';
+import { SnackbarNotifyService } from './snackbar-notify.service';
 import { map } from 'rxjs/operators';
-import { IAuthResponseData, IChangeResponseData } from '../models/auth.model';
+import { IAuthResponseData, IChangeResponseData } from '../modules/core/models/auth.model';
 
 
 

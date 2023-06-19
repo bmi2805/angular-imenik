@@ -9,10 +9,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute,  Router } from '@angular/router';
-import { KontaktiService } from 'src/app/services/kontakti.service';
-import { IKorisnik } from 'src/app/models/post.model';
-import { SnackbarNotifyService } from 'src/app/components/snackbar-notify/snackbar-notify.service';
-import { SafeData } from 'src/app/models/save-data.interface';
+import { KontaktiService } from 'src/app/modules/core/services/kontakti.service';
+import { IKorisnik } from 'src/app/modules/core/models/post.model';
+import { SnackbarNotifyService } from 'src/app/services/snackbar-notify.service';
+import { SafeData } from 'src/app/modules/core/models/save-data.interface';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
