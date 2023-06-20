@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../../models/user.model';
 import { AuthService } from '../../../../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { async, lastValueFrom } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { IChangeResponseData } from '../../../models/auth.model';
+import { SnackbarNotifyService } from 'src/app/services/snackbar-notify.service';
 
 @Component({
   selector: 'app-profil-korisnika',
@@ -14,7 +16,8 @@ export class ProfilKorisnikaComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private snackBar: MatSnackBar,
-    private http: HttpClient
+    private http: HttpClient,
+    private snackbar_notify: SnackbarNotifyService
   ) {}
 
   token = JSON.parse(localStorage.getItem('userData'))._token;
@@ -68,20 +71,48 @@ export class ProfilKorisnikaComponent implements OnInit {
     this.isEditMode = false;
   }
 
-  changePassword() {
+  async changePassword() {
     const data = { idToken: this.auth.user.token };
-    this.auth.changePassword(data).subscribe(
-      (res) => {},
-      (error) => {
-        console.log(error);
+
+    try {
+      // await znaci cekaj da se ovaj request izvrsi, i onda tek se izvrsava ono ispod
+      const rezultatRequesta = await lastValueFrom(
+        this.http.post<IChangeResponseData>(
+          'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
+          {
+            idToken: data.idToken,
+            // password: data.password,
+            returnSecureToken: true,
+          }
+        )
+      ); // ovdje ces u rezultat requesta dobiti gotov respon
+
+      if (rezultatRequesta != null) {
       }
-    );
+    } catch (error) {
+      console.log(error);
+      this.snackbar_notify.notify(
+        'Greška',
+        'Došlo je do neočekivane greške',
+        5000,
+        'error'
+      );
+    }
   }
 
-  generateResetPasswordToken() {
+  async generateResetPasswordToken() {
     const email = this.auth.user.email;
-    this.auth.generatePasswordResetToken(email).subscribe(
-      (email) => {
+
+    try {
+      // await znaci cekaj da se ovaj request izvrsi, i onda tek se izvrsava ono ispod
+      const rezultatRequesta = await lastValueFrom(
+        this.http.post<any>(
+          'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
+          { requestType: 'PASSWORD_RESET', email }
+        )
+      );
+
+      if (rezultatRequesta != null) {
         this.snackBar.open(
           `Poslali smo upute za resetiranje lozinke na ${email}.`,
           'Zatvori',
@@ -90,17 +121,14 @@ export class ProfilKorisnikaComponent implements OnInit {
             panelClass: 'success-snackbar',
           }
         );
-      },
-      (error) => {
-        this.snackBar.open(
-          'Došlo je do pogreške prilikom generiranja tokena za resetiranje lozinke.',
-          'Zatvori',
-          {
-            duration: 5000,
-            panelClass: 'error-snackbar',
-          }
-        );
       }
-    );
+    } catch (error) {
+      this.snackbar_notify.notify(
+        'Greška',
+        'Došlo je do pogreške prilikom generiranja tokena za resetiranje lozinke.',
+        5000,
+        'error'
+      );
+    }
   }
 }

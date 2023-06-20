@@ -90,7 +90,6 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    
     this.dataSource.sort = this.sort; // Postavljanje sortiranja
     this.dataSource.paginator = this.paginator; // Postavljanje paginacije
   }
@@ -123,7 +122,6 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
       this.isLoading = false;
       this.loadedContacts = kontakti;
       this.dataSource.data = this.loadedContacts;
-
     } catch (error) {
       this.isLoading = false;
       this.error = error.message;
