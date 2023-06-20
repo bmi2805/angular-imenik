@@ -83,51 +83,26 @@ export class KontaktiService {
   //     );
   // }
 
-  async dohvatiKorisnike(): Promise<IGETKorisnik[]> {
-    try {
-      const responseData = await lastValueFrom(
-        this.http
-          .get<{ [key: string]: IGETKorisnik }>(
-            `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`
-          )
-          .pipe(
-            map((responseData) => {
-              const contactArray: IGETKorisnik[] = [];
-              for (const key in responseData) {
-                if (responseData.hasOwnProperty(key)) {
-                  contactArray.push({ ...responseData[key], id: key });
-                }
-              }
-              return contactArray;
-            }),
-            catchError((errorRes) => {
-              this.snackbar_notify.notify(
-                'Greška',
-                'Dogodila se neočekivana greška',
-                10000,
-                'error'
-              );
-              return throwError(() => errorRes);
-            })
-          )
+  dohvatiKorisnike(): Observable<IGETKorisnik[]> {
+    return this.http
+      .get<{ [key: string]: IGETKorisnik }>(
+        `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`
+      )
+      .pipe(
+        map((responseData) => {
+          const contactArray: IGETKorisnik[] = [];
+          for (const key in responseData) {
+            if (responseData.hasOwnProperty(key)) {
+              contactArray.push({ ...responseData[key], id: key });
+            }
+          }
+          return contactArray;
+        }),
+
+        catchError((errorRes) => {
+          return throwError(errorRes);
+        })
       );
-
-      return responseData;
-    } catch (errorRes) {
-      this.snackbar_notify.notify(
-        'Greška',
-        'Dogodila se neočekivana greška',
-        10000,
-        'error'
-      );
-      throw errorRes;
-    }
-  }
-
-  izbrisiKorisnika(id: string) {
-    const deleteUrl = `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik/${id}.json`;
-
-    return this.http.delete(deleteUrl);
   }
 
   getUserId(id: string): Observable<IGETKorisnik> {

@@ -8,7 +8,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { KontaktiService } from '../../../services/kontakti.service';
-import { Subscription } from 'rxjs';
+import { Subscription, lastValueFrom } from 'rxjs';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -24,6 +24,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { IGETKorisnik } from '../../../models/post.model';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-imenik',
@@ -75,7 +77,9 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     public dialog: MatDialog,
     private router: Router,
     private kontaktiService: KontaktiService,
-    private snackbar_notify: SnackbarNotifyService
+    private snackbar_notify: SnackbarNotifyService,
+    private http: HttpClient,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -98,63 +102,58 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     this.router.navigateByUrl('autentifikacija/unos');
   }
 
-  // onOsvjezi() {
-  //   this.kontaktiService.dohvatiKorisnike().subscribe((kontakti) => {
-  //     this.loadedContacts = kontakti;
-  //     this.dataSource.data = this.loadedContacts;
-  //   });
-  // }
-
-  async onOsvjezi() {
-    try {
-      const kontakti = await this.kontaktiService.dohvatiKorisnike();
+  onOsvjezi() {
+    this.kontaktiService.dohvatiKorisnike().subscribe((kontakti) => {
       this.loadedContacts = kontakti;
       this.dataSource.data = this.loadedContacts;
-    } catch (error) {
-      console.error(error);
-    }
+    });
   }
 
-  async dohvatiKontakte() {
+  dohvatiKontakte() {
+    this.kontaktiService.dohvatiKorisnike().subscribe(
+      (kontakti) => {
+        this.isLoading = false;
+        this.loadedContacts = kontakti;
+        this.dataSource.data = this.loadedContacts;
+
+        this.dataSource.sort = this.sort; // Postavljanje sortiranja
+        this.dataSource.paginator = this.paginator; // Postavljanje paginacije
+      },
+      (error) => {
+        this.isLoading = false;
+        this.error = error.message;
+      }
+    );
+  }
+
+  async deleteContact(contactId: string) {
     try {
-      const kontakti = await this.kontaktiService.dohvatiKorisnike();
-
-      this.isLoading = false;
-      this.loadedContacts = kontakti;
-      this.dataSource.data = this.loadedContacts;
+      // await znaci cekaj da se ovaj request izvrsi, i onda tek se izvrsava ono ispod
+      const rezultatRequesta = await lastValueFrom(
+        this.http.delete(
+          `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik/${contactId}.json`
+        )
+      );
+      if (
+        rezultatRequesta === null ||
+        Object.keys(rezultatRequesta).length === 0
+      ) {
+        this.onOsvjezi();
+        this.snackbar_notify.notify(
+          'Brisanje',
+          'Vaš kontakt je uspješno obrisan',
+          5000,
+          'success'
+        );
+      }
     } catch (error) {
-      this.isLoading = false;
-      this.error = error.message;
-    }
-  }
-
-  // dohvatiKontakte() {
-  //   this.kontaktiService.dohvatiKorisnike().subscribe(
-  //     (kontakti) => {
-  //       this.isLoading = false;
-  //       this.loadedContacts = kontakti;
-  //       this.dataSource.data = this.loadedContacts;
-
-  //       this.dataSource.sort = this.sort; // Postavljanje sortiranja
-  //       this.dataSource.paginator = this.paginator; // Postavljanje paginacije
-  //     },
-  //     (error) => {
-  //       this.isLoading = false;
-  //       this.error = error.message;
-  //     }
-  //   );
-  // }
-
-  deleteContact(contactId: string) {
-    this.kontaktiService.izbrisiKorisnika(contactId).subscribe(() => {
-      this.onOsvjezi();
       this.snackbar_notify.notify(
         'Brisanje',
-        'Vaš kontakt je uspješno obrisan',
+        'Vaš kontakt nije  obrisan',
         5000,
-        'success'
+        'error'
       );
-    });
+    }
   }
   ngOnDestroy(): void {
     this.errorSub.unsubscribe();
