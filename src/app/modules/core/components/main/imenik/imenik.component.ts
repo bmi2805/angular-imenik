@@ -128,7 +128,6 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
 
   async deleteContact(contactId: string) {
     try {
-      // await znaci cekaj da se ovaj request izvrsi, i onda tek se izvrsava ono ispod
       const rezultatRequesta = await lastValueFrom(
         this.http.delete(
           `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik/${contactId}.json`
