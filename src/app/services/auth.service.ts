@@ -172,37 +172,38 @@ export class AuthService {
     return throwError(() => errorMessage);
   }
 
-  changePassword(data) {
-    return this.http
-      .post<IChangeResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
-        {
-          idToken: data.idToken,
-          password: data.password,
-          returnSecureToken: true,
-        }
-      )
-      .pipe(
-        catchError((errorRes) => {
-          this.snackbar_notify.notify(
-            'Greška',
-            'Došlo je do neočekivane greške',
-            5000,
-            'error'
-          );
+  // changePassword(data) {
+  //   return this.http
+  //     .post<IChangeResponseData>(
+  //       'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
+  //       {
+  //         idToken: data.idToken,
+  //         password: data.password,
+  //         returnSecureToken: true,
+  //       }
+  //     )
+  //     .pipe(
+  //       catchError((errorRes) => {
+  //         this.snackbar_notify.notify(
+  //           'Greška',
+  //           'Došlo je do neočekivane greške',
+  //           5000,
+  //           'error'
+  //         );
 
-          return throwError(() => errorRes);
-        })
-      );
-  }
-  generatePasswordResetToken(email: string) {
-    return this.http
-      .post<any>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
-        { requestType: 'PASSWORD_RESET', email }
-      )
-      .pipe(map((response) => response.email));
-  }
+  //         return throwError(() => errorRes);
+  //       })
+  //     );
+  // }
+
+  // generatePasswordResetToken(email: string) {
+  //   return this.http
+  //     .post<any>(
+  //       'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
+  //       { requestType: 'PASSWORD_RESET', email }
+  //     )
+  //     .pipe(map((response) => response.email));
+  // }
 
   zaboravljenaLozinka(data) {
     return this.http

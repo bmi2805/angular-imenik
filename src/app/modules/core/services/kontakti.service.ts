@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject, catchError, lastValueFrom, map, throwError } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  catchError,
+  lastValueFrom,
+  map,
+  throwError,
+} from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarNotifyService } from '../../../services/snackbar-notify.service';
@@ -29,7 +36,7 @@ export class KontaktiService {
       date: Korisnik.date,
       email: Korisnik.email,
     };
-  
+
     return new Promise((resolve, reject) => {
       this.http
         .post<{ name: string }>(
@@ -79,30 +86,32 @@ export class KontaktiService {
   async dohvatiKorisnike(): Promise<IGETKorisnik[]> {
     try {
       const responseData = await lastValueFrom(
-        this.http.get<{ [key: string]: IGETKorisnik }>(
-          `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`
-        ).pipe(
-          map((responseData) => {
-            const contactArray: IGETKorisnik[] = [];
-            for (const key in responseData) {
-              if (responseData.hasOwnProperty(key)) {
-                contactArray.push({ ...responseData[key], id: key });
+        this.http
+          .get<{ [key: string]: IGETKorisnik }>(
+            `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`
+          )
+          .pipe(
+            map((responseData) => {
+              const contactArray: IGETKorisnik[] = [];
+              for (const key in responseData) {
+                if (responseData.hasOwnProperty(key)) {
+                  contactArray.push({ ...responseData[key], id: key });
+                }
               }
-            }
-            return contactArray;
-          }),
-          catchError((errorRes) => {
-            this.snackbar_notify.notify(
-              'Greška',
-              'Dogodila se neočekivana greška',
-              10000,
-              'error'
-            );
-            return throwError(() => errorRes);
-          })
-        )
+              return contactArray;
+            }),
+            catchError((errorRes) => {
+              this.snackbar_notify.notify(
+                'Greška',
+                'Dogodila se neočekivana greška',
+                10000,
+                'error'
+              );
+              return throwError(() => errorRes);
+            })
+          )
       );
-  
+
       return responseData;
     } catch (errorRes) {
       this.snackbar_notify.notify(
@@ -114,8 +123,6 @@ export class KontaktiService {
       throw errorRes;
     }
   }
-  
-  
 
   izbrisiKorisnika(id: string) {
     const deleteUrl = `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik/${id}.json`;
@@ -154,8 +161,6 @@ export class KontaktiService {
 
     return this.http.put(updateUrl, korisnik);
   }
-
-  
 
   durationInSeconds = 5000;
 
