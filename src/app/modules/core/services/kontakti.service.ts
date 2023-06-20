@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { IKorisnik } from '../models/post.model';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject, catchError, map, throwError } from 'rxjs';
-import { Router } from '@angular/router';
+import { Observable, Subject, catchError, lastValueFrom, map, throwError } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarNotifyService } from '../../../services/snackbar-notify.service';
+import { IGETKorisnik } from '../models/post.model';
 
 @Injectable({ providedIn: 'root' })
 export class KontaktiService {
@@ -18,8 +17,8 @@ export class KontaktiService {
     private snackbar_notify: SnackbarNotifyService
   ) {}
 
-  createAndStoreContact(Korisnik: IKorisnik): Promise<void> {
-    const postData: IKorisnik = {
+  createAndStoreContact(Korisnik: IGETKorisnik): Promise<void> {
+    const postData: IGETKorisnik = {
       id: Korisnik.id,
       name: Korisnik.name,
       lastName: Korisnik.lastName,
@@ -77,40 +76,46 @@ export class KontaktiService {
   //     );
   // }
 
-  async dohvatiKorisnike(): Promise<IKorisnik[]> {
-  try {
-    const responseData = await this.http
-      .get<{ [key: string]: IKorisnik }>(
-        `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`
-      )
-      .pipe(
-        map((responseData) => {
-          const contactArray: IKorisnik[] = [];
-          for (const key in responseData) {
-            if (responseData.hasOwnProperty(key)) {
-              contactArray.push({ ...responseData[key], id: key });
+  async dohvatiKorisnike(): Promise<IGETKorisnik[]> {
+    try {
+      const responseData = await lastValueFrom(
+        this.http.get<{ [key: string]: IGETKorisnik }>(
+          `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`
+        ).pipe(
+          map((responseData) => {
+            const contactArray: IGETKorisnik[] = [];
+            for (const key in responseData) {
+              if (responseData.hasOwnProperty(key)) {
+                contactArray.push({ ...responseData[key], id: key });
+              }
             }
-          }
-          return contactArray;
-        }),
-        catchError((errorRes) => {
-          this.snackbar_notify.notify(
-            'Greška',
-            'Dogodila se neočekivana greška',
-            10000,
-            'error'
-          );
-          return throwError(errorRes);
-        })
-      )
-      .toPromise();
-
-    return responseData;
-  } catch (errorRes) {
-    // Obrada greške
-    throw errorRes;
+            return contactArray;
+          }),
+          catchError((errorRes) => {
+            this.snackbar_notify.notify(
+              'Greška',
+              'Dogodila se neočekivana greška',
+              10000,
+              'error'
+            );
+            return throwError(() => errorRes);
+          })
+        )
+      );
+  
+      return responseData;
+    } catch (errorRes) {
+      this.snackbar_notify.notify(
+        'Greška',
+        'Dogodila se neočekivana greška',
+        10000,
+        'error'
+      );
+      throw errorRes;
+    }
   }
-}
+  
+  
 
   izbrisiKorisnika(id: string) {
     const deleteUrl = `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik/${id}.json`;
@@ -118,15 +123,15 @@ export class KontaktiService {
     return this.http.delete(deleteUrl);
   }
 
-  getUserId(id: string): Observable<IKorisnik> {
-    return this.http.get<IKorisnik>(
+  getUserId(id: string): Observable<IGETKorisnik> {
+    return this.http.get<IGETKorisnik>(
       `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik/${id}.json`
     );
   }
 
-  dohvatiKorisnika(id: string): Observable<IKorisnik> {
+  dohvatiKorisnika(id: string): Observable<IGETKorisnik> {
     const url = `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik/${id}.json`;
-    return this.http.get<IKorisnik>(url).pipe(
+    return this.http.get<IGETKorisnik>(url).pipe(
       map((responseData) => {
         return { ...responseData, id };
       }),
@@ -139,12 +144,12 @@ export class KontaktiService {
           'error'
         );
 
-        return throwError(errorRes);
+        return throwError(() => errorRes);
       })
     );
   }
 
-  updateContact(id: string, korisnik: IKorisnik) {
+  updateContact(id: string, korisnik: IGETKorisnik) {
     const updateUrl = `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik/${id}.json`;
 
     return this.http.put(updateUrl, korisnik);
@@ -152,7 +157,7 @@ export class KontaktiService {
 
   
 
-  durationInSeconds = 10000;
+  durationInSeconds = 5000;
 
   openSnackBar(message: string, action: string, panelClass: string) {
     this._snackBar.open(message, action, {

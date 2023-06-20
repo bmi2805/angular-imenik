@@ -4,12 +4,12 @@
   </button>
 </div>
 <div>
-  <div class="container-form">
+  <div class="container-form" >
     <form class="example-form" style="display: flex; flex-direction: column;" [formGroup]="signupForm"
       (ngSubmit)="isEditMode ? onNoviKontakt() : onOsvjeziKontakt()">
       <table class="example-full-width" cellspacing="0">
         <tr style="display:flex; flex-wrap: wrap;">
-          <td><mat-form-field class="example-full-width">
+          <td><mat-form-field class="example-full-width" >
               <mat-label>Ime</mat-label>
               <input matInput formControlName="name" type="text">
               <mat-error 

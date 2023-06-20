@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, RouterModule, Routes } from '@angular/router';
-import { IKorisnik } from '../../../models/post.model';
 import { KontaktiService } from '../../../services/kontakti.service';
 import { Subscription } from 'rxjs';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -21,10 +20,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { CdkTableModule } from '@angular/cdk/table';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { IGETKorisnik } from '../../../models/post.model';
 
 @Component({
   selector: 'app-imenik',
@@ -48,7 +47,7 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
   // Spremanje korisnika u niz
-  loadedContacts: IKorisnik[] = [];
+  loadedContacts: IGETKorisnik[] = [];
 
   isLoading = false;
   error: string | null = null;
@@ -58,8 +57,8 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  dataSource: MatTableDataSource<IKorisnik> =
-    new MatTableDataSource<IKorisnik>();
+  dataSource: MatTableDataSource<IGETKorisnik> =
+    new MatTableDataSource<IGETKorisnik>();
   displayedColumns: string[] = [
     'name',
     'lastName',
@@ -76,7 +75,6 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     public dialog: MatDialog,
     private router: Router,
     private kontaktiService: KontaktiService,
-    private _snackBar: MatSnackBar,
     private snackbar_notify: SnackbarNotifyService
   ) {}
 
@@ -91,7 +89,11 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     this.onOsvjezi();
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    
+    this.dataSource.sort = this.sort; // Postavljanje sortiranja
+    this.dataSource.paginator = this.paginator; // Postavljanje paginacije
+  }
 
   unosKontakta() {
     this.router.navigateByUrl('autentifikacija/unos');
@@ -122,8 +124,6 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
       this.loadedContacts = kontakti;
       this.dataSource.data = this.loadedContacts;
 
-      this.dataSource.sort = this.sort; // Postavljanje sortiranja
-      this.dataSource.paginator = this.paginator; // Postavljanje paginacije
     } catch (error) {
       this.isLoading = false;
       this.error = error.message;

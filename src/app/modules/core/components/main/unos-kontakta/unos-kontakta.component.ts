@@ -8,9 +8,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute,  Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { KontaktiService } from 'src/app/modules/core/services/kontakti.service';
-import { IKorisnik } from 'src/app/modules/core/models/post.model';
 import { SnackbarNotifyService } from 'src/app/services/snackbar-notify.service';
 import { SafeData } from 'src/app/modules/core/models/save-data.interface';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,18 +19,27 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { IGETKorisnik } from '../../../models/post.model';
 
 @Component({
   selector: 'app-unos-kontakta',
- 
+
   templateUrl: './unos-kontakta.component.html',
   styleUrls: ['./unos-kontakta.component.scss'],
-  standalone:true,
-  imports: [MatIconModule,MatFormFieldModule,MatInputModule, MatDatepickerModule,MatNativeDateModule,ReactiveFormsModule,CommonModule,MatButtonModule
-  ]
+  standalone: true,
+  imports: [
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    CommonModule,
+    MatButtonModule,
+  ],
 })
 export class UnosKontaktaComponent implements OnInit, SafeData {
-  user: IKorisnik = {
+  user: IGETKorisnik = {
     id: null,
     name: null,
     lastName: null,
@@ -55,14 +63,14 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
     private router: Router,
     private kontaktiService: KontaktiService,
     private route: ActivatedRoute,
-    private snackbar_notify: SnackbarNotifyService,
+    private snackbar_notify: SnackbarNotifyService
   ) {
     this.signupForm = new FormControl();
   }
 
-
   isDataSaved(): boolean {
-return this.signupForm.dirty  }
+    return this.signupForm.dirty;
+  }
 
   ngOnInit(): void {
     this.signupForm = new FormGroup({
@@ -93,7 +101,6 @@ return this.signupForm.dirty  }
         } else {
           this.isEditMode = true;
         }
-
         if (korisnikId) {
           this.kontaktiService
             .dohvatiKorisnika(korisnikId)
@@ -105,49 +112,50 @@ return this.signupForm.dirty  }
               });
             });
         }
-        if (this.router.url.includes('pregled')) {
-          this.isViewMode = true;
-          this.signupForm.disable();
-        }
       }
     });
+    if (this.router.url.includes('pregled')) {
+      this.isViewMode = true;
+      this.signupForm.disable();
+    }
   }
 
-onNoviKontakt() {
-  const postData = {
-    name: this.signupForm.get('name').value,
-    lastName: this.signupForm.get('lastName').value,
-    address: this.signupForm.get('address').value,
-    city: this.signupForm.get('city').value,
-    postalCode: this.signupForm.get('postalCode').value,
-    phone: this.signupForm.get('phone').value,
-    date: this.signupForm.get('date').value,
-    email: this.signupForm.get('email').value,
-    id: this.user.id,
-  };
+  onNoviKontakt() {
+    const postData = {
+      name: this.signupForm.get('name').value,
+      lastName: this.signupForm.get('lastName').value,
+      address: this.signupForm.get('address').value,
+      city: this.signupForm.get('city').value,
+      postalCode: this.signupForm.get('postalCode').value,
+      phone: this.signupForm.get('phone').value,
+      date: this.signupForm.get('date').value,
+      email: this.signupForm.get('email').value,
+      id: this.user.id,
+    };
 
-  // this.signupForm.reset();
+    // this.signupForm.reset();
 
-  this.kontaktiService.createAndStoreContact(postData)
-    .then(() => {
-      this.snackbar_notify.notify(
-        'Spremi',
-        'Vaš kontakt je uspješno spremljen',
-        5000,
-        'success'
-      );
-      this.vratiNaImenik();
-      this.signupForm.reset()
-    })
-    .catch(() => {
-      this.snackbar_notify.notify(
-        'Greška',
-        'Došlo je do pogreške prilikom spremanja kontakta',
-        5000,
-        'error'
-      );
-    });
-}
+    this.kontaktiService
+      .createAndStoreContact(postData)
+      .then(() => {
+        this.snackbar_notify.notify(
+          'Spremi',
+          'Vaš kontakt je uspješno spremljen',
+          5000,
+          'success'
+        );
+        this.vratiNaImenik();
+        this.signupForm.reset();
+      })
+      .catch(() => {
+        this.snackbar_notify.notify(
+          'Greška',
+          'Došlo je do pogreške prilikom spremanja kontakta',
+          5000,
+          'error'
+        );
+      });
+  }
 
   onOsvjeziKontakt() {
     const postData = { ...this.signupForm.getRawValue(), id: this.user.id };
@@ -177,5 +185,4 @@ onNoviKontakt() {
   vratiNaImenik(): void {
     this.router.navigateByUrl('autentifikacija/imenik');
   }
-
 }

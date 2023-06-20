@@ -5,9 +5,10 @@ import { User } from '../modules/core/models/user.model';
 import { Router } from '@angular/router';
 import { SnackbarNotifyService } from './snackbar-notify.service';
 import { map } from 'rxjs/operators';
-import { IAuthResponseData, IChangeResponseData } from '../modules/core/models/auth.model';
-
-
+import {
+  IAuthResponseData,
+  IChangeResponseData,
+} from '../modules/core/models/auth.model';
 
 @Injectable({
   providedIn: 'root',
@@ -79,8 +80,7 @@ export class AuthService {
       );
   }
 
-  autoLogin():void {
-    console.log("AutoLogin")
+  autoLogin(): void {
     const userData: {
       email: string;
       userId: string;
@@ -91,13 +91,11 @@ export class AuthService {
       _tokenExpirationDate: string;
     } = JSON.parse(localStorage.getItem('userData'));
 
-    console.log('Ovo je userData: ' + userData);
-
     if (!userData) {
       console.log('Nemaa');
       // this.router.navigate(['/prijava']);
-      this.odjaviSe()
-      return ;
+      this.odjaviSe();
+      return;
     }
 
     console.log('ima');
@@ -158,7 +156,7 @@ export class AuthService {
   private handleError(errorRes: HttpErrorResponse) {
     let errorMessage = 'Dogodila se neočekivana greška';
     if (!errorRes.error || !errorRes.error.error) {
-      return throwError(errorMessage);
+      return throwError(() => errorMessage);
     }
     switch (errorRes.error.error.message) {
       case 'EMAIL_EXISTS':
@@ -171,7 +169,7 @@ export class AuthService {
         errorMessage = 'Vaša lozinka nije ispravna';
         break;
     }
-    return throwError(errorMessage);
+    return throwError(() => errorMessage);
   }
 
   changePassword(data) {
@@ -193,7 +191,7 @@ export class AuthService {
             'error'
           );
 
-          return throwError(errorRes);
+          return throwError(() => errorRes);
         })
       );
   }
@@ -218,30 +216,52 @@ export class AuthService {
       .pipe(
         map((response) => response.email),
         catchError((error) => {
-          console.log(error.error); // Log the error object for debugging
-          return throwError(error); // Rethrow the error
+          console.log(error.error);
+          return throwError(() => error);
         })
       );
   }
 
-  updateProfile(data) {
-    return this.http
-      .post<any>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
-        {
-          idToken: data.token,
-          displayName: data.name,
-          photoUrl: data.url,
-          returnSecureToken: true,
-        }
-      )
-      .pipe(
-        catchError((error) => {
-          console.log(error.error); // Log the error object for debugging
-          return throwError(error); // Rethrow the error
-        })
-      );
-  }
+  // updateProfile(data) {
+  //   return this.http
+  //     .post<any>(
+  //       'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
+  //       {
+  //         idToken: data.token,
+  //         displayName: data.name,
+  //         photoUrl: data.url,
+  //         returnSecureToken: true,
+  //       }
+  //     )
+  //     .pipe(
+  //       catchError((error) => {
+  //         console.log(error.error);
+  //         return throwError(error);
+  //       })
+  //     );
+  // }
+
+  // async updateProfile(data) {
+  // try {
+  //   // await znaci cekaj da se ovaj request izvrsi, i onda tek se izvrsava ono ispod
+  //   const rezultatRequesta = await lastValueFrom(this.http
+  //         .post<any>(
+  //           'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
+  //           {
+  //             idToken: data.token,
+  //             displayName: data.name,
+  //             photoUrl: data.url,
+  //             returnSecureToken: true,
+  //           }
+  //         )); // ovdje ces u rezultat requesta dobiti gotov respon     od backenda
+
+  //   if (rezultatRequesta != null) {
+  //   //ako dobijes request napravi nesto s njim
+  //   }
+  //   } catch(error) {
+  //   // ovdje ces dobiti error pa hendlas
+  //   }
+  //   }
 
   getUserData(idToken: string) {
     return this.http

@@ -36,6 +36,7 @@ export const appRoutes: Routes = [
       {
         path: 'unos',
         canDeactivate: [FormGuard],
+
         component: UnosKontaktaComponent,
       },
       {
@@ -56,7 +57,7 @@ export const appRoutes: Routes = [
     ],
 
   },
-  {path:'**', redirectTo: "autentifikacija/"},
+  { path: '**', redirectTo: 'autentifikacija/imenik' },
 
 ];
 

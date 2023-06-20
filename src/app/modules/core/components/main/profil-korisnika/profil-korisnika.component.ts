@@ -2,24 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../../models/user.model';
 import { AuthService } from '../../../../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
+import { async, lastValueFrom } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-profil-korisnika',
   templateUrl: './profil-korisnika.component.html',
   styleUrls: ['./profil-korisnika.component.scss'],
-  // standalone:true,
-  // imports: [MatIconModule,MatInputModule,MatFormFieldModule,CommonModule,MatInputModule,FormsModule, MatButtonModule]
 })
 export class ProfilKorisnikaComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private snackBar: MatSnackBar,
+    private http: HttpClient
   ) {}
 
   token = JSON.parse(localStorage.getItem('userData'))._token;
@@ -32,10 +27,7 @@ export class ProfilKorisnikaComponent implements OnInit {
     lastName: '',
     email: `${this.auth.user.email}`,
   };
-  passwords = {
-    oldPassword: '',
-    newPassword: '',
-  };
+
   isEditMode = false;
 
   toggleEditMode() {
@@ -46,27 +38,38 @@ export class ProfilKorisnikaComponent implements OnInit {
     }
   }
 
-  spremi() {
+  async spremi() {
     const uData = {
       token: this.token,
       name: `${this.user.firstName} ${this.user.lastName}`, // Include the name property
       ...this.user,
     };
 
-    this.auth.updateProfile(uData).subscribe(
-      (res) => {
+    try {
+      // await znaci cekaj da se ovaj request izvrsi, i onda tek se izvrsava ono ispod
+      const rezultatRequesta = await lastValueFrom(
+        this.http.post<any>(
+          'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
+          {
+            idToken: uData.token,
+            displayName: uData.name,
+            // photoUrl: uData.url,
+            returnSecureToken: true,
+          }
+        )
+      );
+      if (rezultatRequesta != null) {
         this.auth.getUserData(uData.token);
-      },
-      (err) => {
-        console.log(err);
       }
-    );
+    } catch (error) {
+      console.log(error);
+    }
 
     this.isEditMode = false;
   }
 
   changePassword() {
-    const data = { idToken: this.auth.user.token, ...this.passwords };
+    const data = { idToken: this.auth.user.token };
     this.auth.changePassword(data).subscribe(
       (res) => {},
       (error) => {

@@ -1,4 +1,4 @@
-export interface IKorisnik {
+export interface IGETKorisnik {
   id: string;
   name: string;
   lastName: string;

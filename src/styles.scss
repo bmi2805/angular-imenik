@@ -12,8 +12,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;  }
 ::after,
 ::before {
   box-sizing: border-box;
+  font-size: 12pt;
 
 }
+
 
 
 $primary: map-get($my-theme, $my-primary);
@@ -26,12 +28,11 @@ $primary: map-get($my-theme, $my-primary);
 
 
 
-* {
-  font-size: 12pt;
+
+  .snackbar-error {
+    background-color: red;
+    color: white;
   }
-
-
-
 
 // $accent: map-get($my-theme, my-primary);
 

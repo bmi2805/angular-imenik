@@ -1,16 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
+import {  NgForm } from '@angular/forms';
 import {  AuthService } from '../../services/auth.service';
-import { Observable } from 'rxjs';
-import { Router, RouterModule } from '@angular/router';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Observable, catchError, tap } from 'rxjs';
+import { Router } from '@angular/router';
+
 import { IAuthResponseData } from 'src/app/modules/core/models/auth.model';
 
 @Component({
@@ -24,7 +17,6 @@ export class AuthComponent implements OnInit {
   isLoginMode = true;
   isLoading = false; 
   error: string = null;
-  form;
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
@@ -49,16 +41,17 @@ export class AuthComponent implements OnInit {
       this.authObs = this.authService.registrirajSe(email, password);
     }
 
-    this.authObs.subscribe(
-      (resData) => {
+    this.authObs.pipe(
+      tap((resData) => {
         this.isLoading = false;
         this.router.navigate(['autentifikacija/imenik']);
-      },
-      (errorMessage) => {
+      }),
+      catchError((errorMessage) => {
         this.error = errorMessage;
         this.isLoading = false;
-      }
-    );
+        throw errorMessage; 
+      })
+    ).subscribe();
     form.resetForm(); // Dodano resetiranje forme    }
   }
 }

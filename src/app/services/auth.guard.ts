@@ -42,14 +42,14 @@ import { AuthService } from './auth.service';
 export class AuthGuard {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    console.log("CanActivate")
-    const isAuth = this.authService.user != null;
-    if (isAuth) {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    const path = state.url;
+
+    if (path.startsWith('/autentifikacija/unos')) {
+      this.router.navigateByUrl('/autentifikacija/unos');
+      return false;
+    }
+
     return true;
-    } else {
-    return this.router.createUrlTree( ["/prijava"])
-    } }}
+  }
+}
