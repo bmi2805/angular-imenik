@@ -20,6 +20,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { IGETKorisnik } from '../../../models/post.model';
+import { ViewEncapsulation } from '@angular/compiler';
 
 @Component({
   selector: 'app-unos-kontakta',
@@ -56,7 +57,7 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
   isEditMode: boolean = false;
   isViewMode: boolean = false;
 
-  signupForm: any;
+  unosForma: any;
   maxDate = new Date();
 
   constructor(
@@ -65,15 +66,15 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
     private route: ActivatedRoute,
     private snackbar_notify: SnackbarNotifyService
   ) {
-    this.signupForm = new FormControl();
+    this.unosForma = new FormControl();
   }
 
   isDataSaved(): boolean {
-    return this.signupForm.dirty;
+    return this.unosForma.dirty;
   }
 
   ngOnInit(): void {
-    this.signupForm = new FormGroup({
+    this.unosForma = new FormGroup({
       name: new FormControl(this.user.name, Validators.required),
       lastName: new FormControl(this.user.lastName, Validators.required),
       address: new FormControl(this.user.address, Validators.required),
@@ -107,8 +108,8 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
             .subscribe((korisnik) => {
               this.user = korisnik;
 
-              Object.keys(this.signupForm.controls).forEach((key) => {
-                this.signupForm.get(key).setValue(this.user[key]);
+              Object.keys(this.unosForma.controls).forEach((key) => {
+                this.unosForma.get(key).setValue(this.user[key]);
               });
             });
         }
@@ -116,24 +117,24 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
     });
     if (this.router.url.includes('pregled')) {
       this.isViewMode = true;
-      this.signupForm.disable();
+      this.unosForma.disable();
     }
   }
 
   onNoviKontakt() {
     const postData = {
-      name: this.signupForm.get('name').value,
-      lastName: this.signupForm.get('lastName').value,
-      address: this.signupForm.get('address').value,
-      city: this.signupForm.get('city').value,
-      postalCode: this.signupForm.get('postalCode').value,
-      phone: this.signupForm.get('phone').value,
-      date: this.signupForm.get('date').value,
-      email: this.signupForm.get('email').value,
+      name: this.unosForma.get('name').value,
+      lastName: this.unosForma.get('lastName').value,
+      address: this.unosForma.get('address').value,
+      city: this.unosForma.get('city').value,
+      postalCode: this.unosForma.get('postalCode').value,
+      phone: this.unosForma.get('phone').value,
+      date: this.unosForma.get('date').value,
+      email: this.unosForma.get('email').value,
       id: this.user.id,
     };
 
-    // this.signupForm.reset();
+    // this.unosForma.reset();
 
     this.kontaktiService
       .createAndStoreContact(postData)
@@ -145,7 +146,7 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
           'success'
         );
         this.vratiNaImenik();
-        this.signupForm.reset();
+        this.unosForma.reset();
       })
       .catch(() => {
         this.snackbar_notify.notify(
@@ -158,7 +159,7 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
   }
 
   onOsvjeziKontakt() {
-    const postData = { ...this.signupForm.getRawValue(), id: this.user.id };
+    const postData = { ...this.unosForma.getRawValue(), id: this.user.id };
 
     if (this.userIdToUpdate) {
       this.kontaktiService

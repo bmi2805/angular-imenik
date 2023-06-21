@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
-import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +7,11 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrls: ['./app.component.scss'],
   // standalone: true,
   //  imports:[RouterModule ,HttpClientModule],
-   
 })
 export class AppComponent implements OnInit {
   title = 'Imenik';
-constructor	(private authService:AuthService)
-{}
+  constructor(private authService: AuthService) {}
   ngOnInit(): void {
-      this.authService.autoLogin()
+    this.authService.autoLogin();
   }
 }
