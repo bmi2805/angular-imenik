@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../../models/user.model';
 import { AuthService } from '../../../../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { lastValueFrom } from 'rxjs';
+import { Subscription, lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { IChangeResponseData } from '../../../models/auth.model';
 import { SnackbarNotifyService } from 'src/app/services/snackbar-notify.service';
@@ -13,6 +13,9 @@ import { SnackbarNotifyService } from 'src/app/services/snackbar-notify.service'
   styleUrls: ['./profil-korisnika.component.scss'],
 })
 export class ProfilKorisnikaComponent implements OnInit {
+  private userSub: Subscription;
+  isAuthenticated = false;
+
   constructor(
     private auth: AuthService,
     private snackBar: MatSnackBar,
@@ -22,7 +25,12 @@ export class ProfilKorisnikaComponent implements OnInit {
 
   token = JSON.parse(localStorage.getItem('userData'))._token;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userSub = this.auth.user$.subscribe((user) => {
+      this.isAuthenticated = !!user;
+      this.user.firstName = user.displayName;
+    });
+  }
   loadedUser: User;
 
   user = {

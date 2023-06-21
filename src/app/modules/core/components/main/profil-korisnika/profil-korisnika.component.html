@@ -2,15 +2,15 @@
   <h1 style="font-size: 18pt; text-align: center;
     padding-top: 4%; color: black;">Profil korisnika</h1>
   <div class="user-info">
-    <mat-form-field>
-      <mat-label>Ime:</mat-label>
+    <mat-form-field style="width: 100%;">
+      <mat-label >Ime i prezime:</mat-label>
       <input matInput [(ngModel)]="user.firstName" [disabled]="!isEditMode" placeholder="Vaše ime">
     </mat-form-field>
 
-    <mat-form-field>
+    <!-- <mat-form-field>
       <mat-label>Prezime:</mat-label>
       <input matInput [(ngModel)]="user.lastName" [disabled]="!isEditMode" placeholder="Vaše prezime">
-    </mat-form-field>
+    </mat-form-field> -->
     
     <mat-form-field *ngIf="isEditMode" class="email">
       <mat-label>Email:</mat-label>

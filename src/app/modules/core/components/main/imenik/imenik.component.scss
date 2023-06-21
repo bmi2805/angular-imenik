@@ -32,12 +32,14 @@ border: 1px solid;
     width: 180px;
 }
 
-.mat-column-email {
-    width: 170px;
-}
+// .mat-column-email {
+//     width: 170px;
+// }
 
 .mat-column-date {
-    width: 120px;
+    width: 150px;
+    text-align: center;
+
 }
 
 .mat-column-phone {
@@ -45,7 +47,9 @@ border: 1px solid;
 }
 
 .mat-column-postalCode {
-    width: 150px;
+    width: 160px;
+    text-align: center;
+    margin-left: 10px;
 }
 
 .mat-column-city {
@@ -62,4 +66,8 @@ border: 1px solid;
 
 .mat-column-name {
     width: 100px;
+}
+.mat-column-phone {
+    width: 180px;
+    text-align: center;
 }

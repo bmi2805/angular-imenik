@@ -3,9 +3,9 @@
     <mat-icon>arrow_back</mat-icon>  Natrag
   </button>
 </div>
-<div>
+<div class="bbbb">
   <div class="container-form" >
-    <form class="example-form" style="display: flex; flex-direction: column;" [formGroup]="signupForm"
+    <form class="example-form" style="display: flex; flex-direction: column;" [formGroup]="unosForma"
       (ngSubmit)="isEditMode ? onNoviKontakt() : onOsvjeziKontakt()">
       <table class="example-full-width" cellspacing="0">
         <tr style="display:flex; flex-wrap: wrap;">
@@ -13,13 +13,13 @@
               <mat-label>Ime</mat-label>
               <input matInput formControlName="name" type="text">
               <mat-error 
-                *ngIf="!signupForm.get('name').valid && signupForm.get('name').touched">Polje je obavezno!</mat-error>
+                *ngIf="!unosForma.get('name').valid && unosForma.get('name').touched">Polje je obavezno!</mat-error>
             </mat-form-field></td>
           <td><mat-form-field class="example-full-width">
               <mat-label>Prezime</mat-label>
               <input matInput formControlName="lastName" type="text">
               <mat-error 
-                *ngIf="!signupForm.get('lastName').valid && signupForm.get('lastName').touched">Polje je obavezno!</mat-error>
+                *ngIf="!unosForma.get('lastName').valid && unosForma.get('lastName').touched">Polje je obavezno!</mat-error>
                 <!-- <mat-error></mat-error> -->
             </mat-form-field></td>
         </tr>
@@ -31,7 +31,7 @@
               <mat-label>Adresa</mat-label>
               <textarea matInput placeholder="Jarunska 14" formControlName="address"></textarea>
               <mat-error 
-                *ngIf="!signupForm.get('address').valid && signupForm.get('address').touched">Polje je obavezno!</mat-error>
+                *ngIf="!unosForma.get('address').valid && unosForma.get('address').touched">Polje je obavezno!</mat-error>
             </mat-form-field>
           </td>
         </tr>
@@ -42,17 +42,17 @@
               <mat-label>Grad</mat-label>
               <input matInput placeholder="Zagreb" formControlName="city" type="text">
               <mat-error 
-                *ngIf="!signupForm.get('city').valid && signupForm.get('city').touched">Polje je obavezno!</mat-error>
+                *ngIf="!unosForma.get('city').valid && unosForma.get('city').touched">Polje je obavezno!</mat-error>
             </mat-form-field></td>
           <td class="">
             <mat-form-field class="example-full-width">
-              <mat-label>Poštanski broj</mat-label>
+              <mat-label >Poštanski broj</mat-label>
               <!--\d predstavlja bilo koji numerički znak, a {5} znači da se taj znak mora ponoviti točno 5 puta.
               this.value.replace(/[^0-9]/g, '' -> zamjenjuje sve znakove koji nisu brojevi s praznim stringom..
               -->
               <input matInput maxlength="5" pattern="\d{5}" placeholder="10000" value="" formControlName="postalCode"
                 type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-              <mat-error *ngIf="!signupForm.get('postalCode').valid && signupForm.get('postalCode').touched">Polje je obavezno!</mat-error>
+              <mat-error *ngIf="!unosForma.get('postalCode').valid && unosForma.get('postalCode').touched">Polje je obavezno!</mat-error>
             </mat-form-field>
           </td>
         </tr>
@@ -63,7 +63,7 @@
               <mat-label>Telephone</mat-label>
               <input type="telephone" matInput placeholder="+385 916224421" formControlName="phone">
               <mat-error style="color: rgb(248, 49, 49);"
-                *ngIf="!signupForm.get('phone').valid && signupForm.get('phone').touched">Polje je obavezno!</mat-error>
+                *ngIf="!unosForma.get('phone').valid && unosForma.get('phone').touched">Polje je obavezno!</mat-error>
             </mat-form-field></td>
           <td>
             <div class="date-picker-wrapper">
@@ -71,7 +71,7 @@
                 <mat-label>Izaberite datum rođenja</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="date" [max]="maxDate">
                 <mat-error 
-                  *ngIf="!signupForm.get('date').valid && signupForm.get('date').touched">Polje je obavezno!</mat-error>
+                  *ngIf="!unosForma.get('date').valid && unosForma.get('date').touched">Polje je obavezno!</mat-error>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
@@ -84,13 +84,13 @@
           <td><mat-form-field class="example-full-width">
               <mat-label>Email</mat-label>
               <input type="email" matInput placeholder="Ex. pat@example.com" formControlName="email" email>
-              <mat-error                 *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched">Polje je obavezno!</mat-error>
+              <mat-error                 *ngIf="!unosForma.get('email').valid && unosForma.get('email').touched">Polje je obavezno!</mat-error>
             </mat-form-field></td>
         </tr>
       </table>
       <section style="padding-left: 2%;">
         <div class="example-button-row">
-          <button mat-button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid" *ngIf="!isViewMode">
+          <button mat-button mat-raised-button color="primary" type="submit" [disabled]="!unosForma.valid" *ngIf="!isViewMode">
             {{isEditMode
             ? "Spremi" : "Spremi" }} <mat-icon>save</mat-icon></button>
         </div>

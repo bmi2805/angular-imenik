@@ -5,8 +5,17 @@
 
 @import './my-theme.scss';
 
-html, body { height: 100%; width: 100%; overflow-x: hidden;  }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;  }
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 *,
 ::after,
@@ -16,37 +25,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;  }
 
 }
 
-
-
 $primary: map-get($my-theme, $my-primary);
 
-
-
-.snackbar-notify{}
-
-
-
-
-
-
-  .snackbar-error {
-    background-color: red;
-    color: white;
-  }
-
-// $accent: map-get($my-theme, my-primary);
-
-
-
-// .snackbar-error {
-  
-// --mdc-snackbar-container-color: red;
-// --mat-mdc-snack-bar-button-color: rgba(255, 255, 255, 0.87);
-// }
-
-// .snackbar-success {
-  
-//   --mdc-snackbar-container-color: $primary;
-
-//   --mat-mdc-snack-bar-button-color: $primary;
-//   }
+.snackbar-error {
+  background-color: red;
+  color: white;
+}
