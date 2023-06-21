@@ -92,13 +92,13 @@ export class AuthService {
     } = JSON.parse(localStorage.getItem('userData'));
 
     if (!userData) {
-      console.log('Nemaa');
+      // console.log('Nemaa');
       // this.router.navigate(['/prijava']);
       this.odjaviSe();
       return;
     }
 
-    console.log('ima');
+    // console.log('ima');
 
     const loadedUser = new User(
       userData.email,
@@ -217,52 +217,16 @@ export class AuthService {
       .pipe(
         map((response) => response.email),
         catchError((error) => {
-          console.log(error.error);
+          this.snackbar_notify.notify(
+            'Greška',
+            'Došlo je do neočekivane greške',
+            5000,
+            'error'
+          );
           return throwError(() => error);
         })
       );
   }
-
-  // updateProfile(data) {
-  //   return this.http
-  //     .post<any>(
-  //       'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
-  //       {
-  //         idToken: data.token,
-  //         displayName: data.name,
-  //         photoUrl: data.url,
-  //         returnSecureToken: true,
-  //       }
-  //     )
-  //     .pipe(
-  //       catchError((error) => {
-  //         console.log(error.error);
-  //         return throwError(error);
-  //       })
-  //     );
-  // }
-
-  // async updateProfile(data) {
-  // try {
-  //   // await znaci cekaj da se ovaj request izvrsi, i onda tek se izvrsava ono ispod
-  //   const rezultatRequesta = await lastValueFrom(this.http
-  //         .post<any>(
-  //           'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
-  //           {
-  //             idToken: data.token,
-  //             displayName: data.name,
-  //             photoUrl: data.url,
-  //             returnSecureToken: true,
-  //           }
-  //         )); // ovdje ces u rezultat requesta dobiti gotov respon     od backenda
-
-  //   if (rezultatRequesta != null) {
-  //   //ako dobijes request napravi nesto s njim
-  //   }
-  //   } catch(error) {
-  //   // ovdje ces dobiti error pa hendlas
-  //   }
-  //   }
 
   getUserData(idToken: string) {
     return this.http

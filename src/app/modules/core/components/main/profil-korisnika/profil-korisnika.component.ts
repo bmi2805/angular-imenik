@@ -35,13 +35,19 @@ export class ProfilKorisnikaComponent implements OnInit {
 
   toggleEditMode() {
     if (this.isEditMode) {
-      this.spremi();
+      this.spremiAsync();
     } else {
       this.isEditMode = true;
     }
   }
 
-  async spremi() {
+  async spremiAsync(): Promise<any> {
+    console.log('PRIJE await spremi ');
+
+    await this.spremiAsync2();
+    console.log('POSLJE await spremi ');
+  }
+  async spremiAsync2(): Promise<any> {
     const uData = {
       token: this.token,
       name: `${this.user.firstName} ${this.user.lastName}`, // Include the name property
@@ -49,7 +55,8 @@ export class ProfilKorisnikaComponent implements OnInit {
     };
 
     try {
-      // await znaci cekaj da se ovaj request izvrsi, i onda tek se izvrsava ono ispod
+      console.log('PRIJE await HTTP');
+
       const rezultatRequesta = await lastValueFrom(
         this.http.post<any>(
           'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
@@ -61,11 +68,18 @@ export class ProfilKorisnikaComponent implements OnInit {
           }
         )
       );
+      console.log('POSLJE await HTTP');
+
       if (rezultatRequesta != null) {
         this.auth.getUserData(uData.token);
       }
     } catch (error) {
-      console.log(error);
+      this.snackbar_notify.notify(
+        'Greška',
+        'Došlo je do neočekivane greške',
+        5000,
+        'error'
+      );
     }
 
     this.isEditMode = false;
@@ -90,7 +104,6 @@ export class ProfilKorisnikaComponent implements OnInit {
       if (rezultatRequesta != null) {
       }
     } catch (error) {
-      console.log(error);
       this.snackbar_notify.notify(
         'Greška',
         'Došlo je do neočekivane greške',
