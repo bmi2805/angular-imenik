@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { SnackbarNotifyService } from './snackbar-notify.service';
 import { map } from 'rxjs/operators';
 import { IAuthResponseData } from '../modules/core/models/auth.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -205,7 +206,7 @@ export class AuthService {
   zaboravljenaLozinka(data) {
     return this.http
       .post<any>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
+        `${environment.rezUrl}/v1/accounts:sendOobCode?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E`,
         {
           requestType: 'PASSWORD_RESET',
           email: data.email,
@@ -228,7 +229,7 @@ export class AuthService {
   getUserData(idToken: string) {
     return this.http
       .post<any>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
+        `${environment.rezUrl}/v1/accounts:lookup?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E`,
         {
           idToken: idToken,
         }

@@ -26,6 +26,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { IGETKorisnik } from '../../../models/post.model';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-imenik',
@@ -130,7 +131,7 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     try {
       const rezultatRequesta = await lastValueFrom(
         this.http.delete(
-          `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik/${contactId}.json`
+          `${environment.appUrl}/users/${this.authService.user.userId}/imenik/${contactId}.json`
         )
       );
       if (
