@@ -12,7 +12,7 @@
 
 table {
     width: 100%;
-    table-layout: fixed;
+    // table-layout: fixed;
     border: 1px solid;
 }
 
@@ -27,47 +27,66 @@ table {
     margin-top: 24px;
 }
 
+@mixin tableSirina($sirina) {
+    width: $sirina;
+    min-width: $sirina;
+    max-width: $sirina;
+}
+
+
 .mat-column-actions {
-    width: 180px;
+    @include tableSirina(150px);
+
 }
 
 .mat-column-email {
-    width: 200px;
+    $sirina: 200px;
+    min-width: $sirina;
+    // max-width: $sirina;
 }
 
 .mat-column-date {
-    width: 150px;
+    @include tableSirina(150px);
     text-align: center;
+
 
 }
 
 .mat-column-phone {
-    width: 130px;
+    @include tableSirina(130px);
 }
 
 .mat-column-postalCode {
-    width: 160px;
     text-align: center;
     margin-left: 10px;
+
+    @include tableSirina(160px);
+
 }
 
 .mat-column-city {
-    width: 150px;
+    @include tableSirina(150px);
+
 }
 
 .mat-column-address {
-    width: 200px;
+    @include tableSirina(200px);
+
 }
 
 .mat-column-lastName {
-    width: 150px;
+    @include tableSirina(150px);
+
 }
 
 .mat-column-name {
-    width: 100px;
+    @include tableSirina(100px);
+
 }
 
 .mat-column-phone {
-    width: 180px;
     text-align: center;
+
+    @include tableSirina(180px);
+
 }
