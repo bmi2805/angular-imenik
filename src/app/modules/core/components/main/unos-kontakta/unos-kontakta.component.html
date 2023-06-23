@@ -52,7 +52,7 @@
               -->
               <input matInput maxlength="5" pattern="\d{5}" placeholder="10000" value="" formControlName="postalCode"
                 type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-              <mat-error *ngIf="!unosForma.get('postalCode').valid && unosForma.get('postalCode').touched">Polje je obavezno!</mat-error>
+              <mat-error *ngIf="!unosForma.get('postalCode').valid && unosForma.get('postalCode').touched">Polje mora sadržavati 5 brojeva!</mat-error>
             </mat-form-field>
           </td>
         </tr>

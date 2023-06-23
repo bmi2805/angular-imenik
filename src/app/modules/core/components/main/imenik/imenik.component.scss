@@ -13,7 +13,7 @@
 table {
     width: 100%;
     table-layout: fixed;
-border: 1px solid;
+    border: 1px solid;
 }
 
 .table-container {
@@ -21,7 +21,6 @@ border: 1px solid;
     //Scroll tablice
     overflow-x: auto;
     min-height: 297px
-
 }
 
 .mat-elevation-z8 {
@@ -32,9 +31,9 @@ border: 1px solid;
     width: 180px;
 }
 
-// .mat-column-email {
-//     width: 170px;
-// }
+.mat-column-email {
+    width: 200px;
+}
 
 .mat-column-date {
     width: 150px;
@@ -67,6 +66,7 @@ border: 1px solid;
 .mat-column-name {
     width: 100px;
 }
+
 .mat-column-phone {
     width: 180px;
     text-align: center;

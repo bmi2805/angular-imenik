@@ -12,6 +12,7 @@ import { AuthService } from '../../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarNotifyService } from '../../../services/snackbar-notify.service';
 import { IGETKorisnik } from '../models/post.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class KontaktiService {
@@ -107,12 +108,12 @@ export class KontaktiService {
 
   getUserId(id: string): Observable<IGETKorisnik> {
     return this.http.get<IGETKorisnik>(
-      `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik/${id}.json`
+      `${environment.appUrl}/users/${this.authService.user.userId}/imenik/${id}.json`
     );
   }
 
   dohvatiKorisnika(id: string): Observable<IGETKorisnik> {
-    const url = `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik/${id}.json`;
+    const url = `${environment.appUrl}/users/${this.authService.user.userId}/imenik/${id}.json`;
     return this.http.get<IGETKorisnik>(url).pipe(
       map((responseData) => {
         return { ...responseData, id };
@@ -132,7 +133,7 @@ export class KontaktiService {
   }
 
   updateContact(id: string, korisnik: IGETKorisnik) {
-    const updateUrl = `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik/${id}.json`;
+    const updateUrl = `${environment.appUrl}/users/${this.authService.user.userId}/imenik/${id}.json`;
 
     return this.http.put(updateUrl, korisnik);
   }

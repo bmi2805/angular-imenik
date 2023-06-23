@@ -6,6 +6,7 @@ import { Subscription, lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { IChangeResponseData } from '../../../models/auth.model';
 import { SnackbarNotifyService } from 'src/app/services/snackbar-notify.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profil-korisnika',
@@ -67,7 +68,7 @@ export class ProfilKorisnikaComponent implements OnInit {
 
       const rezultatRequesta = await lastValueFrom(
         this.http.post<any>(
-          'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
+          `${environment.rezUrl}/v1/accounts:update?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E`,
           {
             idToken: uData.token,
             displayName: uData.name,
@@ -100,7 +101,7 @@ export class ProfilKorisnikaComponent implements OnInit {
       // await znaci cekaj da se ovaj request izvrsi, i onda tek se izvrsava ono ispod
       const rezultatRequesta = await lastValueFrom(
         this.http.post<IChangeResponseData>(
-          'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
+          `${environment.rezUrl}/v1/accounts:update?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E`,
           {
             idToken: data.idToken,
             // password: data.password,
@@ -128,7 +129,7 @@ export class ProfilKorisnikaComponent implements OnInit {
       // await znaci cekaj da se ovaj request izvrsi, i onda tek se izvrsava ono ispod
       const rezultatRequesta = await lastValueFrom(
         this.http.post<any>(
-          'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
+          `${environment.rezUrl}/v1/accounts:sendOobCode?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E`,
           { requestType: 'PASSWORD_RESET', email }
         )
       );
