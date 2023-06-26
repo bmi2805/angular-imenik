@@ -46,7 +46,7 @@ export class KontaktiService {
           // }
 
           {
-            next: (data) => {
+            next: () => {
               resolve();
             },
             error: (err) => {
