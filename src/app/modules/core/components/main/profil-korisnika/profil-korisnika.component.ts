@@ -36,7 +36,6 @@ export class ProfilKorisnikaComponent implements OnInit {
 
   user = {
     firstName: ``,
-    lastName: '',
     email: `${this.auth.user.email}`,
   };
 
@@ -50,22 +49,18 @@ export class ProfilKorisnikaComponent implements OnInit {
     }
   }
 
-  async spremiAsync(): Promise<any> {
-    console.log('PRIJE await spremi ');
+  // async spremiAsync(): Promise<any> {
 
-    await this.spremiAsync2();
-    console.log('POSLJE await spremi ');
-  }
-  async spremiAsync2(): Promise<any> {
+  //   await this.spremiAsync2();
+  // }
+  async spremiAsync(): Promise<any> {
     const uData = {
       token: this.token,
-      name: `${this.user.firstName} ${this.user.lastName}`, // Include the name property
+      name: `${this.user.firstName}`, // Include the name property
       ...this.user,
     };
 
     try {
-      console.log('PRIJE await HTTP');
-
       const rezultatRequesta = await lastValueFrom(
         this.http.post<any>(
           `${environment.rezUrl}/v1/accounts:update?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E`,
@@ -77,7 +72,6 @@ export class ProfilKorisnikaComponent implements OnInit {
           }
         )
       );
-      console.log('POSLJE await HTTP');
 
       if (rezultatRequesta != null) {
         this.auth.getUserData(uData.token);
