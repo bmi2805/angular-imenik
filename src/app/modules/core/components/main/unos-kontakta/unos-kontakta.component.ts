@@ -132,8 +132,6 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
       id: this.user.id,
     };
 
-    // this.unosForma.reset();
-
     this.kontaktiService
       .createAndStoreContact(postData)
       .then(() => {
