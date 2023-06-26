@@ -38,11 +38,20 @@ export class KontaktiService {
           postData
         )
         .subscribe(
-          () => {
-            resolve();
-          },
-          (error) => {
-            reject(error);
+          // () => {
+          //   resolve();
+          // },
+          // (error) => {
+          //   reject(error);
+          // }
+
+          {
+            next: (data) => {
+              resolve();
+            },
+            error: (err) => {
+              reject(err);
+            },
           }
         );
     });
