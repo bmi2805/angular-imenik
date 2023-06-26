@@ -1,13 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {
-  Observable,
-  Subject,
-  catchError,
-  lastValueFrom,
-  map,
-  throwError,
-} from 'rxjs';
+import { Observable, Subject, catchError, map, throwError } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarNotifyService } from '../../../services/snackbar-notify.service';
@@ -46,10 +39,10 @@ export class KontaktiService {
         )
         .subscribe(
           () => {
-            resolve(); // Spremanje kontakta je uspješno
+            resolve();
           },
           (error) => {
-            reject(error); // Pogreška prilikom spremanja kontakta
+            reject(error);
           }
         );
     });
@@ -101,7 +94,7 @@ export class KontaktiService {
         }),
 
         catchError((errorRes) => {
-          return throwError(errorRes);
+          return throwError(() => errorRes);
         })
       );
   }
