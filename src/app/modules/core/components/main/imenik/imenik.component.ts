@@ -116,8 +116,8 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
         this.loadedContacts = kontakti;
         this.dataSource.data = this.loadedContacts;
 
-        this.dataSource.sort = this.sort; // Postavljanje sortiranja
-        this.dataSource.paginator = this.paginator; // Postavljanje paginacije
+        // this.dataSource.sort = this.sort; // Postavljanje sortiranja
+        // this.dataSource.paginator = this.paginator; // Postavljanje paginacije
       },
       (error) => {
         this.isLoading = false;
