@@ -16,7 +16,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { IGETKorisnik } from '../../../models/post.model';
+import { IKorisnik } from '../../../models/korisnik.model';
 import { ViewEncapsulation } from '@angular/compiler';
 import { Observable, catchError, lastValueFrom, map, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -40,7 +40,7 @@ import { AuthService } from 'src/app/services/auth.service';
   ],
 })
 export class UnosKontaktaComponent implements OnInit, SafeData {
-  user: IGETKorisnik = {
+  user: IKorisnik = {
     id: null,
     name: null,
     lastName: null,
@@ -187,7 +187,7 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
     try {
       const url = `${environment.appUrl}/users/${this.authService.user.userId}/imenik/${id}.json`;
       const rezultatRequesta = await lastValueFrom(
-        this.http.get<IGETKorisnik>(url)
+        this.http.get<IKorisnik>(url)
       );
       if (rezultatRequesta != null) {
         this.user = { ...rezultatRequesta, id: id };
@@ -204,7 +204,7 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
       // ovdje ces dobiti error pa hendlas
     }
 
-    // return this.http.get<IGETKorisnik>(url).pipe(
+    // return this.http.get<IKorisnik>(url).pipe(
     //   map((responseData) => {
     //     return { ...responseData, id };
     //   }),
@@ -222,14 +222,14 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
     // );
   }
 
-  updateContact(id: string, korisnik: IGETKorisnik) {
+  updateContact(id: string, korisnik: IKorisnik) {
     const updateUrl = `${environment.appUrl}/users/${this.authService.user.userId}/imenik/${id}.json`;
 
     return this.http.put(updateUrl, korisnik);
   }
 
-  createAndStoreContact(Korisnik: IGETKorisnik): Promise<void> {
-    const postData: IGETKorisnik = {
+  createAndStoreContact(Korisnik: IKorisnik): Promise<void> {
+    const postData: IKorisnik = {
       id: Korisnik.id,
       name: Korisnik.name,
       lastName: Korisnik.lastName,

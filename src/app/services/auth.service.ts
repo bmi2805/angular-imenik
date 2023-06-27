@@ -5,8 +5,8 @@ import { User } from '../modules/core/models/user.model';
 import { Router } from '@angular/router';
 import { SnackbarNotifyService } from './snackbar-notify.service';
 import { map } from 'rxjs/operators';
-import { IAuthResponseData } from '../models/auth.model';
 import { environment } from 'src/environments/environment';
+import { IAuthResponseData } from '../models/response.model';
 
 @Injectable({
   providedIn: 'root',

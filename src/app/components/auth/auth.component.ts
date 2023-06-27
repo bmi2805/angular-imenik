@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Observable, catchError, tap } from 'rxjs';
 import { Router } from '@angular/router';
-
-import { IAuthResponseData } from 'src/app/models/auth.model';
+import { IAuthResponseData } from 'src/app/models/response.model';
 
 @Component({
   selector: 'app-auth',
@@ -17,6 +16,8 @@ export class AuthComponent implements OnInit {
   isLoginMode = true;
   isLoading = false;
   error: string = null;
+  email: string;
+
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}

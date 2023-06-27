@@ -16,18 +16,21 @@
         <form class="my-form" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
             <mat-form-field class="full-width">
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="Email" name="email" ngModel  required email style="width: 100%;">
-                <mat-error *ngIf="authForm.controls['email'].invalid && authForm.controls['email'].touched">
-                    Polje je obavezno!
-                  </mat-error>
-
+                <input matInput placeholder="Email" name="email" [(ngModel)]="email" required email style="width: 100%;" type="email">
+                <mat-error *ngIf="authForm.controls['email']?.errors?.['required']">
+                    Email is obavezan.
+                </mat-error>
+            
+                <mat-error *ngIf="authForm.controls['email']?.errors?.['email']">
+                    Email nije ispravan.
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width">
                 <mat-label>Lozinka</mat-label>
                 <input matInput placeholder="Password" name="password" ngModel required  minlength="8"
                     type="password">
                     <mat-error *ngIf="authForm.controls['password'].invalid && authForm.controls['password'].touched">
-                        Polje je obavezno!
+                        Polje je obavezno! Lozinka mora imati najmanje 8 znakova.
                       </mat-error>
             </mat-form-field>
             <mat-card-actions>

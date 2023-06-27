@@ -29,10 +29,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { IGETKorisnik } from '../../../models/post.model';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
 import { environment } from 'src/environments/environment';
+import { IKorisnik } from '../../../models/korisnik.model';
 
 @Component({
   selector: 'app-imenik',
@@ -56,7 +56,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
   // Spremanje korisnika u niz
-  loadedContacts: IGETKorisnik[] = [];
+  loadedContacts: IKorisnik[] = [];
   error2 = new Subject<string>();
 
   isLoading = false;
@@ -67,8 +67,8 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  dataSource: MatTableDataSource<IGETKorisnik> =
-    new MatTableDataSource<IGETKorisnik>();
+  dataSource: MatTableDataSource<IKorisnik> =
+    new MatTableDataSource<IKorisnik>();
   displayedColumns: string[] = [
     'name',
     'lastName',
@@ -173,7 +173,7 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     try {
       // await znaci cekaj da se ovaj request izvrsi, i onda tek se izvrsava ono ispod
       const rezultatRequesta = await lastValueFrom(
-        this.http.get<{ [key: string]: IGETKorisnik }>(
+        this.http.get<{ [key: string]: IKorisnik }>(
           `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`
         )
       );
@@ -192,12 +192,12 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     // return this.http
-    //   .get<{ [key: string]: IGETKorisnik }>(
+    //   .get<{ [key: string]: IKorisnik }>(
     //     `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`
     //   )
     //   .pipe(
     //     map((responseData) => {
-    //       const contactArray: IGETKorisnik[] = [];
+    //       const contactArray: IKorisnik[] = [];
     //       for (const key in responseData) {
     //         if (responseData.hasOwnProperty(key)) {
     //           contactArray.push({ ...responseData[key], id: key });

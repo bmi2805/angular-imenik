@@ -1,4 +1,4 @@
-export interface IGETKorisnik {
+export interface IKorisnik {
   id: string;
   name: string;
   lastName: string;
@@ -8,6 +8,5 @@ export interface IGETKorisnik {
   phone: number;
   date: Date;
   email: string;
-  userId?:string;
+  userId?: string;
 }
-

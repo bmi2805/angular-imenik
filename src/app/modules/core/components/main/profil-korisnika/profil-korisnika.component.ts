@@ -4,9 +4,9 @@ import { AuthService } from '../../../../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription, lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { IChangeResponseData } from '../../../../../models/auth.model';
 import { SnackbarNotifyService } from 'src/app/services/snackbar-notify.service';
 import { environment } from 'src/environments/environment';
+import { IPOSTChangeData } from 'src/app/models/response.model';
 
 @Component({
   selector: 'app-profil-korisnika',
@@ -94,7 +94,7 @@ export class ProfilKorisnikaComponent implements OnInit {
     try {
       // await znaci cekaj da se ovaj request izvrsi, i onda tek se izvrsava ono ispod
       const rezultatRequesta = await lastValueFrom(
-        this.http.post<IChangeResponseData>(
+        this.http.post<IPOSTChangeData>(
           `${environment.rezUrl}/v1/accounts:update?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E`,
           {
             idToken: data.idToken,
