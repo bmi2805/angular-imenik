@@ -7,15 +7,7 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, RouterModule, Routes } from '@angular/router';
-import {
-  Observable,
-  Subject,
-  Subscription,
-  catchError,
-  lastValueFrom,
-  map,
-  throwError,
-} from 'rxjs';
+import { Subject, Subscription, lastValueFrom } from 'rxjs';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';

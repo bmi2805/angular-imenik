@@ -17,8 +17,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { IKorisnik } from '../../../models/korisnik.model';
-import { ViewEncapsulation } from '@angular/compiler';
-import { Observable, catchError, lastValueFrom, map, throwError } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/services/auth.service';
 

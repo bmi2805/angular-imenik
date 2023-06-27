@@ -1,6 +1,4 @@
-import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { MAT_SNACK_BAR_DATA, MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

@@ -3,7 +3,7 @@
     padding-top: 4%; color: black;">Profil korisnika</h1>
   <div class="user-info">
     <mat-form-field style="width: 100%;">
-      <mat-label >Ime i prezime:</mat-label>
+      <mat-label>Ime i prezime:</mat-label>
       <input matInput [(ngModel)]="user.firstName" [disabled]="!isEditMode" placeholder="Vaše ime">
     </mat-form-field>
 
@@ -11,14 +11,15 @@
       <mat-label>Prezime:</mat-label>
       <input matInput [(ngModel)]="user.lastName" [disabled]="!isEditMode" placeholder="Vaše prezime">
     </mat-form-field> -->
-    
+
     <mat-form-field *ngIf="isEditMode" class="email">
       <mat-label>Email:</mat-label>
       <input matInput [(ngModel)]="user.email" disabled>
     </mat-form-field>
   </div>
   <div class="actions">
-    <button mat-flat-button color="primary" (click)="toggleEditMode()">{{ isEditMode ? 'Spremi' : 'Uredi' }} <mat-icon>edit</mat-icon></button>
+    <button mat-flat-button color="primary" (click)="toggleEditMode()">{{ isEditMode ? 'Spremi' : 'Uredi' }}
+      <mat-icon>edit</mat-icon></button>
   </div>
   <div class="change-password" *ngIf="isEditMode" style="color: black;">
     <h3>Izmjena lozinke</h3>
