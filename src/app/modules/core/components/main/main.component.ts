@@ -18,12 +18,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 })
 export class NavigacijaComponent implements OnInit, OnDestroy {
   sidenav!: MatSidenav;
-  firstName = "";
+  firstName = '';
   isAuthenticated = false;
   private userSub: Subscription;
   constructor(private authService: AuthService) {}
   ngOnInit(): void {
-
     this.userSub = this.authService.user$.subscribe((user) => {
       this.isAuthenticated = !!user;
       this.firstName = user.displayName;
