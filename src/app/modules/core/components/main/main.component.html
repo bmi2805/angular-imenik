@@ -6,18 +6,13 @@
   <h3>Imenik </h3>
   <mat-icon style="margin-left: 7px;">contact_emergency
   </mat-icon>
-
 </mat-toolbar>
-
 
 <mat-sidenav-container>
   <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
     <p class="title" routerLink="profil-korisnika" style="cursor: pointer;">{{"Vi ste"}}</p>
-
     <h4 class="name" routerLink="profil-korisnika" style="cursor: pointer;">{{firstName}}</h4>
-
     <mat-divider></mat-divider>
-
     <button mat-button class="menu-button" routerLink="imenik" routerLinkActive="active" *ngIf="isAuthenticated">
       <mat-icon style="color: white;">contact_mail</mat-icon>
       <span style="color: white;">Imenik</span>
@@ -30,14 +25,11 @@
       <mat-icon style="color: white;">logout</mat-icon>
       <span style="color: white;">Odjava</span>
     </button>
-
   </mat-sidenav>
+  
   <img src="https://www.w3schools.com/images/lamp.jpg" alt="Lamp" width="32" height="32">
-
   <mat-sidenav-content>
-
     <div class="content mat-elevation-z8">
-      <!-- <ng-content *ngIf =""></ng-content> -->
       <router-outlet></router-outlet>
     </div>
 

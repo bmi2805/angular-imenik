@@ -19,7 +19,6 @@ import { IPOSTAuth, IPOSTPasswordReset } from '../models/response.model';
 export class AuthService {
   user$ = new BehaviorSubject<User>(null);
   private tokenExpirationTimer: any;
-  // korisnik: User;
   profileInfo = new BehaviorSubject({
     displayName: '',
     email: '',
@@ -95,13 +94,9 @@ export class AuthService {
     } = JSON.parse(localStorage.getItem('userData'));
 
     if (!userData) {
-      // console.log('Nemaa');
-      // this.router.navigate(['/prijava']);
       this.odjaviSe();
       return;
     }
-
-    // console.log('ima');
 
     const loadedUser = new User(
       userData.email,
@@ -112,7 +107,6 @@ export class AuthService {
         : null,
       userData.displayName
     );
-    // this.korisnik = loadedUser;
 
     if (userData._token) {
       this.user$.next(loadedUser);
@@ -152,8 +146,6 @@ export class AuthService {
     this.user$.next(user);
     this.autoLogout(expiresIn * 1000);
     localStorage.setItem('userData', JSON.stringify(user));
-    // console.log(user)
-    // this.getUserData(token);
   }
 
   private handleError(errorRes: HttpErrorResponse) {
@@ -174,39 +166,6 @@ export class AuthService {
     }
     return throwError(() => errorMessage);
   }
-
-  // changePassword(data) {
-  //   return this.http
-  //     .post<IChangeResponseData>(
-  //       'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
-  //       {
-  //         idToken: data.idToken,
-  //         password: data.password,
-  //         returnSecureToken: true,
-  //       }
-  //     )
-  //     .pipe(
-  //       catchError((errorRes) => {
-  //         this.snackbar_notify.notify(
-  //           'Greška',
-  //           'Došlo je do neočekivane greške',
-  //           5000,
-  //           'error'
-  //         );
-
-  //         return throwError(() => errorRes);
-  //       })
-  //     );
-  // }
-
-  // generatePasswordResetToken(email: string) {
-  //   return this.http
-  //     .post<any>(
-  //       'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
-  //       { requestType: 'PASSWORD_RESET', email }
-  //     )
-  //     .pipe(map((response) => response.email));
-  // }
 
   async zaboravljenaLozinkaAsync(data) {
     try {

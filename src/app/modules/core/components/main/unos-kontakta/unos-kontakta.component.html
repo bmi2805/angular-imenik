@@ -20,7 +20,6 @@
               <input matInput formControlName="lastName" type="text">
               <mat-error *ngIf="!unosForma.get('lastName').valid && unosForma.get('lastName').touched">Polje je
                 obavezno!</mat-error>
-              <!-- <mat-error></mat-error> -->
             </mat-form-field></td>
         </tr>
       </table>
@@ -47,9 +46,6 @@
           <td class="">
             <mat-form-field class="example-full-width">
               <mat-label>Poštanski broj</mat-label>
-              <!--\d predstavlja bilo koji numerički znak, a {5} znači da se taj znak mora ponoviti točno 5 puta.
-              this.value.replace(/[^0-9]/g, '' -> zamjenjuje sve znakove koji nisu brojevi s praznim stringom..
-              -->
               <input matInput maxlength="5" pattern="\d{5}" placeholder="10000" value="" formControlName="postalCode"
                 type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
               <mat-error *ngIf="!unosForma.get('postalCode').valid && unosForma.get('postalCode').touched">Polje mora

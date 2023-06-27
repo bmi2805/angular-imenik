@@ -13,7 +13,6 @@ export const appRoutes: Routes = [
   {
     path: 'prijava',
     component: AuthComponent,
-    // loadComponent: () => import('../components/auth/auth.component').then(mod=>mod.AuthComponent)
   },
   { path: 'zaboravljen-password', component: ZaboravljenPasswordComponent },
 

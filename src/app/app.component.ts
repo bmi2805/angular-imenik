@@ -5,8 +5,6 @@ import { AuthService } from './services/auth.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  // standalone: true,
-  //  imports:[RouterModule ,HttpClientModule],
 })
 export class AppComponent implements OnInit {
   title = 'Imenik';

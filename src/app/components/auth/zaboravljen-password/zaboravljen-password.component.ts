@@ -7,8 +7,6 @@ import { Router } from '@angular/router';
   selector: 'app-zaboravljen-password',
   templateUrl: './zaboravljen-password.component.html',
   styleUrls: ['./zaboravljen-password.component.scss'],
-  // standalone:true,
-  // imports:[CommonModule,RouterModule,MatToolbarModule,MatCardModule,MatButtonModule, MatFormFieldModule,MatInputModule, FormsModule]
 })
 export class ZaboravljenPasswordComponent {
   email: string;

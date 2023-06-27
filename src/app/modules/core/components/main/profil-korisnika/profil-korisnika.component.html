@@ -6,12 +6,6 @@
       <mat-label>Ime i prezime:</mat-label>
       <input matInput [(ngModel)]="user.firstName" [disabled]="!isEditMode" placeholder="Vaše ime">
     </mat-form-field>
-
-    <!-- <mat-form-field>
-      <mat-label>Prezime:</mat-label>
-      <input matInput [(ngModel)]="user.lastName" [disabled]="!isEditMode" placeholder="Vaše prezime">
-    </mat-form-field> -->
-
     <mat-form-field *ngIf="isEditMode" class="email">
       <mat-label>Email:</mat-label>
       <input matInput [(ngModel)]="user.email" disabled>

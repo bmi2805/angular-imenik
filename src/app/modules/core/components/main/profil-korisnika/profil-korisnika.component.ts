@@ -49,14 +49,10 @@ export class ProfilKorisnikaComponent implements OnInit {
     }
   }
 
-  // async spremiAsync(): Promise<any> {
-
-  //   await this.spremiAsync2();
-  // }
   async spremiAsync(): Promise<any> {
     const uData = {
       token: this.token,
-      name: `${this.user.firstName}`, // Include the name property
+      name: `${this.user.firstName}`,
       ...this.user,
     };
 
@@ -67,7 +63,6 @@ export class ProfilKorisnikaComponent implements OnInit {
           {
             idToken: uData.token,
             displayName: uData.name,
-            // photoUrl: uData.url,
             returnSecureToken: true,
           }
         )
@@ -92,17 +87,15 @@ export class ProfilKorisnikaComponent implements OnInit {
     const data = { idToken: this.auth.user.token };
 
     try {
-      // await znaci cekaj da se ovaj request izvrsi, i onda tek se izvrsava ono ispod
       const rezultatRequesta = await lastValueFrom(
         this.http.post<IPOSTChangeData>(
           `${environment.rezUrl}/v1/accounts:update?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E`,
           {
             idToken: data.idToken,
-            // password: data.password,
             returnSecureToken: true,
           }
         )
-      ); // ovdje ces u rezultat requesta dobiti gotov respon
+      );
 
       if (rezultatRequesta != null) {
       }
@@ -120,7 +113,6 @@ export class ProfilKorisnikaComponent implements OnInit {
     const email = this.auth.user.email;
 
     try {
-      // await znaci cekaj da se ovaj request izvrsi, i onda tek se izvrsava ono ispod
       const rezultatRequesta = await lastValueFrom(
         this.http.post<any>(
           `${environment.rezUrl}/v1/accounts:sendOobCode?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E`,

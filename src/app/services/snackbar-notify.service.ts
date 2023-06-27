@@ -24,7 +24,7 @@ export class SnackbarNotifyService {
         message,
         type,
       },
-      panelClass: ['snackbar-notify'], // styles.scss
+      panelClass: ['snackbar-notify'],
     });
   }
 

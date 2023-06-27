@@ -103,14 +103,6 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
           this.isEditMode = true;
         }
         if (korisnikId) {
-          // this.dohvatiKorisnikaAsync(korisnikId).subscribe((korisnik) => {
-          //   this.user = korisnik;
-
-          //   Object.keys(this.unosForma.controls).forEach((key) => {
-          //     this.unosForma.get(key).setValue(this.user[key]);
-          //   });
-          // });
-
           this.dohvatiKorisnikaAsync(korisnikId);
         }
       }
@@ -120,7 +112,6 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
       this.unosForma.disable();
     }
   }
-
   onNoviKontakt() {
     const postData = {
       name: this.unosForma.get('name').value,
@@ -154,10 +145,8 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
         );
       });
   }
-
   onOsvjeziKontakt() {
     const postData = { ...this.unosForma.getRawValue(), id: this.user.id };
-
     if (this.userIdToUpdate) {
       this.updateContact(this.userIdToUpdate, postData).subscribe(() => {
         this.snackbar_notify.notify(
@@ -194,31 +183,15 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
         Object.keys(this.unosForma.controls).forEach((key) => {
           this.unosForma.get(key).setValue(this.user[key]);
         });
-
-        // Object.keys(rezultatRequesta).map((key) => {
-        //   return { ...rezultatRequesta[key], id: key };
-        // });
       }
     } catch (error) {
-      // ovdje ces dobiti error pa hendlas
+      this.snackbar_notify.notify(
+        'Spremi',
+        'Vaš kontakt nije spremljen',
+        5000,
+        'error'
+      );
     }
-
-    // return this.http.get<IKorisnik>(url).pipe(
-    //   map((responseData) => {
-    //     return { ...responseData, id };
-    //   }),
-    //   catchError((errorRes) => {
-    //     // this.openSnackBar("Došlo je do greške","Uredu","snackbar-error")
-    //     this.snackbar_notify.notify(
-    //       'Greška',
-    //       'Došlo je do neočekivane greške',
-    //       5000,
-    //       'error'
-    //     );
-
-    //     return throwError(() => errorRes);
-    //   })
-    // );
   }
 
   updateContact(id: string, korisnik: IKorisnik) {
@@ -246,23 +219,14 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
           `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`,
           postData
         )
-        .subscribe(
-          // () => {
-          //   resolve();
-          // },
-          // (error) => {
-          //   reject(error);
-          // }
-
-          {
-            next: () => {
-              resolve();
-            },
-            error: (err) => {
-              reject(err);
-            },
-          }
-        );
+        .subscribe({
+          next: () => {
+            resolve();
+          },
+          error: (err) => {
+            reject(err);
+          },
+        });
     });
   }
 }

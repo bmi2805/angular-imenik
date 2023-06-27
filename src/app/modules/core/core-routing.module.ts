@@ -19,7 +19,6 @@ export const appRoutes: Routes = [
   {
     path: 'prijava',
     component: AuthComponent,
-    // loadComponent: () => import('../components/auth/auth.component').then(mod=>mod.AuthComponent)
   },
   { path: 'zaboravljen-password', component: ZaboravljenPasswordComponent },
   {
@@ -30,7 +29,6 @@ export const appRoutes: Routes = [
       {
         path: 'imenik',
         component: ImenikComponent,
-        // loadComponent: () => import('../components/imenik/imenik.component').then(mod=>mod.ImenikComponent)
       },
       {
         path: 'unos',

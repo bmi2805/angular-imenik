@@ -98,10 +98,6 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     this.router.navigateByUrl('autentifikacija/unos');
   }
 
-  // onOsvjezi() {
-  //   this.dohvatiKorisnikeAsync();
-  // }
-
   async deleteContact(contactId: string) {
     try {
       const rezultatRequesta = await lastValueFrom(
@@ -163,7 +159,6 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
 
   async dohvatiKorisnikeAsync(): Promise<void> {
     try {
-      // await znaci cekaj da se ovaj request izvrsi, i onda tek se izvrsava ono ispod
       const rezultatRequesta = await lastValueFrom(
         this.http.get<{ [key: string]: IKorisnik }>(
           `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`
@@ -182,25 +177,5 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
         'error'
       );
     }
-
-    // return this.http
-    //   .get<{ [key: string]: IKorisnik }>(
-    //     `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`
-    //   )
-    //   .pipe(
-    //     map((responseData) => {
-    //       const contactArray: IKorisnik[] = [];
-    //       for (const key in responseData) {
-    //         if (responseData.hasOwnProperty(key)) {
-    //           contactArray.push({ ...responseData[key], id: key });
-    //         }
-    //       }
-    //       return contactArray;
-    //     }),
-
-    //     catchError((errorRes) => {
-    //       return throwError(() => errorRes);
-    //     })
-    //   );
   }
 }

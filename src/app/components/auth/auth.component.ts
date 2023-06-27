@@ -9,8 +9,6 @@ import { IPOSTAuth } from 'src/app/models/response.model';
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
-  // standalone: true,
-  // imports: [MatIconModule,MatFormFieldModule,MatInputModule,ReactiveFormsModule,CommonModule,MatButtonModule, MatCardModule, MatToolbarModule,MatProgressSpinnerModule,FormsModule,RouterModule,]
 })
 export class AuthComponent implements OnInit {
   isLoginMode = true;
@@ -55,6 +53,6 @@ export class AuthComponent implements OnInit {
         })
       )
       .subscribe();
-    form.resetForm(); // Dodano resetiranje forme    }
+    form.resetForm();
   }
 }

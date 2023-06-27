@@ -6,8 +6,6 @@ import { Subscription } from 'rxjs';
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
-  // standalone:true,
-  // imports:[RouterModule,MatSidenavModule,CommonModule, MatIconModule,MatButtonModule,MatDividerModule,MatToolbarModule,]
 })
 export class MainComponent implements OnInit, OnDestroy {
   sidenav!: MatSidenav;
