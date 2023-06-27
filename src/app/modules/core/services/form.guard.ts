@@ -8,16 +8,15 @@ import {
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { NotifyDialogComponent } from '../../../components/notify-dialog/notify-dialog.component';
-import { SafeData } from '../models/save-data.interface';
+import { SafeData } from '../models/safe-data.interface';
 
 @Injectable({
-  providedIn: 'root', 
+  providedIn: 'root',
 })
 export class FormGuard implements CanDeactivate<SafeData> {
   constructor(private dialog: MatDialog) {}
   canDeactivate(
-    component: SafeData,
-    
+    component: SafeData
   ):
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
@@ -25,16 +24,15 @@ export class FormGuard implements CanDeactivate<SafeData> {
     | UrlTree {
     if (component.isDataSaved()) {
       const dialogRef = this.dialog.open(NotifyDialogComponent, {
-              width: '400px',
-              data: {
-                message:
-                  'Jeste li sigurni da se želite vratiti natrag? Vaše promjene ce biti izgubljene?',
-                title: 'Provjera',
-              },
-            });
-            return dialogRef.afterClosed();
-          }
-          return (true);
-        }
-      }
-
+        width: '400px',
+        data: {
+          message:
+            'Jeste li sigurni da se želite vratiti natrag? Vaše promjene ce biti izgubljene?',
+          title: 'Provjera',
+        },
+      });
+      return dialogRef.afterClosed();
+    }
+    return true;
+  }
+}

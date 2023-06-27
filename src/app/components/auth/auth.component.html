@@ -17,12 +17,18 @@
             <mat-form-field class="full-width">
                 <mat-label>Email</mat-label>
                 <input matInput placeholder="Email" name="email" ngModel  required email style="width: 100%;">
+                <mat-error *ngIf="authForm.controls['email'].invalid && authForm.controls['email'].touched">
+                    Polje je obavezno!
+                  </mat-error>
 
             </mat-form-field>
             <mat-form-field class="full-width">
                 <mat-label>Lozinka</mat-label>
                 <input matInput placeholder="Password" name="password" ngModel required  minlength="8"
                     type="password">
+                    <mat-error *ngIf="authForm.controls['password'].invalid && authForm.controls['password'].touched">
+                        Polje je obavezno!
+                      </mat-error>
             </mat-form-field>
             <mat-card-actions>
                 <button mat-raised-button color="primary" [disabled]="!authForm.valid" type="submit" >{{isLoginMode ?

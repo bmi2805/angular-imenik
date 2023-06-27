@@ -7,8 +7,15 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, RouterModule, Routes } from '@angular/router';
-import { KontaktiService } from '../../../services/kontakti.service';
-import { Subscription, lastValueFrom } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  Subscription,
+  catchError,
+  lastValueFrom,
+  map,
+  throwError,
+} from 'rxjs';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -50,6 +57,7 @@ import { environment } from 'src/environments/environment';
 export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
   // Spremanje korisnika u niz
   loadedContacts: IGETKorisnik[] = [];
+  error2 = new Subject<string>();
 
   isLoading = false;
   error: string | null = null;
@@ -76,14 +84,13 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     private router: Router,
-    private kontaktiService: KontaktiService,
     private snackbar_notify: SnackbarNotifyService,
     private http: HttpClient,
     private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.errorSub = this.kontaktiService.error.subscribe((errorMessage) => {
+    this.errorSub = this.error2.subscribe((errorMessage) => {
       this.error = errorMessage;
     });
 
@@ -103,14 +110,14 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onOsvjezi() {
-    this.kontaktiService.dohvatiKorisnike().subscribe((kontakti) => {
+    this.dohvatiKorisnike().subscribe((kontakti) => {
       this.loadedContacts = kontakti;
       this.dataSource.data = this.loadedContacts;
     });
   }
 
   dohvatiKontakte() {
-    this.kontaktiService.dohvatiKorisnike().subscribe(
+    this.dohvatiKorisnike().subscribe(
       (kontakti) => {
         this.isLoading = false;
         this.loadedContacts = kontakti;
@@ -183,5 +190,47 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
 
   applyFilter() {
     this.dataSource.filter = this.searchKey.trim().toLowerCase();
+  }
+
+  dohvatiKorisnike(): Observable<IGETKorisnik[]> {
+    return this.http
+      .get<{ [key: string]: IGETKorisnik }>(
+        `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`
+      )
+      .pipe(
+        map((responseData) => {
+          const contactArray: IGETKorisnik[] = [];
+          for (const key in responseData) {
+            if (responseData.hasOwnProperty(key)) {
+              contactArray.push({ ...responseData[key], id: key });
+            }
+          }
+          return contactArray;
+        }),
+
+        catchError((errorRes) => {
+          return throwError(() => errorRes);
+        })
+      );
+  }
+
+  dohvatiKorisnika(id: string): Observable<IGETKorisnik> {
+    const url = `${environment.appUrl}/users/${this.authService.user.userId}/imenik/${id}.json`;
+    return this.http.get<IGETKorisnik>(url).pipe(
+      map((responseData) => {
+        return { ...responseData, id };
+      }),
+      catchError((errorRes) => {
+        // this.openSnackBar("Došlo je do greške","Uredu","snackbar-error")
+        this.snackbar_notify.notify(
+          'Greška',
+          'Došlo je do neočekivane greške',
+          5000,
+          'error'
+        );
+
+        return throwError(() => errorRes);
+      })
+    );
   }
 }
