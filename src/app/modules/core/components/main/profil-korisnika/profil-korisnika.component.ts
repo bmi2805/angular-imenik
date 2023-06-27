@@ -69,7 +69,7 @@ export class ProfilKorisnikaComponent implements OnInit {
       );
 
       if (rezultatRequesta != null) {
-        this.auth.getUserData(uData.token);
+        this.auth.getUserDataAsync(uData.token);
       }
     } catch (error) {
       this.snackbar_notify.notify(

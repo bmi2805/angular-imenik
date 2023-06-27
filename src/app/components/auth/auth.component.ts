@@ -42,7 +42,7 @@ export class AuthComponent implements OnInit {
 
     this.authObs
       .pipe(
-        tap((resData) => {
+        tap(() => {
           this.isLoading = false;
           this.router.navigate(['autentifikacija/imenik']);
         }),

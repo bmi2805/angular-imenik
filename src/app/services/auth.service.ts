@@ -11,7 +11,11 @@ import { User } from '../modules/core/models/user.model';
 import { Router } from '@angular/router';
 import { SnackbarNotifyService } from './snackbar-notify.service';
 import { environment } from 'src/environments/environment';
-import { IPOSTAuth, IPOSTPasswordReset } from '../models/response.model';
+import {
+  IPOSTAuth,
+  IPOSTGetUserData,
+  IPOSTPasswordReset,
+} from '../models/response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -198,27 +202,37 @@ export class AuthService {
     }
   }
 
-  getUserData(idToken: string) {
-    return this.http
-      .post<any>(
-        `${environment.rezUrl}/v1/accounts:lookup?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E`,
-        {
-          idToken: idToken,
-        }
-      )
-      .subscribe((res) => {
+  async getUserDataAsync(idToken: string) {
+    try {
+      const rezultatRequesta = await lastValueFrom(
+        this.http.post<IPOSTGetUserData>(
+          `${environment.rezUrl}/v1/accounts:lookup?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E`,
+          {
+            idToken: idToken,
+          }
+        )
+      );
+      if (rezultatRequesta != null) {
         new Date().getTime();
         const expiresOut =
           ((this.user.tokenExpirationDate as Date).getTime() -
             new Date().getTime()) /
           1000;
         this.handleAuthentication(
-          res.users[0].email,
-          res.users[0].localId,
+          rezultatRequesta.users[0].email,
+          rezultatRequesta.users[0].localId,
           idToken,
           expiresOut,
-          res.users[0].displayName
+          rezultatRequesta.users[0].displayName
         );
-      });
+      }
+    } catch (error) {
+      this.snackbar_notify.notify(
+        'Greška',
+        'Došlo je do greške! ',
+        5000,
+        'error'
+      );
+    }
   }
 }
