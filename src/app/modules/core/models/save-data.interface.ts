@@ -1,4 +1,3 @@
-
 export interface SafeData {
-isDataSaved():boolean
+  isDataSaved(): boolean;
 }

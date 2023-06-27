@@ -4,7 +4,7 @@ import { AuthService } from '../../../../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription, lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { IChangeResponseData } from '../../../models/auth.model';
+import { IChangeResponseData } from '../../../../../models/auth.model';
 import { SnackbarNotifyService } from 'src/app/services/snackbar-notify.service';
 import { environment } from 'src/environments/environment';
 

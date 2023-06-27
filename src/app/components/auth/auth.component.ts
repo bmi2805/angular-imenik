@@ -4,7 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { Observable, catchError, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { IAuthResponseData } from 'src/app/modules/core/models/auth.model';
+import { IAuthResponseData } from 'src/app/models/auth.model';
 
 @Component({
   selector: 'app-auth',

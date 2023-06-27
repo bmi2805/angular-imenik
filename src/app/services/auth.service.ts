@@ -5,7 +5,7 @@ import { User } from '../modules/core/models/user.model';
 import { Router } from '@angular/router';
 import { SnackbarNotifyService } from './snackbar-notify.service';
 import { map } from 'rxjs/operators';
-import { IAuthResponseData } from '../modules/core/models/auth.model';
+import { IAuthResponseData } from '../models/auth.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
