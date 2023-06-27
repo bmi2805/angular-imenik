@@ -24,13 +24,11 @@ export class ZaboravljenPasswordComponent {
     private auth: AuthService,
     private snackbar_notify: SnackbarNotifyService,
     private router: Router
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {}
 
   sendLink() {
-
     if (this.email) {
       this.auth.zaboravljenaLozinka({ email: this.email }).subscribe(
         (response) => {
