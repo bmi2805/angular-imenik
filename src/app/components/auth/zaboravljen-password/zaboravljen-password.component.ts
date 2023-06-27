@@ -23,25 +23,7 @@ export class ZaboravljenPasswordComponent {
 
   sendLink() {
     if (this.email) {
-      this.auth.zaboravljenaLozinka({ email: this.email }).subscribe(
-        (response) => {
-          this.snackbar_notify.notify(
-            'Super',
-            'Uspješno ste poslali zahtjev',
-            5000,
-            'success'
-          );
-          this.router.navigate(['./prijava']);
-        },
-        (error) => {
-          this.snackbar_notify.notify(
-            'Greška',
-            'Došlo je do greške',
-            5000,
-            'error'
-          );
-        }
-      );
+      this.auth.zaboravljenaLozinkaAsync({ email: this.email });
     } else {
       this.snackbar_notify.notify('Greška', 'Nedostaje email', 5000, 'error');
     }

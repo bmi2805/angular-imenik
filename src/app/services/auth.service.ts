@@ -1,12 +1,17 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  lastValueFrom,
+  tap,
+  throwError,
+} from 'rxjs';
 import { User } from '../modules/core/models/user.model';
 import { Router } from '@angular/router';
 import { SnackbarNotifyService } from './snackbar-notify.service';
-import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { IAuthResponseData } from '../models/response.model';
+import { IPOSTAuth, IPOSTPasswordReset } from '../models/response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +37,7 @@ export class AuthService {
 
   registrirajSe(email: string, password: string) {
     return this.http
-      .post<IAuthResponseData>(
+      .post<IPOSTAuth>(
         'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
         {
           email: email,
@@ -56,7 +61,7 @@ export class AuthService {
 
   prijaviSe(email: string, password: string) {
     return this.http
-      .post<IAuthResponseData>(
+      .post<IPOSTAuth>(
         'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
         {
           email: email,
@@ -203,27 +208,35 @@ export class AuthService {
   //     .pipe(map((response) => response.email));
   // }
 
-  zaboravljenaLozinka(data) {
-    return this.http
-      .post<any>(
-        `${environment.rezUrl}/v1/accounts:sendOobCode?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E`,
-        {
-          requestType: 'PASSWORD_RESET',
-          email: data.email,
-        }
-      )
-      .pipe(
-        map((response) => response.email),
-        catchError((error) => {
-          this.snackbar_notify.notify(
-            'Greška',
-            'Došlo je do neočekivane greške',
-            5000,
-            'error'
-          );
-          return throwError(() => error);
-        })
+  async zaboravljenaLozinkaAsync(data) {
+    try {
+      const rezultatRequesta = await lastValueFrom(
+        this.http.post<IPOSTPasswordReset>(
+          `${environment.rezUrl}/v1/accounts:sendOobCode?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E`,
+          {
+            requestType: 'PASSWORD_RESET',
+            email: data.email,
+          }
+        )
       );
+      if (rezultatRequesta != null) {
+        rezultatRequesta.email;
+        this.snackbar_notify.notify(
+          'Super',
+          'Uspješno ste poslali zahtjev',
+          5000,
+          'success'
+        );
+        this.router.navigate(['./prijava']);
+      }
+    } catch (error) {
+      this.snackbar_notify.notify(
+        'Greška',
+        'Došlo je do greške! Nitko s ovim e-mailom nije prijavljen.',
+        5000,
+        'error'
+      );
+    }
   }
 
   getUserData(idToken: string) {

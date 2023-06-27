@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Observable, catchError, tap } from 'rxjs';
 import { Router } from '@angular/router';
-import { IAuthResponseData } from 'src/app/models/response.model';
+import { IPOSTAuth } from 'src/app/models/response.model';
 
 @Component({
   selector: 'app-auth',
@@ -26,7 +26,7 @@ export class AuthComponent implements OnInit {
     this.isLoginMode = !this.isLoginMode;
   }
 
-  authObs: Observable<IAuthResponseData>;
+  authObs: Observable<IPOSTAuth>;
 
   onSubmit(form: NgForm) {
     if (!form.valid) {

@@ -8,7 +8,7 @@ export interface IPOSTChangeData {
   expiresIn: string;
 }
 
-export interface IAuthResponseData {
+export interface IPOSTAuth {
   idToken: string;
   email: string;
   refreshToken: string;
@@ -16,4 +16,8 @@ export interface IAuthResponseData {
   localId: string;
   registered?: boolean;
   displayName: string;
+}
+
+export interface IPOSTPasswordReset {
+  email: string;
 }
