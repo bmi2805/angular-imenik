@@ -19,7 +19,7 @@ import {
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { NotifyDialogComponent } from '../../../../../components/notify-dialog/notify-dialog.component';
+import { NotifyDialogComponent } from '../../../../../components/notify-dialog/confirm-dialog.component';
 import { SnackbarNotifyService } from '../../../../../services/snackbar-notify.service';
 import { UnosKontaktaComponent } from '../unos-kontakta/unos-kontakta.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -94,9 +94,6 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
       this.error = errorMessage;
     });
 
-    // Svakim otvaranjem komponente da se i povlače korisnici
-    // this.dohvatiKontakte();
-    // Da se svaki put i osvježi
     this.dohvatiKorisnikeAsync();
   }
 
@@ -121,7 +118,7 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
         )
       );
       if (
-        rezultatRequesta === null ||
+        rezultatRequesta == null ||
         Object.keys(rezultatRequesta).length === 0
       ) {
         this.dohvatiKorisnikeAsync();

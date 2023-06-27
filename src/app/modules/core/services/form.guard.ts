@@ -7,7 +7,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { NotifyDialogComponent } from '../../../components/notify-dialog/notify-dialog.component';
+import { NotifyDialogComponent } from '../../../components/notify-dialog/confirm-dialog.component';
 import { SafeData } from '../models/safe-data.interface';
 
 @Injectable({

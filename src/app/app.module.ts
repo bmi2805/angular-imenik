@@ -7,7 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { NotifyDialogComponent } from './components/notify-dialog/notify-dialog.component';
+import { NotifyDialogComponent } from './components/notify-dialog/confirm-dialog.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { ProfilKorisnikaComponent } from './modules/core/components/main/profil-korisnika/profil-korisnika.component';
 import { SnackbarNotifyComponent } from './components/snackbar-notify/snackbar-notify.component';
@@ -32,7 +32,6 @@ import { ZaboravljenPasswordComponent } from './components/auth/zaboravljen-pass
     SharedModule,
     AppRoutingModule,
     SharedModule,
-
   ],
   providers: [
     {
