@@ -3,13 +3,13 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService } from '../../../../services/auth.service';
 import { Subscription } from 'rxjs';
 @Component({
-  selector: 'app-navigacija',
+  selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
   // standalone:true,
   // imports:[RouterModule,MatSidenavModule,CommonModule, MatIconModule,MatButtonModule,MatDividerModule,MatToolbarModule,]
 })
-export class NavigacijaComponent implements OnInit, OnDestroy {
+export class MainComponent implements OnInit, OnDestroy {
   sidenav!: MatSidenav;
   firstName = '';
   isAuthenticated = false;
