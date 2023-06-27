@@ -1,7 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from 'src/app/components/auth/auth.component';
 import { ZaboravljenPasswordComponent } from 'src/app/components/auth/zaboravljen-password/zaboravljen-password.component';
-import { NavigacijaComponent } from './components/main/main.component';
+import { MainComponent } from './components/main/main.component';
 import { AuthGuard } from 'src/app/services/auth.guard';
 import { ImenikComponent } from './components/main/imenik/imenik.component';
 import { FormGuard } from 'src/app/modules/core/services/form.guard';
@@ -24,7 +24,7 @@ export const appRoutes: Routes = [
   { path: 'zaboravljen-password', component: ZaboravljenPasswordComponent },
   {
     path: 'autentifikacija',
-    component: NavigacijaComponent,
+    component: MainComponent,
     canActivate: [AuthGuard],
     children: [
       {
