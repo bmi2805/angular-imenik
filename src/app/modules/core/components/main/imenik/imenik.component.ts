@@ -97,7 +97,7 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     // Svakim otvaranjem komponente da se i povlače korisnici
     // this.dohvatiKontakte();
     // Da se svaki put i osvježi
-    this.onOsvjezi();
+    this.dohvatiKorisnikeAsync();
   }
 
   ngAfterViewInit(): void {
@@ -109,29 +109,9 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     this.router.navigateByUrl('autentifikacija/unos');
   }
 
-  onOsvjezi() {
-    this.dohvatiKorisnike().subscribe((kontakti) => {
-      this.loadedContacts = kontakti;
-      this.dataSource.data = this.loadedContacts;
-    });
-  }
-
-  dohvatiKontakte() {
-    this.dohvatiKorisnike().subscribe(
-      (kontakti) => {
-        this.isLoading = false;
-        this.loadedContacts = kontakti;
-        this.dataSource.data = this.loadedContacts;
-
-        // this.dataSource.sort = this.sort; // Postavljanje sortiranja
-        // this.dataSource.paginator = this.paginator; // Postavljanje paginacije
-      },
-      (error) => {
-        this.isLoading = false;
-        this.error = error.message;
-      }
-    );
-  }
+  // onOsvjezi() {
+  //   this.dohvatiKorisnikeAsync();
+  // }
 
   async deleteContact(contactId: string) {
     try {
@@ -144,7 +124,7 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
         rezultatRequesta === null ||
         Object.keys(rezultatRequesta).length === 0
       ) {
-        this.onOsvjezi();
+        this.dohvatiKorisnikeAsync();
         this.snackbar_notify.notify(
           'Brisanje',
           'Vaš kontakt je uspješno obrisan',
@@ -192,45 +172,46 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataSource.filter = this.searchKey.trim().toLowerCase();
   }
 
-  dohvatiKorisnike(): Observable<IGETKorisnik[]> {
-    return this.http
-      .get<{ [key: string]: IGETKorisnik }>(
-        `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`
-      )
-      .pipe(
-        map((responseData) => {
-          const contactArray: IGETKorisnik[] = [];
-          for (const key in responseData) {
-            if (responseData.hasOwnProperty(key)) {
-              contactArray.push({ ...responseData[key], id: key });
-            }
-          }
-          return contactArray;
-        }),
-
-        catchError((errorRes) => {
-          return throwError(() => errorRes);
-        })
+  async dohvatiKorisnikeAsync(): Promise<void> {
+    try {
+      // await znaci cekaj da se ovaj request izvrsi, i onda tek se izvrsava ono ispod
+      const rezultatRequesta = await lastValueFrom(
+        this.http.get<{ [key: string]: IGETKorisnik }>(
+          `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`
+        )
       );
-  }
+      if (rezultatRequesta != null) {
+        this.dataSource.data = Object.keys(rezultatRequesta).map((key) => {
+          return { ...rezultatRequesta[key], id: key };
+        });
+      }
+    } catch (error) {
+      this.snackbar_notify.notify(
+        'Greška',
+        'Došlo je do neočekivane greške',
+        5000,
+        'error'
+      );
+    }
 
-  dohvatiKorisnika(id: string): Observable<IGETKorisnik> {
-    const url = `${environment.appUrl}/users/${this.authService.user.userId}/imenik/${id}.json`;
-    return this.http.get<IGETKorisnik>(url).pipe(
-      map((responseData) => {
-        return { ...responseData, id };
-      }),
-      catchError((errorRes) => {
-        // this.openSnackBar("Došlo je do greške","Uredu","snackbar-error")
-        this.snackbar_notify.notify(
-          'Greška',
-          'Došlo je do neočekivane greške',
-          5000,
-          'error'
-        );
+    // return this.http
+    //   .get<{ [key: string]: IGETKorisnik }>(
+    //     `https://imenik-42567-default-rtdb.europe-west1.firebasedatabase.app/users/${this.authService.user.userId}/imenik.json`
+    //   )
+    //   .pipe(
+    //     map((responseData) => {
+    //       const contactArray: IGETKorisnik[] = [];
+    //       for (const key in responseData) {
+    //         if (responseData.hasOwnProperty(key)) {
+    //           contactArray.push({ ...responseData[key], id: key });
+    //         }
+    //       }
+    //       return contactArray;
+    //     }),
 
-        return throwError(() => errorRes);
-      })
-    );
+    //     catchError((errorRes) => {
+    //       return throwError(() => errorRes);
+    //     })
+    //   );
   }
 }

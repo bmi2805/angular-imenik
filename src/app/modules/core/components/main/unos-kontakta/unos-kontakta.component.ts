@@ -18,7 +18,7 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { IGETKorisnik } from '../../../models/post.model';
 import { ViewEncapsulation } from '@angular/compiler';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { Observable, catchError, lastValueFrom, map, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -104,13 +104,15 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
           this.isEditMode = true;
         }
         if (korisnikId) {
-          this.dohvatiKorisnika(korisnikId).subscribe((korisnik) => {
-            this.user = korisnik;
+          // this.dohvatiKorisnikaAsync(korisnikId).subscribe((korisnik) => {
+          //   this.user = korisnik;
 
-            Object.keys(this.unosForma.controls).forEach((key) => {
-              this.unosForma.get(key).setValue(this.user[key]);
-            });
-          });
+          //   Object.keys(this.unosForma.controls).forEach((key) => {
+          //     this.unosForma.get(key).setValue(this.user[key]);
+          //   });
+          // });
+
+          this.dohvatiKorisnikaAsync(korisnikId);
         }
       }
     });
@@ -181,24 +183,43 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
     this.router.navigateByUrl('autentifikacija/imenik');
   }
 
-  dohvatiKorisnika(id: string): Observable<IGETKorisnik> {
-    const url = `${environment.appUrl}/users/${this.authService.user.userId}/imenik/${id}.json`;
-    return this.http.get<IGETKorisnik>(url).pipe(
-      map((responseData) => {
-        return { ...responseData, id };
-      }),
-      catchError((errorRes) => {
-        // this.openSnackBar("Došlo je do greške","Uredu","snackbar-error")
-        this.snackbar_notify.notify(
-          'Greška',
-          'Došlo je do neočekivane greške',
-          5000,
-          'error'
-        );
+  async dohvatiKorisnikaAsync(id: string): Promise<void> {
+    try {
+      const url = `${environment.appUrl}/users/${this.authService.user.userId}/imenik/${id}.json`;
+      const rezultatRequesta = await lastValueFrom(
+        this.http.get<IGETKorisnik>(url)
+      );
+      if (rezultatRequesta != null) {
+        this.user = { ...rezultatRequesta, id: id };
 
-        return throwError(() => errorRes);
-      })
-    );
+        Object.keys(this.unosForma.controls).forEach((key) => {
+          this.unosForma.get(key).setValue(this.user[key]);
+        });
+
+        // Object.keys(rezultatRequesta).map((key) => {
+        //   return { ...rezultatRequesta[key], id: key };
+        // });
+      }
+    } catch (error) {
+      // ovdje ces dobiti error pa hendlas
+    }
+
+    // return this.http.get<IGETKorisnik>(url).pipe(
+    //   map((responseData) => {
+    //     return { ...responseData, id };
+    //   }),
+    //   catchError((errorRes) => {
+    //     // this.openSnackBar("Došlo je do greške","Uredu","snackbar-error")
+    //     this.snackbar_notify.notify(
+    //       'Greška',
+    //       'Došlo je do neočekivane greške',
+    //       5000,
+    //       'error'
+    //     );
+
+    //     return throwError(() => errorRes);
+    //   })
+    // );
   }
 
   updateContact(id: string, korisnik: IGETKorisnik) {
