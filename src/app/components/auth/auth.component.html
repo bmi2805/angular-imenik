@@ -29,7 +29,7 @@
             <mat-form-field class="full-width">
                 <mat-label>Lozinka</mat-label>
                 <input matInput placeholder="Password" name="password" ngModel required minlength="8" type="password">
-                <mat-error *ngIf="authForm.controls['password'].invalid && authForm.controls['password'].touched">
+                <mat-error *ngIf="authForm.controls['password']?.invalid && authForm.controls['password']?.touched">
                     Polje je obavezno! Lozinka mora imati najmanje 8 znakova.
                 </mat-error>
             </mat-form-field>

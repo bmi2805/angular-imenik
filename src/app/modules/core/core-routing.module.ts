@@ -39,6 +39,7 @@ export const appRoutes: Routes = [
         component: UnosKontaktaComponent,
       },
       {
+        canActivate: [AuthGuard],
         path: 'profil-korisnika',
         component: ProfilKorisnikaComponent,
       },

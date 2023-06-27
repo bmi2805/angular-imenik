@@ -6,6 +6,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { AuthService } from './auth.service';
+import { Observable, map, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,14 +17,16 @@ export class AuthGuard {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): boolean {
-    const path = state.url;
-
-    if (path.startsWith('/autentifikacija/unos')) {
-      this.router.navigateByUrl('/autentifikacija/unos');
-      return false;
+  ):
+    | boolean
+    | UrlTree
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree> {
+    const isAuth = this.authService.user != null;
+    if (isAuth) {
+      return true;
+    } else {
+      return this.router.createUrlTree(['/prijava']);
     }
-
-    return true;
   }
 }
