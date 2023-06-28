@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   BehaviorSubject,
+  Observable,
   catchError,
   lastValueFrom,
   tap,
@@ -38,7 +39,7 @@ export class AuthService {
     return this.user$.value;
   }
 
-  registrirajSe(email: string, password: string) {
+  registrirajSe(email: string, password: string): Observable<IPOSTAuth> {
     return this.http
       .post<IPOSTAuth>(
         'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
@@ -62,7 +63,7 @@ export class AuthService {
       );
   }
 
-  prijaviSe(email: string, password: string) {
+  prijaviSe(email: string, password: string): Observable<IPOSTAuth> {
     return this.http
       .post<IPOSTAuth>(
         'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyC-8gtlSwNIzpBdXhDb31FIFUU3BER9W0E',
@@ -133,7 +134,7 @@ export class AuthService {
     this.tokenExpirationTimer = null;
   }
 
-  autoLogout(expirationDuration: number) {
+  autoLogout(expirationDuration: number): void {
     this.tokenExpirationTimer = setTimeout(() => {
       this.odjaviSe();
     }, expirationDuration);
@@ -144,7 +145,7 @@ export class AuthService {
     token: string,
     expiresIn: number,
     displayName: string
-  ) {
+  ): void {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(email, userId, token, expirationDate, displayName);
     this.user$.next(user);
@@ -152,7 +153,7 @@ export class AuthService {
     localStorage.setItem('userData', JSON.stringify(user));
   }
 
-  private handleError(errorRes: HttpErrorResponse) {
+  private handleError(errorRes: HttpErrorResponse): Observable<never> {
     let errorMessage = 'Dogodila se neočekivana greška';
     if (!errorRes.error || !errorRes.error.error) {
       return throwError(() => errorMessage);
@@ -171,7 +172,7 @@ export class AuthService {
     return throwError(() => errorMessage);
   }
 
-  async zaboravljenaLozinkaAsync(data) {
+  async zaboravljenaLozinkaAsync(data): Promise<void> {
     try {
       const rezultatRequesta = await lastValueFrom(
         this.http.post<IPOSTPasswordReset>(
@@ -202,7 +203,7 @@ export class AuthService {
     }
   }
 
-  async getUserDataAsync(idToken: string) {
+  async getUserDataAsync(idToken: string): Promise<void> {
     try {
       const rezultatRequesta = await lastValueFrom(
         this.http.post<IPOSTGetUserData>(

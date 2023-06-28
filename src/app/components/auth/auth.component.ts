@@ -20,13 +20,13 @@ export class AuthComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSwitchMode() {
+  onSwitchMode(): void {
     this.isLoginMode = !this.isLoginMode;
   }
 
   authObs: Observable<IPOSTAuth>;
 
-  onSubmit(form: NgForm) {
+  onSubmit(form: NgForm): void {
     if (!form.valid) {
       return;
     }

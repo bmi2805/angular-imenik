@@ -23,7 +23,7 @@ export class MainComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
   }
-  odjaviSe() {
+  odjaviSe(): void {
     this.authService.odjaviSe();
   }
 }

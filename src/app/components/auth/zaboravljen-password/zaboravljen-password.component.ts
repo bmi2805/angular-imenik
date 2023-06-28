@@ -17,9 +17,7 @@ export class ZaboravljenPasswordComponent {
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
-
-  sendLink() {
+  sendLink(): void {
     if (this.email) {
       this.auth.zaboravljenaLozinkaAsync({ email: this.email });
     } else {

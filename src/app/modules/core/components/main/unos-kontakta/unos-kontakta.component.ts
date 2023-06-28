@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SnackbarNotifyService } from 'src/app/services/snackbar-notify.service';
-import { SafeData } from 'src/app/modules/core/models/safe-data.interface';
+import { SafeData } from 'src/app/modules/core/models/safe-data.model';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -17,7 +17,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { IKorisnik } from '../../../models/korisnik.model';
-import { lastValueFrom } from 'rxjs';
+import { Observable, lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -194,7 +194,7 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
     }
   }
 
-  updateContact(id: string, korisnik: IKorisnik) {
+  updateContact(id: string, korisnik: IKorisnik): Observable<object> {
     const updateUrl = `${environment.appUrl}/users/${this.authService.user.userId}/imenik/${id}.json`;
 
     return this.http.put(updateUrl, korisnik);

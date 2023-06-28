@@ -83,7 +83,7 @@ export class ProfilKorisnikaComponent implements OnInit {
     this.isEditMode = false;
   }
 
-  async changePassword() {
+  async changePassword(): Promise<void> {
     const data = { idToken: this.auth.user.token };
 
     try {
@@ -109,7 +109,7 @@ export class ProfilKorisnikaComponent implements OnInit {
     }
   }
 
-  async generateResetPasswordToken() {
+  async generateResetPasswordToken(): Promise<void> {
     const email = this.auth.user.email;
 
     try {

@@ -3,7 +3,7 @@ import { CanDeactivate, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { NotifyDialogComponent } from '../../../components/notify-dialog/confirm-dialog.component';
-import { SafeData } from '../models/safe-data.interface';
+import { SafeData } from '../models/safe-data.model';
 
 @Injectable({
   providedIn: 'root',
