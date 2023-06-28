@@ -4,6 +4,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, RouterModule, Routes } from '@angular/router';
@@ -73,13 +74,11 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     'actions',
   ];
 
-  constructor(
-    public dialog: MatDialog,
-    private router: Router,
-    private snackbar_notify: SnackbarNotifyService,
-    private http: HttpClient,
-    private authService: AuthService
-  ) {}
+  authService = inject(AuthService);
+  dialog = inject(MatDialog);
+  router = inject(Router);
+  snackbar_notify = inject(SnackbarNotifyService);
+  http = inject(HttpClient);
 
   ngOnInit(): void {
     this.errorSub = this.error2.subscribe((errorMessage) => {

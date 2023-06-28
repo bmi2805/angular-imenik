@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -20,6 +20,8 @@ import { IKorisnik } from '../../../models/korisnik.model';
 import { Observable, lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/services/auth.service';
+import { DialogModule } from '@angular/cdk/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-unos-kontakta',
@@ -59,15 +61,15 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
   unosForma: any;
   maxDate = new Date();
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private snackbar_notify: SnackbarNotifyService,
-    private authService: AuthService,
-    private http: HttpClient
-  ) {
+  constructor() {
     this.unosForma = new FormControl();
   }
+
+  authService = inject(AuthService);
+  snackbar_notify = inject(SnackbarNotifyService);
+  http = inject(HttpClient);
+  route = inject(ActivatedRoute);
+  router = inject(Router);
 
   isDataSaved(): boolean {
     return this.unosForma.dirty;

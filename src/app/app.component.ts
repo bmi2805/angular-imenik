@@ -13,6 +13,6 @@ export class AppComponent implements OnInit {
   title = 'Imenik';
   constructor(private authService: AuthService) {}
   ngOnInit(): void {
-    this.authService.autoLogin();
+    // this.authService.autoLogin();
   }
 }

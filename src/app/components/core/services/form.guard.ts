@@ -5,11 +5,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { NotifyDialogComponent } from '../../../components/notify-dialog/confirm-dialog.component';
 import { SafeData } from '../models/safe-data.model';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class FormGuard implements CanDeactivate<SafeData> {
-  private dialog = Inject(MatDialog);
+  constructor(private dialog: MatDialog) {}
 
   canDeactivate(
     component: SafeData

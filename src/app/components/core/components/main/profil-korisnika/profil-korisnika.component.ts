@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { User } from '../../../models/user.model';
 import { AuthService } from '../../../../../services/auth.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -34,12 +34,10 @@ export class ProfilKorisnikaComponent implements OnInit {
   private userSub: Subscription;
   isAuthenticated = false;
 
-  constructor(
-    private auth: AuthService,
-    private snackBar: MatSnackBar,
-    private http: HttpClient,
-    private snackbar_notify: SnackbarNotifyService
-  ) {}
+  auth = inject(AuthService);
+  snackbar_notify = inject(SnackbarNotifyService);
+  http = inject(HttpClient);
+  snackBar = inject(MatSnackBar);
 
   token = JSON.parse(localStorage.getItem('userData'))._token;
 

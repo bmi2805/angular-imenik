@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import {
   MAT_SNACK_BAR_DATA,
   MatSnackBar,
@@ -19,12 +19,11 @@ export class SnackbarNotifyComponent {
   colorStyle = { color: 'black' };
   matIcon = 'check';
 
-  constructor(
-    @Inject(MAT_SNACK_BAR_DATA) public data: any,
-    private snackbar: MatSnackBar
-  ) {
+  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) {
     this.initNotifyStyle();
   }
+
+  snackbar = inject(MatSnackBar);
 
   private initNotifyStyle(): void {
     if (this.data.type === 'success') {

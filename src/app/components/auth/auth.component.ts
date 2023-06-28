@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { NgForm, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Observable, catchError, tap } from 'rxjs';
@@ -14,11 +14,23 @@ import { NgIf } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
-    selector: 'app-auth',
-    templateUrl: './auth.component.html',
-    styleUrls: ['./auth.component.scss'],
-    standalone: true,
-    imports: [MatToolbarModule, NgIf, MatCardModule, MatProgressSpinnerModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, RouterLink]
+  selector: 'app-auth',
+  templateUrl: './auth.component.html',
+  styleUrls: ['./auth.component.scss'],
+  standalone: true,
+  imports: [
+    MatToolbarModule,
+    NgIf,
+    MatCardModule,
+    MatProgressSpinnerModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    RouterLink,
+  ],
 })
 export class AuthComponent implements OnInit {
   isLoginMode = true;
@@ -26,7 +38,8 @@ export class AuthComponent implements OnInit {
   error: string = null;
   email: string;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  authService = inject(AuthService);
+  router = inject(Router);
 
   ngOnInit(): void {}
 

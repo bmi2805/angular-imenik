@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   BehaviorSubject,
   Observable,
@@ -17,6 +17,8 @@ import {
   IPOSTGetUserData,
   IPOSTPasswordReset,
 } from '../models/response.model';
+import { NotifyDialogComponent } from '../components/notify-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root',
@@ -29,11 +31,10 @@ export class AuthService {
     email: '',
   });
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private snackbar_notify: SnackbarNotifyService
-  ) {}
+  snackbar_notify = inject(SnackbarNotifyService);
+  http = inject(HttpClient);
+  router = inject(Router);
+  dialog = inject(MatDialog);
 
   get user(): User {
     return this.user$.value;
@@ -87,7 +88,7 @@ export class AuthService {
       );
   }
 
-  autoLogin(): void {
+  autoLogin(): boolean {
     const userData: {
       email: string;
       userId: string;
@@ -99,8 +100,7 @@ export class AuthService {
     } = JSON.parse(localStorage.getItem('userData'));
 
     if (!userData) {
-      this.odjaviSe();
-      return;
+      return false;
     }
     const loadedUser = new User(
       userData.email,
@@ -117,14 +117,13 @@ export class AuthService {
         const expirationDuration =
           new Date(userData._tokenExpirationDate).getTime() -
           new Date().getTime();
-        this.autoLogout(expirationDuration);
       }
     }
+    return true;
   }
 
   odjaviSe(): void {
     this.user$.next(null);
-    this.router.navigate(['/prijava']);
     localStorage.removeItem('userData');
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
@@ -132,11 +131,44 @@ export class AuthService {
     this.tokenExpirationTimer = null;
   }
 
+  // VRATI SE
+  // autoLogout(expirationDuration: number): void {
+  //   this.tokenExpirationTimer = setTimeout(() => {
+  //     this.odjaviSe();
+  //   }, expirationDuration);
+  // }
+
   autoLogout(expirationDuration: number): void {
     this.tokenExpirationTimer = setTimeout(() => {
       this.odjaviSe();
     }, expirationDuration);
+
+    this.tokenExpirationTimer = setTimeout(() => {
+      const dialogRef = this.dialog.open(NotifyDialogComponent, {
+        width: '400px',
+        data: {
+          message: 'Sesija je  istekla, želite li se ponovo prijaviti?',
+          title: 'Provjera',
+        },
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.router.navigate(['/prijava']);
+        } else {
+          this.snackbar_notify.notify(
+            ':(',
+            'Vaša sesija je istekla, prijavite se ponovo',
+            5000,
+            'error'
+          );
+        }
+
+        this.odjaviSe();
+      });
+    }, expirationDuration);
   }
+
   private handleAuthentication(
     email: string,
     userId: string,
@@ -145,6 +177,7 @@ export class AuthService {
     displayName: string
   ): void {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+
     const user = new User(email, userId, token, expirationDate, displayName);
     this.user$.next(user);
     this.autoLogout(expiresIn * 1000);

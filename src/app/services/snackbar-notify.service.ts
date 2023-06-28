@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { SnackbarNotifyComponent } from '../components/snackbar-notify/snackbar-notify.component';
 
@@ -8,7 +8,7 @@ export declare type SnackBarType = 'success' | 'info' | 'warning' | 'error';
   providedIn: 'root',
 })
 export class SnackbarNotifyService {
-  constructor(private snackBar: MatSnackBar) {}
+  snackBar = inject(MatSnackBar);
 
   notify(
     title: string,

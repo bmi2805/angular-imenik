@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { AuthService } from '../../../../services/auth.service';
 import { Subscription } from 'rxjs';
@@ -30,7 +30,9 @@ export class MainComponent implements OnInit, OnDestroy {
   firstName = '';
   isAuthenticated = false;
   private userSub: Subscription;
-  constructor(private authService: AuthService) {}
+
+  authService = inject(AuthService);
+
   ngOnInit(): void {
     this.userSub = this.authService.user$.subscribe((user) => {
       this.isAuthenticated = !!user;
