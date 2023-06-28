@@ -1,32 +1,33 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
-import { AppModule } from './app/app.module';
-import { bootstrapApplication } from '@angular/platform-browser';
+import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { AppRoutingModule } from './app/app-routing.module';
 import { importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import {appRoutes} from './app/app-routing.module'
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
-
-
-
-
-
-
-// bootstrapApplication(AppComponent, {
-//   providers: [
-//     importProvidersFrom(
-// AppRoutingModule    ),
-//   ] 
-// });
-
-
-// bootstrapApplication(AppComponent, {
-//     providers:[
-//         provideRouter(appRoutes)
-//     ]
-
-// })
-//   .catch(err => console.error(err));
+import { ROUTES } from './app/app-routes';
+import { ReactiveFormsModule } from '@angular/forms';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { AuthInterceptorService } from './app/services/auth-interceptor.service';
+import {
+  HTTP_INTERCEPTORS,
+  withInterceptorsFromDi,
+  provideHttpClient,
+} from '@angular/common/http';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+bootstrapApplication(AppComponent, {
+  providers: [
+    importProvidersFrom(
+      BrowserModule,
+      ReactiveFormsModule,
+      MatSnackBarModule,
+      MatDialogModule
+    ),
+    provideRouter(ROUTES),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+    provideAnimations(),
+    provideHttpClient(withInterceptorsFromDi()),
+  ],
+}).catch((err) => console.error(err));

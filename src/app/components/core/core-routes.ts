@@ -1,21 +1,19 @@
-import { RouterModule, Routes } from '@angular/router';
+import { Route, RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from 'src/app/components/auth/auth.component';
 import { ZaboravljenPasswordComponent } from 'src/app/components/auth/zaboravljen-password/zaboravljen-password.component';
 import { MainComponent } from './components/main/main.component';
 import { AuthGuard } from 'src/app/services/auth.guard';
 import { ImenikComponent } from './components/main/imenik/imenik.component';
-import { FormGuard } from 'src/app/modules/core/services/form.guard';
+import { FormGuard } from 'src/app/components/core/services/form.guard';
 import { UnosKontaktaComponent } from './components/main/unos-kontakta/unos-kontakta.component';
 import { ProfilKorisnikaComponent } from './components/main/profil-korisnika/profil-korisnika.component';
-import { NgModule } from '@angular/core';
 
-export const appRoutes: Routes = [
+export default [
   {
     path: '',
     redirectTo: 'autentifikacija/imenik',
     pathMatch: 'full',
   },
-
   {
     path: 'prijava',
     component: AuthComponent,
@@ -54,10 +52,4 @@ export const appRoutes: Routes = [
     ],
   },
   { path: '**', redirectTo: 'autentifikacija/imenik' },
-];
-
-@NgModule({
-  imports: [RouterModule.forChild(appRoutes)],
-  exports: [RouterModule],
-})
-export class CoreRoutingModule {}
+] as Route[];

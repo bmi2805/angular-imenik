@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SnackbarNotifyService } from 'src/app/services/snackbar-notify.service';
-import { SafeData } from 'src/app/modules/core/models/safe-data.model';
+import { SafeData } from 'src/app/components/core/models/safe-data.model';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';

@@ -8,7 +8,7 @@ import {
   tap,
   throwError,
 } from 'rxjs';
-import { User } from '../modules/core/models/user.model';
+import { User } from '../components/core/models/user.model';
 import { Router } from '@angular/router';
 import { SnackbarNotifyService } from './snackbar-notify.service';
 import { environment } from 'src/environments/environment';

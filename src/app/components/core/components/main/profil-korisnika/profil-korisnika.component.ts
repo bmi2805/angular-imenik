@@ -1,17 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../../models/user.model';
 import { AuthService } from '../../../../../services/auth.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Subscription, lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { SnackbarNotifyService } from 'src/app/services/snackbar-notify.service';
 import { environment } from 'src/environments/environment';
 import { IPOSTChangeData } from 'src/app/models/response.model';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { NgIf } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-profil-korisnika',
   templateUrl: './profil-korisnika.component.html',
   styleUrls: ['./profil-korisnika.component.scss'],
+  standalone: true,
+  imports: [
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgIf,
+    MatButtonModule,
+    MatIconModule,
+    MatSnackBarModule,
+  ],
 })
 export class ProfilKorisnikaComponent implements OnInit {
   private userSub: Subscription;

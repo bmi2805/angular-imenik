@@ -1,10 +1,19 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_SNACK_BAR_DATA, MatSnackBar } from '@angular/material/snack-bar';
+import {
+  MAT_SNACK_BAR_DATA,
+  MatSnackBar,
+  MatSnackBarModule,
+} from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-snackbar-notify',
   templateUrl: './snackbar-notify.component.html',
   styleUrls: ['./snackbar-notify.component.scss'],
+  standalone: true,
+  imports: [NgStyle, MatIconModule, MatSnackBarModule],
+  providers: [MatSnackBar],
 })
 export class SnackbarNotifyComponent {
   colorStyle = { color: 'black' };
