@@ -102,7 +102,6 @@ export class AuthService {
       this.odjaviSe();
       return;
     }
-
     const loadedUser = new User(
       userData.email,
       userData.userId,
@@ -112,7 +111,6 @@ export class AuthService {
         : null,
       userData.displayName
     );
-
     if (userData._token) {
       this.user$.next(loadedUser);
       if (userData._tokenExpirationDate) {
@@ -152,7 +150,6 @@ export class AuthService {
     this.autoLogout(expiresIn * 1000);
     localStorage.setItem('userData', JSON.stringify(user));
   }
-
   private handleError(errorRes: HttpErrorResponse): Observable<never> {
     let errorMessage = 'Dogodila se neočekivana greška';
     if (!errorRes.error || !errorRes.error.error) {
