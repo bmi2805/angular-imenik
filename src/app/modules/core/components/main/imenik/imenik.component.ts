@@ -94,7 +94,7 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataSource.paginator = this.paginator; // Postavljanje paginacije
   }
 
-  unosKontakta() {
+  unosKontakta(): void {
     this.router.navigateByUrl('autentifikacija/unos');
   }
 
@@ -129,7 +129,7 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.errorSub.unsubscribe();
   }
-  onHandleError() {
+  onHandleError(): void {
     this.error = null;
   }
   openDialog(contactId: string): void {
@@ -148,12 +148,12 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  onSearchClear() {
+  onSearchClear(): void {
     this.searchKey = '';
     this.applyFilter();
   }
 
-  applyFilter() {
+  applyFilter(): void {
     this.dataSource.filter = this.searchKey.trim().toLowerCase();
   }
 

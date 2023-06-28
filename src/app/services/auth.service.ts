@@ -123,7 +123,7 @@ export class AuthService {
     }
   }
 
-  odjaviSe() {
+  odjaviSe(): void {
     this.user$.next(null);
     this.router.navigate(['/prijava']);
     localStorage.removeItem('userData');

@@ -112,7 +112,7 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
       this.unosForma.disable();
     }
   }
-  onNoviKontakt() {
+  onNoviKontakt(): void {
     const postData = {
       name: this.unosForma.get('name').value,
       lastName: this.unosForma.get('lastName').value,
@@ -145,7 +145,7 @@ export class UnosKontaktaComponent implements OnInit, SafeData {
         );
       });
   }
-  onOsvjeziKontakt() {
+  onOsvjeziKontakt(): void {
     const postData = { ...this.unosForma.getRawValue(), id: this.user.id };
     if (this.userIdToUpdate) {
       this.updateContact(this.userIdToUpdate, postData).subscribe(() => {

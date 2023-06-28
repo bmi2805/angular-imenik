@@ -41,7 +41,7 @@ export class ProfilKorisnikaComponent implements OnInit {
 
   isEditMode = false;
 
-  toggleEditMode() {
+  toggleEditMode(): void {
     if (this.isEditMode) {
       this.spremiAsync();
     } else {
