@@ -9,11 +9,21 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgIf } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 @Component({
-    selector: 'app-main',
-    templateUrl: './main.component.html',
-    styleUrls: ['./main.component.scss'],
-    standalone: true,
-    imports: [MatToolbarModule, NgIf, MatButtonModule, MatIconModule, MatSidenavModule, RouterLink, MatDividerModule, RouterLinkActive, RouterOutlet]
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss'],
+  standalone: true,
+  imports: [
+    MatToolbarModule,
+    NgIf,
+    MatButtonModule,
+    MatIconModule,
+    MatSidenavModule,
+    RouterLink,
+    MatDividerModule,
+    RouterLinkActive,
+    RouterOutlet,
+  ],
 })
 export class MainComponent implements OnInit, OnDestroy {
   sidenav!: MatSidenav;
@@ -24,7 +34,9 @@ export class MainComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.userSub = this.authService.user$.subscribe((user) => {
       this.isAuthenticated = !!user;
-      this.firstName = user.displayName;
+      if (this.isAuthenticated) {
+        this.firstName = user.displayName;
+      }
     });
   }
 
