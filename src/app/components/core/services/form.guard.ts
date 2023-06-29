@@ -1,12 +1,12 @@
 import { Inject, Injectable } from '@angular/core';
-import { CanDeactivate, UrlTree } from '@angular/router';
+import { UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { NotifyDialogComponent } from '../../../components/notify-dialog/confirm-dialog.component';
 import { SafeData } from '../models/safe-data.model';
 
 @Injectable()
-export class FormGuard implements CanDeactivate<SafeData> {
+export class FormGuard {
   constructor(private dialog: MatDialog) {}
 
   canDeactivate(

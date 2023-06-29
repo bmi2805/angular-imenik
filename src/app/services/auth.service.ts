@@ -131,13 +131,6 @@ export class AuthService {
     this.tokenExpirationTimer = null;
   }
 
-  // VRATI SE
-  // autoLogout(expirationDuration: number): void {
-  //   this.tokenExpirationTimer = setTimeout(() => {
-  //     this.odjaviSe();
-  //   }, expirationDuration);
-  // }
-
   autoLogout(expirationDuration: number): void {
     this.tokenExpirationTimer = setTimeout(() => {
       this.odjaviSe();

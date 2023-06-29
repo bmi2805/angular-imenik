@@ -3,7 +3,12 @@ import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { AuthService } from '../../../../services/auth.service';
 import { Subscription } from 'rxjs';
 import { MatDividerModule } from '@angular/material/divider';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+} from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { NgIf } from '@angular/common';
@@ -26,6 +31,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   ],
 })
 export class MainComponent implements OnInit, OnDestroy {
+  router = inject(Router);
   sidenav!: MatSidenav;
   firstName = '';
   isAuthenticated = false;
@@ -47,5 +53,6 @@ export class MainComponent implements OnInit, OnDestroy {
   }
   odjaviSe(): void {
     this.authService.odjaviSe();
+    this.router.navigate(['/prijava']);
   }
 }
