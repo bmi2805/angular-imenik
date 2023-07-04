@@ -84,7 +84,7 @@ export class ImenikComponent implements OnInit, AfterViewInit, OnDestroy {
     this.errorSub = this.error2.subscribe((errorMessage) => {
       this.error = errorMessage;
     });
-
+    console.log(this.loadedContacts.length);
     this.dohvatiKorisnikeAsync();
   }
 

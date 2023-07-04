@@ -6,10 +6,23 @@
   <h3>Imenik </h3>
   <mat-icon style="margin-left: 7px;">contact_emergency
   </mat-icon>
+  <span style="flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+ "
+  > 
+  <!-- <mat-slide-toggle (change)="onDarkModeSwitched($event)" >
+    <span style="color: white;">Promjeni temu!</span>
+  </mat-slide-toggle></span> -->
+
+  <mat-slide-toggle (change)="onDarkModeSwitched($event)" >
+    <span style="color: white;">Promjeni temu!</span>
+  </mat-slide-toggle></span>
 </mat-toolbar>
 
 <mat-sidenav-container>
-  <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+  <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8"  style="background-color: #009688; color: white;">
     <p class="title" routerLink="profil-korisnika" style="cursor: pointer;">{{"Vi ste"}}</p>
     <h4 class="name" routerLink="profil-korisnika" style="cursor: pointer;">{{firstName}}</h4>
     <mat-divider></mat-divider>

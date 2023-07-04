@@ -13,7 +13,7 @@
   </mat-form-field>
   <div>
 
-    <h3 *ngIf="loadedContacts.length< 1" style="color:black"> Još nema dodanih korisnika</h3>
+    <!-- <h3 *ngIf="loadedContacts.length <= 0" > Još nema dodanih korisnika</h3> -->
 
     <div class="table-container">
       <table mat-table [dataSource]="dataSource" *ngIf="!isLoading" matSort>

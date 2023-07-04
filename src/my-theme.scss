@@ -19,6 +19,35 @@
 
 
 @include mat.core();
+$my-primary: mat.define-palette((50: #E0F2F1,
+      100: #B3E0DB,
+      200: #80CBC4,
+      300: #4DB6AC,
+      400: #26A69A,
+      500: #009688,
+      600 :#008E80,
+      700: #008375,
+      800 :#00796B,
+      900: #006858,
+      A100: #97FFEC,
+      A200 :#64FFE3,
+      A400: #31FFDA,
+      A700: #18FFD5,
+      contrast: (50: #000000,
+        100: #000000,
+        200: #000000,
+        300: #000000,
+        400: #000000,
+        500: #ffffff,
+        600: #000000,
+        700: #ffffff,
+        800: #ffffff,
+        900: #ffffff,
+        A100: #000000,
+        A200: #000000,
+        A400: #000000,
+        A700: #000000, )),
+    500);
 
 $my-accent: mat.define-palette((50: #FFEEE0,
       100: #FFD4B3,
@@ -80,42 +109,63 @@ $my-warn: mat.define-palette((50: #fce3e3,
         A700: #000000, )),
     500);
 
-$my-primary: mat.define-palette((50: #E0F2F1,
-      100: #B3E0DB,
-      200: #80CBC4,
-      300: #4DB6AC,
-      400: #26A69A,
-      500: #009688,
-      600 :#008E80,
-      700: #008375,
-      800 :#00796B,
-      900: #006858,
-      A100: #97FFEC,
-      A200 :#64FFE3,
-      A400: #31FFDA,
-      A700: #18FFD5,
-      contrast: (50: #000000,
-        100: #000000,
-        200: #000000,
-        300: #000000,
-        400: #000000,
-        500: #ffffff,
-        600: #000000,
-        700: #ffffff,
-        800: #ffffff,
-        900: #ffffff,
-        A100: #000000,
-        A200: #000000,
-        A400: #000000,
-        A700: #000000, )),
-    500);
+//     $my-primary-dark: mat.define-palette((50: #fce3e3,
+//     100 : #c5cbe9,
+//     200 : #9fa8da,
+//     300 : #7985cb,
+//     400 : #5c6bc0,
+//     500 : #3f51b5,
+//     600 : #394aae,
+//     700 : #3140a5,
+//     800 : #29379d,
+//     900 : #1b278d,
+//     A100 : #c6cbff,
+//     A200 : #939dff,
+//     A400 : #606eff,
+//     A700 : #4757ff,
+//     contrast: (
+//         50 : #000000,
+//         100 : #000000,
+//         200 : #000000,
+//         300 : #000000,
+//         400 : #ffffff,
+//         500 : #ffffff,
+//         600 : #ffffff,
+//         700 : #ffffff,
+//         800 : #ffffff,
+//         900 : #ffffff,
+//         A100 : #000000,
+//         A200 : #000000,
+//         A400 : #ffffff,
+//         A700 : #ffffff,
+//     ))
+// );
 
-$my-theme: mat.define-light-theme((color: (primary: $my-primary,
+$my-light-theme: mat.define-light-theme((color: (primary: $my-primary,
         accent: $my-accent,
         warn: $my-warn ),
       typography: mat.define-typography-config(),
       density: 0,
     ));
 
-@include mat.all-component-themes($my-theme);
-@include mat.snack-bar-theme($my-theme);
+
+$my-dark-theme: mat.define-dark-theme((color: (primary: $my-primary,
+    accent: $my-accent,
+    warn: $my-warn ),
+  typography: mat.define-typography-config(),
+  density: 0,
+));
+
+
+
+.theme-light {
+  
+  @include mat.all-component-themes($my-light-theme);
+  @include mat.snack-bar-theme($my-light-theme);
+}
+.theme-dark {
+
+  @include mat.all-component-themes($my-dark-theme);
+  @include mat.snack-bar-theme($my-dark-theme);
+}
+

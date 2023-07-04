@@ -30,6 +30,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatButtonModule,
     MatIconModule,
     RouterLink,
+    MatToolbarModule,
   ],
 })
 export class AuthComponent implements OnInit {

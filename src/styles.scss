@@ -25,7 +25,7 @@ body {
 
 }
 
-$primary: map-get($my-theme, $my-primary);
+$primary: map-get($my-dark-theme, $my-primary);
 
 .snackbar-error {
   background-color: red;

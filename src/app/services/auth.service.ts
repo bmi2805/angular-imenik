@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import {
   BehaviorSubject,
   Observable,
@@ -25,6 +25,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class AuthService {
   user$ = new BehaviorSubject<User>(null);
+
   private tokenExpirationTimer: any;
   profileInfo = new BehaviorSubject({
     displayName: '',

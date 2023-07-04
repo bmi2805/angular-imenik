@@ -1,4 +1,13 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostBinding,
+  OnDestroy,
+  OnInit,
+  Output,
+  inject,
+  signal,
+} from '@angular/core';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { AuthService } from '../../../../services/auth.service';
 import { Subscription } from 'rxjs';
@@ -13,6 +22,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { NgIf } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {
+  MatSlideToggleChange,
+  MatSlideToggleModule,
+} from '@angular/material/slide-toggle';
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -28,6 +42,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatDividerModule,
     RouterLinkActive,
     RouterOutlet,
+    MatSlideToggleModule,
   ],
 })
 export class MainComponent implements OnInit, OnDestroy {
@@ -35,9 +50,16 @@ export class MainComponent implements OnInit, OnDestroy {
   sidenav!: MatSidenav;
   firstName = '';
   isAuthenticated = false;
+  isDark = false;
+
   private userSub: Subscription;
 
   authService = inject(AuthService);
+
+  userSig = signal('test');
+
+  @Output()
+  readonly darkModeSwitched = new EventEmitter<boolean>();
 
   ngOnInit(): void {
     this.userSub = this.authService.user$.subscribe((user) => {
@@ -46,6 +68,8 @@ export class MainComponent implements OnInit, OnDestroy {
         this.firstName = user.displayName;
       }
     });
+
+    console.log(this.userSig());
   }
 
   ngOnDestroy(): void {
@@ -54,5 +78,18 @@ export class MainComponent implements OnInit, OnDestroy {
   odjaviSe(): void {
     this.authService.odjaviSe();
     this.router.navigate(['/prijava']);
+  }
+
+  @HostBinding('class')
+  get themeMode() {
+    return this.isDark ? 'theme-dark' : 'theme-light';
+  }
+
+  switchMode(isDarkMode: boolean) {
+    this.isDark = isDarkMode;
+  }
+
+  onDarkModeSwitched(event: MatSlideToggleChange) {
+    this.isDark = event.checked;
   }
 }
